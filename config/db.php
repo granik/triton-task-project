@@ -1,6 +1,6 @@
 <?php
 
-require_once 'constants_db.php';
+require_once __DIR__ . '/constants_db.php';
 
 return [
     'class' => 'yii\db\Connection',
