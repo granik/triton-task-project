@@ -7,6 +7,7 @@ require __DIR__ . '/constants.php';
 
 $config = [
     'id' => 'basic',
+    'name' => 'Triton-Task',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'language' => 'ru-RU',
