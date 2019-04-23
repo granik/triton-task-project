@@ -104,7 +104,7 @@ class EventsController extends AppController
             
         $query->andWhere('event_id = '. $id);
         },])
-            ->innerJoin('event_info', 'field_id')
+            ->rightJoin('event_info', 'field_id')
             ->where(['info_fields.is_deleted' => 0])
                 //чтобы если поле было удалено из админки, 
                 //в событиях заполненная инфа осталась
@@ -180,8 +180,6 @@ class EventsController extends AppController
         $edit_form = new EditFieldForm();
         $where = ['event_id' => $event_id, 'field_id' => $field_id];
         $file = UploadedFile::getInstance($edit_form, 'file_single');
-//        $file_pdf = UploadedFile::getInstance($edit_form, 'file_one');
-//        $file_word = UploadedFile::getInstance($edit_form, 'file_two');
         /*обработчик для поля с файлом: начало*/
         if($file && $file->tempName && $edit_form->validate()) {
             //пришел один файл

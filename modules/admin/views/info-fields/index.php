@@ -78,7 +78,7 @@ $this->registerJs('$(".grid-view").addClass("font-resp")');
                         'buttons' => [
                             'up' => function ($url,$model) {
                                 return Html::a(
-                                '<img alt="up" src="/web/images/arrow-up.png" height="18">', 
+                                '<img alt="up" src="/images/arrow-up.png" height="18">', 
                                 '',
                                 ['class' => 'btn btn-primary btn-sm gridViewAjaxLink',
                                   'data-href' => $url 
@@ -86,7 +86,7 @@ $this->registerJs('$(".grid-view").addClass("font-resp")');
                             },
                             'down' => function ($url,$model) {
                                 return Html::a(
-                                '<img alt="down" src="/web/images/arrow-down.png" height="18">', 
+                                '<img alt="down" src="/images/arrow-down.png" height="18">', 
                                 '',
                                 ['class' => 'btn btn-primary btn-sm gridViewAjaxLink',
                                  'data-href' => $url
