@@ -43,11 +43,7 @@ class CityController extends AppAdminController
         
         
 
-        return $this->render('list', [
-            'dataProvider' => $dataProvider,
-            'searchModel' => $searchModel
-//            'pages' => $pages
-        ]);
+        return $this->render('list', compact('dataProvider', 'searchModel'));
     }
 
     /**

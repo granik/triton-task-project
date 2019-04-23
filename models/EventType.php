@@ -18,7 +18,7 @@ class EventType extends ActiveRecord {
         return 'event_type';
     }
     
-    public function getEventTypes() {
+    public static function getEventTypes() {
         return self::find()
                 ->where(['is_deleted' => 0])
                 ->asArray()

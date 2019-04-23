@@ -12,6 +12,7 @@ define('ROUTE_RULES', serialize(
          [
                 'admin/users' => 'admin/user/list',
                 'admin/users/create' => 'admin/user/create',
+                'admin/city' => 'admin/city/list',
                 'admin/category' => 'admin/category/list',
                 'admin/event-type' => 'admin/event-type/list',
                 'admin/fields/info' => 'admin/info-fields/index',

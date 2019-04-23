@@ -8,7 +8,6 @@ use yii\widgets\Breadcrumbs;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Категории';
-$this->params['breadcrumbs'][] = $this->title;
  ?>
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb d-none d-sm-none d-md-flex bg-white">
