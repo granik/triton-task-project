@@ -38,7 +38,7 @@ $this->title = 'Категории';
 
         <?= GridView::widget([
             'dataProvider' => $dataProvider,
-            'filterModel' => $searchModel,
+//            'filterModel' => $searchModel,
 //            'pager' => ['class' => yii\data\Pagination::className()],
             'layout'=>"{summary}\n{items}\n{pager}",
             'columns' => [
