@@ -17,7 +17,7 @@ define('ROUTE_RULES', serialize(
                 'admin/fields/info' => 'admin/info-fields/index',
                 'admin/sponsor-type' => 'admin/sponsor-type/index',
                 'admin/fields/logistics' => 'admin/logistic-fields/index',
-                '/' => 'events',
+                '' => 'events',
                 'event/<id:\d+>' => 'events/event',
                 'event/add' => 'events/add',
                 'event/<event_id:\d+>/edit' => 'events/change-data',
