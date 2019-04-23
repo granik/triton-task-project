@@ -75,7 +75,7 @@ class SiteController extends Controller
     {
         $this->layout = 'nologin';
         if (!Yii::$app->user->isGuest) {
-            return $this->redirect('/');
+            return $this->goHome();
         }
 
         $model = new LoginForm();
