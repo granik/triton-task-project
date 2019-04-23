@@ -65,11 +65,7 @@ class SponsorTypeController extends AppAdminController
     {
         $title = 'Новый тип спонсора';
         $model = new SponsorTypeForm();
-        $name = $_POST['SponsorTypeForm']['name'];
-        $is_post = Yii::$app->request->method === 'POST' ? true : false;
-        if($is_post && $model->find()->where(['name' => $name, 'is_deleted' => 0])->one() ) {
-            Yii::$app->session->setFlash('exists', 'Тип спонсора <strong>' . $name . '</strong> уже существует!');
-        } else if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('success', 'Тип спонсора <strong>' . $name . '</strong> добавлен');
             return $this->redirect(['index', 'id' => $model->id]);
         }
@@ -88,19 +84,7 @@ class SponsorTypeController extends AppAdminController
     {
         $title = 'Править тип спонсора';
         $model = $this->findModel($id);
-        $sponsorType = new SponsorType();
-        $name = $_POST['EventTypeForm']['name'];
-        $records = $sponsorType
-                ->find()
-                ->where('id != ' . $id)
-                ->andWhere(['is_deleted' => 0, 'name' => $name])
-                ->all();
-        
-        $is_post = Yii::$app->request->method === 'POST' ? true : false;
-        if($is_post && !empty($records) ) {
-            //имя повторяется
-            Yii::$app->session->setFlash('exists', 'Тип спонсора <strong>' . $name . '</strong> уже существует!');
-        } else if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             //всё ОК
             Yii::$app->session->setFlash('success', 'Тип спонсора <strong>' . $name . '</strong> добавлен');
             return $this->redirect(['index', 'id' => $model->id]);

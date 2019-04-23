@@ -14,7 +14,8 @@ class CityForm extends City {
     public function rules() {
         return [
                     ['name', 'string', 'min' => 2, 'max' => 30],
-                    ['name', 'required']
+                    ['name', 'required'],
+                    ['name', 'unique', 'targetClass' => '\app\models\City', 'message' => 'Такой город уже существует!']
                ];
     }
     

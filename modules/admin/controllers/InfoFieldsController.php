@@ -110,10 +110,7 @@ class InfoFieldsController extends AppAdminController
             }
             $output[$f]['options'] = Json::encode($options);
             $output[$f]['position'] = InfoFields::find()->max('position') + 1;
-            if($model->find()->where(['is_deleted' => 0, 'name' => $post['name']])->one() ) {
-                //имя повторяется
-                Yii::$app->session->setFlash('exists', 'Поле <strong>' . $post['name'] . '</strong> уже существует!');  
-            } else if ( $model->load($output) && $model->save() ) {
+            if ( $model->load($output) && $model->save() ) {
                 //всё ОК
                 Yii::$app->session->setFlash('success', 'Поле <strong>' . $post['name'] . '</strong> добавлено!');                
                 return $this->redirect(['index']);
@@ -163,15 +160,7 @@ class InfoFieldsController extends AppAdminController
                 $options[(string)$i] = $post["option{$i}"];
             }
             $output[$f]['options'] = Json::encode($options);
-            $records = $infoFields
-                ->find()
-                ->where('id != ' . $id)
-                ->andWhere(['is_deleted' => 0, 'name' => $post['name']])
-                ->all();
-            if(!empty($records)) {
-                //имя повторяется
-                Yii::$app->session->setFlash('exists', 'Поле <strong>' . $post['name'] . '</strong> уже существует!');
-            } else if( $model->load($output) && $model->save() ) {
+            if( $model->load($output) && $model->save() ) {
                 //всё ОК
                 Yii::$app->session->setFlash('success', 'Данные сохранены!');
                 return $this->redirect([

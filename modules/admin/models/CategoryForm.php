@@ -15,7 +15,9 @@ class CategoryForm extends EventCategory {
     public function rules() {
         return [
                     ['name', 'string', 'min' => 2, 'max' => 30],
-                    ['name', 'required']
+                    ['name', 'required'],
+                    ['name', 'unique', 'targetClass' => '\app\models\EventCategory', 
+                        'message' => 'Такая категория уже существует!']
                ];
     }
     

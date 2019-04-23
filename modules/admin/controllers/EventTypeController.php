@@ -53,13 +53,7 @@ class EventTypeController extends AppAdminController {
     public function actionCreate()
     {
         $model = new EventTypeForm();
-        $name = $_POST['EventTypeForm']['name'];
-        if( Yii::$app->request->method === 'POST' && $model->find()->where(['name' => $name, 'is_deleted' => 0])
-                ->one() !== null) {
-            
-            Yii::$app->session->setFlash('exists', 'Тип события <strong>' . $name . '</strong> уже существует!');
-            
-        } else if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('success', 'Тип события <strong>' . $name . '</strong> добавлен!');
             return $this->redirect(['list']);
         }
@@ -79,21 +73,7 @@ class EventTypeController extends AppAdminController {
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $eventType = new EventType();
-        $name = $_POST['EventTypeForm']['name'];
-        $records = $eventType
-                ->find()
-                ->where('id != ' . $id)
-                ->andWhere(['is_deleted' => 0, 'name' => $name])
-                ->all();
-        
-        $is_post = Yii::$app->request->method === 'POST' ? true : false;
-        
-        if($is_post && !empty($records) ) {
-            //запись повторяется
-            Yii::$app->session->setFlash('exists', 'Тип события <strong>' . $name . '</strong> уже существует!');
-            
-        } else if( $model->load( Yii::$app->request->post() ) && $model->save() ) {
+        if( $model->load( Yii::$app->request->post() ) && $model->save() ) {
             //всё ОК
             Yii::$app->session->setFlash('success', 'Данные обновлены!');
             return $this->redirect(['list']);

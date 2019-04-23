@@ -13,6 +13,8 @@ class EventTypeForm extends EventType {
     public function rules() {
         return [
                     ['name', 'string', 'min' => 2, 'max' => 30],
+                    ['name', 'unique', 'targetClass' => '\app\models\EventType', 
+                        'message' => 'Такой тип события уже существует!'],
                     ['name', 'required']
                ];
     }

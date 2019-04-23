@@ -67,12 +67,9 @@ class CityController extends AppAdminController
     public function actionCreate()
     {
         $model = new CityForm();
-        $name = $_POST['CityForm']['name'];
-        if( Yii::$app->request->method === 'POST' && $model->find()->where(['is_deleted' => 0, 'name' => $name])->one() !== null) {
-            
-            Yii::$app->session->setFlash('exists', 'Город <strong>' . $name . '</strong> уже существует!');
-            
-        } else if ($model->load(Yii::$app->request->post()) && $model->save()) {
+//        $name = $_POST['CityForm']['name'];
+        
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('success', 'Город <strong>' . $name . '</strong> добавлен!');
             return $this->redirect(['list']);
         }
@@ -92,19 +89,7 @@ class CityController extends AppAdminController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $city = new City();
-        $name = $_POST['CityForm']['name'];
-        $records = $city
-                ->find()
-                ->where('id != ' . $id)
-                ->andWhere(['is_deleted' => 0, 'name' => $name])
-                ->all();
-        $is_post = Yii::$app->request->method === 'POST' ? true : false;
-        
-        if($is_post && !empty($records) ) {
-            //имя повторяется
-            Yii::$app->session->setFlash('exists', 'Город <strong>' . $name . '</strong> уже существует!');
-        } else if($model->load(Yii::$app->request->post() ) && $model->save()) {
+        if($model->load(Yii::$app->request->post() ) && $model->save()) {
             //всё ОК
             Yii::$app->session->setFlash('success', 'Данные обновлены!');
             return $this->redirect(['list']);

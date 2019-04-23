@@ -19,6 +19,8 @@ class InfoFieldsForm extends InfoFields {
         return [
                     ['name', 'string', 'min' => 2, 'max' => 30],
                     ['name', 'required'],
+                    ['name', 'unique', 'targetClass' => '\app\models\InfoFields', 
+                        'message' => 'Такое поле уже существует!'],
                     ['type_id', 'integer'],
                     [['position', 'has_comment', 'options', ], 'safe'],
                     [

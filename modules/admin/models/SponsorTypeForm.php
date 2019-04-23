@@ -17,7 +17,9 @@ class SponsorTypeForm extends SponsorType {
     public function rules() {
         return [
                     ['name', 'string', 'min' => 2, 'max' => 30],
-                    ['name', 'required']
+                    ['name', 'required'],
+                    ['name', 'unique', 'targetClass' => '\app\models\SponsorType', 
+                        'message' => 'Такой тип спонсора уже существует!']
                ];
     }
     

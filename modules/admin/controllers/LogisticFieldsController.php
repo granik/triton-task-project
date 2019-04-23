@@ -69,19 +69,13 @@ class LogisticFieldsController extends AppAdminController
     {
         $title = "Новое поле: логистика";
         $model = new LogisticForm();
-        if(Yii::$app->request->method === 'POST') {
-            $post = Yii::$app->request->post('LogisticForm');
-            $name = $post['name'];
-            $exists = LogisticFields::find()->where(['name' => $name, 'is_deleted' => 0])->count() != 0;
-            if($exists) {
-                //уже существует
-                Yii::$app->session->setFlash('error', "Поле <strong>{$name}</strong> уже существует!");
-            } else if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                //всё ОК
-                Yii::$app->session->setFlash('success', "Поле <strong>{$name}</strong> добавлено!");
-                return $this->redirect(['index']);
-            }
-    }
+        
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            //всё ОК
+            Yii::$app->session->setFlash('success', "Поле <strong>{$name}</strong> добавлено!");
+            return $this->redirect(['index']);
+        }
+
         
 
         return $this->render('create', compact('model', 'title'));
@@ -98,22 +92,12 @@ class LogisticFieldsController extends AppAdminController
     {
         $model = $this->findModel($id);
 
-        if(Yii::$app->request->method === 'POST') {
-            $post = Yii::$app->request->post('LogisticForm');
-            $name = $post['name'];
-            $exists = LogisticFields::find()
-                    ->where(['name' => $name, 'is_deleted' => 0])
-                    ->andWhere("id <> $id")
-                    ->count() != 0;
-            if($exists) {
-                //уже существует
-                Yii::$app->session->setFlash('error', "Поле <strong>{$name}</strong> уже существует!");
-            } else if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                //всё ОК
-                Yii::$app->session->setFlash('success', "Данные обновлены!");
-                return $this->redirect(['index']);
-            }
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            //всё ОК
+            Yii::$app->session->setFlash('success', "Данные обновлены!");
+            return $this->redirect(['index']);
         }
+
 
         return $this->render('update', [
             'model' => $model,
