@@ -193,14 +193,14 @@ class EventsController extends AppController
                 $edit_form->event_id = $event_id;
                 $edit_form->field_id = $field_id;
                 $edit_form->value = $file->getBaseName() . '.' . $file->getExtension();
-                $edit_form->comment = $postData['comment'];
+                $edit_form->comment = @$postData['comment'];
                 $edit_form->save();
             
             } else {
                 //обновить существующее поле
                 $field = $edit_form->find()->where($where)->one();
                 $field->value = $file->getBaseName() . '.' . $file->getExtension();
-                $field->comment = $postData['comment'];
+                $field->comment = @$postData['comment'];
                 $field->update();
             }
             $file->saveAs( $path . $file );
