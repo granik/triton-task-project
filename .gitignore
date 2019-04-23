@@ -2,3 +2,5 @@
 /config/constants_db.php 
 /config/debug.php       
 /web/uploads/event_files
+.htaccess
+/web/.htaccess

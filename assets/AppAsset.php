@@ -23,6 +23,9 @@ class AppAsset extends AssetBundle
         'css/datatables.min.css',
         'css/site.css'
     ];
+    public $publishOptions = [
+        'forceCopy' => true
+    ];
     public $js = [
         'js/DataTables/datatables.min.js',
         'js/swal/sweetalert.min.js',
