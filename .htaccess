@@ -1,5 +1,2 @@
-Options -Indexes
-IndexIgnore */*
-Options FollowSymlinks
 RewriteEngine on
 RewriteRule ^(.+)?$ /web/$1
