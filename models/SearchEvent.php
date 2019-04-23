@@ -21,7 +21,7 @@ class SearchEvent extends Event
      * {@inheritdoc}
      */
     
-    public function __construct(array $config = []) {
+    public function __construct(array $config = ['is_archive' => false]) {
         $this->config = $config;
         parent::__construct();
     }
