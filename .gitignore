@@ -1,3 +1,4 @@
 /nbproject               #папка проекта netbeans
 /config/constants_db.php #константы для подключения в БД
 /config/debug.php        #отладочный режим, на боевом серваке - пустой файл
+/web/uploads/event_files
