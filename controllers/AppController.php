@@ -26,7 +26,7 @@ class AppController extends Controller
                     if(!Yii::$app->user->isGuest) {
                         Yii::$app->user->logout();
                     }
-                    $this->redirect('/site/login');
+                    $this->redirect('/');
                         },
                 'rules' => [
                     // разрешаем аутентифицированным пользователям
