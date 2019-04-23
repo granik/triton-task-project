@@ -1,0 +1,95 @@
+html, body {
+    min-height: 100% !important;
+    height: auto !important;
+/*    font-size: 1.1em;*/
+}
+
+footer.navbar {
+    position: relative !important;
+    width: 100%;
+    height: 40px;
+    bottom: 0;
+}
+
+footer.navbar a.navbar-brand {
+    line-height: 5px;
+    font-size: 1em;
+}
+
+table.wide {
+    width: 100%;
+}
+@media (max-width: 768px) {
+    .font-resp {
+        font-size: .7em;
+    }
+    
+    .table td,.table th {
+        padding: 0.4rem;
+    }
+}
+
+.btn-sm {
+    padding: 1px 5px !important;
+}
+
+.grid-view ul.pagination {
+    font-size: 1.5em;
+}
+
+table a {
+    /*font-size: 18px;*/
+}
+
+.nav .categories {
+    font-size: 1.3em;
+}
+
+.grid-view ul.pagination li > a{
+    padding: 5px 10px;
+    background: #2575a8;
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    font-size: 1.1em;
+}
+
+.grid-view ul.pagination li.active > a{
+    background: #2575ff;
+    padding: 5px 10px;
+    color: #fff;
+}
+
+.grid-view ul.pagination li.prev > a, .grid-view ul.pagination li.next > a{
+    padding: 5px 25px;
+    color: #fff;
+    /*border-radius: 5px;*/
+}
+
+.grid-view ul.pagination li.disabled >span {
+    padding: 5px 25px;
+    background: #2575a8;
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    font-size: 1.1em;
+}
+
+.field-infofieldsform-option1,
+.field-infofieldsform-option2,
+.field-infofieldsform-option3,
+.field-infofieldsform-option4,
+.field-infofieldsform-option5,
+.field-infofieldsform-option6,
+.field-infofieldsform-option7 
+{
+    height: 45px;
+}
+
+table#event-desc tr,
+table#logistics tr,
+table#finances tr,
+table#sponsors tr
+{
+    line-height: 30px;
+}

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/OSPanel/domains/triton-web.loc/controllers/admin/CategoryController.php</file>
+            <file>file:/D:/OSPanel/domains/triton-web.loc/views/admin/city/update.php</file>
+            <file>file:/D:/OSPanel/domains/triton-web.loc/views/layouts/main.php</file>
+            <file>file:/D:/OSPanel/domains/triton-web.loc/views/admin/category/create.php</file>
+            <file>file:/D:/OSPanel/domains/triton-web.loc/views/events/add_logistics.php</file>
+            <file>file:/D:/OSPanel/domains/triton-web.loc/runtime/debug/5cac5702ef22c.data</file>
+            <file>file:/D:/OSPanel/domains/triton-web.loc/models/admin/EventTypeForm.php</file>
+            <file>file:/D:/OSPanel/domains/triton-web.loc/views/admin/city/create.php</file>
+            <file>file:/D:/OSPanel/domains/triton-web.loc/views/admin/category/_form.php</file>
+            <file>file:/D:/OSPanel/domains/triton-web.loc/models/admin/CategoryForm.php</file>
+            <file>file:/D:/OSPanel/domains/triton-web.loc/views/admin/event-type/list.php</file>
+            <file>file:/D:/OSPanel/domains/triton-web.loc/views/admin/event-type/_form.php</file>
+            <file>file:/D:/OSPanel/domains/triton-web.loc/views/admin/city/view.php</file>
+            <file>file:/D:/OSPanel/domains/triton-web.loc/web/js/main.js</file>
+            <file>file:/D:/OSPanel/domains/triton-web.loc/views/admin/_side_menu.php</file>
+            <file>file:/D:/OSPanel/domains/triton-web.loc/views/admin/city/_form.php</file>
+            <file>file:/D:/OSPanel/domains/triton-web.loc/config/constants.php</file>
+            <file>file:/D:/OSPanel/domains/triton-web.loc/controllers/SiteController_OLD.php</file>
+            <file>file:/D:/OSPanel/domains/triton-web.loc/views/admin/city/list.php</file>
+            <file>file:/D:/OSPanel/domains/triton-web.loc/controllers/eventsController.php</file>
+            <file>file:/D:/OSPanel/domains/triton-web.loc/controllers/admin/EventTypeController.php</file>
+            <file>file:/D:/OSPanel/domains/triton-web.loc/controllers/appController.php</file>
+            <file>file:/D:/OSPanel/domains/triton-web.loc/controllers/admin/CityController.php</file>
+            <file>file:/D:/OSPanel/domains/triton-web.loc/models/admin/CityForm.php</file>
+            <file>file:/D:/OSPanel/domains/triton-web.loc/web/css/site.css</file>
+            <file>file:/D:/OSPanel/domains/triton-web.loc/views/admin/index.php</file>
+            <file>file:/D:/OSPanel/domains/triton-web.loc/views/admin/event-type/update.php</file>
+            <file>file:/D:/OSPanel/domains/triton-web.loc/views/admin/category/list.php</file>
+            <file>file:/D:/OSPanel/domains/triton-web.loc/controllers/AdminController.php</file>
+            <file>file:/D:/OSPanel/domains/triton-web.loc/views/admin/event-type/create.php</file>
+            <file>file:/D:/OSPanel/domains/triton-web.loc/views/admin/category/update.php</file>
+            <file>file:/D:/OSPanel/domains/triton-web.loc/models/city.php</file>
+        </group>
+    </open-files>
+</project-private>
