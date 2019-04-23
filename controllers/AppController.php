@@ -22,12 +22,6 @@ class AppController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'denyCallback' => function ($rule, $action) {
-                    if(!Yii::$app->user->isGuest) {
-                        Yii::$app->user->logout();
-                    }
-                    $this->redirect('/');
-                        },
                 'rules' => [
                     // разрешаем аутентифицированным пользователям
                     [
