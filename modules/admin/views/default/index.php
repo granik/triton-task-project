@@ -16,7 +16,7 @@ use kartik\date\DatePicker;
 <?= $this->render('../_side_menu')?>
     <div class="col-md-9">
         <div class="jumbotron">
-            <h2 class="display-4">Приветствие</h2>
+            <h2 class="display-4 font-resp">Приветствие</h2>
             <p class="lead">Вы находитесь в панели администрирования.</p>
             <hr class="my-4">
             <p>В меню слева можно выбрать необходимый раздел.</p>
