@@ -12,8 +12,8 @@ use kartik\date\DatePicker;
     </ol>
 </nav>
 <div class="row justify-content-end">
-    <?php if(!$event_data['is_cancel']): ?>
-    <form id="cancel-event" method="POST" action="<?= '/event/' . $event_data['id'] . '/cancel' ?>">
+    <?php if(!$event['is_cancel']): ?>
+    <form id="cancel-event" method="POST" action="<?= '/event/' . $event['id'] . '/cancel' ?>">
         <input type="hidden" name="<?= \yii::$app->request->csrfParam ?>"
                                     value="<?=Yii::$app->request->getCsrfToken()?>" />
     </form>
@@ -29,7 +29,7 @@ use kartik\date\DatePicker;
         );
     ?>
     <?php else: ?>
-    <form id="abort-cancel-event" method="POST" action="<?= '/event/' . $event_data['id'] . '/abort-cancel' ?>">
+    <form id="abort-cancel-event" method="POST" action="<?= '/event/' . $event['id'] . '/abort-cancel' ?>">
         <input type="hidden" name="<?= \yii::$app->request->csrfParam ?>"
                             value="<?=Yii::$app->request->getCsrfToken()?>" />
     </form>
@@ -57,7 +57,7 @@ use kartik\date\DatePicker;
         $type_items = ArrayHelper::map($types, 'id', 'name');
         $city_items = ArrayHelper::map($city, 'id', 'name');
         
-        echo $form->field($event, 'id')->hiddenInput([ 'value' => $event_data['id'] ]);
+        echo $form->field($event, 'id')->hiddenInput([ 'value' => $event['id'] ]);
 
         echo $form->field($event, 'title')->textInput(['autofocus' => false, 'maxlength' => 200]);
 
