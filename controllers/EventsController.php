@@ -104,7 +104,7 @@ class EventsController extends AppController
             
         $query->andWhere('event_id = '. $id);
         },])
-            ->rightJoin('event_info', 'field_id')
+            ->leftJoin('event_info', 'field_id')
             ->where(['info_fields.is_deleted' => 0])
                 //чтобы если поле было удалено из админки, 
                 //в событиях заполненная инфа осталась
