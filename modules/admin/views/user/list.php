@@ -14,7 +14,6 @@ $this->title = $title;
     <ol class="breadcrumb d-none d-sm-none d-md-flex bg-white">
         <li class="breadcrumb-item"><a href="/">Главная</a></li>
         <li class="breadcrumb-item"><a href="/admin">Администрирование</a></li>
-        <li class="breadcrumb-item"><a href="/admin/users">Пользователи</a></li>
         <li class="breadcrumb-item active"><a href="#"><?= $this->title ?></a></li>
     </ol>
 </nav>
