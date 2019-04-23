@@ -2,20 +2,20 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use app\components\CustomBreadcrumbs;
 /* @var $this yii\web\View */
 /* @var $model app\models\SponsorType */
 
 $this->title = $title;
 
-$breadcrumbs = array();
-$breadcrumbs[] = ['/', 'Главная'];
-$breadcrumbs[] = ['/admin', 'Администрирование'];
-$breadcrumbs[] = ['/admin/users', 'Пользователи'];
-$breadcrumbs[] = ['/admin/user/create', 'Новый'];
-echo CustomBreadcrumbs::widget(['content' => $breadcrumbs])
-
 ?>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb d-none d-sm-none d-md-flex bg-white">
+        <li class="breadcrumb-item"><a href="/">Главная</a></li>
+        <li class="breadcrumb-item"><a href="/admin">Администрирование</a></li>
+        <li class="breadcrumb-item"><a href="/admin/users">Пользователи</a></li>
+        <li class="breadcrumb-item active"><a href="#"><?= $this->title ?></a></li>
+    </ol>
+</nav>
 <div class="user-create row">
     <?= $this->render('../_side_menu')?>
     <div class="col-md-9">

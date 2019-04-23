@@ -9,19 +9,14 @@ use app\components\CustomBreadcrumbs;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = $title;
-$breadcrumbs = array();
-$breadcrumbs[] = ['/', 'Главная'];
-$breadcrumbs[] = ['/admin', 'Администрирование'];
-$breadcrumbs[] = ['/admin/sponsor-type', $this->title];
-echo CustomBreadcrumbs::widget(['content' => $breadcrumbs]);
 ?>
-<!--<nav aria-label="breadcrumb">
+<nav aria-label="breadcrumb">
     <ol class="breadcrumb d-none d-sm-none d-md-flex bg-white">
         <li class="breadcrumb-item"><a href="/">Главная</a></li>
         <li class="breadcrumb-item"><a href="/admin">Администрирование</a></li>
         <li class="breadcrumb-item"><a href="/admin/sponsor-type">Типы спонсоров</a></li>
     </ol>
-</nav>-->
+</nav>
 
 
 <div class="sponsor-type-index row">

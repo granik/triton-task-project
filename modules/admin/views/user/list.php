@@ -1,7 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-use app\components\CustomBreadcrumbs;
 use yii\widgets\Pjax;
 use yii\grid\GridView;
 /* @var $this yii\web\View */
@@ -9,13 +8,16 @@ use yii\grid\GridView;
 
 $this->title = $title;
 
-$breadcrumbs = array();
-$breadcrumbs[] = ['/', 'Главная'];
-$breadcrumbs[] = ['/admin', 'Администрирование'];
-$breadcrumbs[] = ['/admin/users', 'Пользователи'];
-echo CustomBreadcrumbs::widget(['content' => $breadcrumbs])
 
 ?>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb d-none d-sm-none d-md-flex bg-white">
+        <li class="breadcrumb-item"><a href="/">Главная</a></li>
+        <li class="breadcrumb-item"><a href="/admin">Администрирование</a></li>
+        <li class="breadcrumb-item"><a href="/admin/users">Пользователи</a></li>
+        <li class="breadcrumb-item active"><a href="#"><?= $this->title ?></a></li>
+    </ol>
+</nav>
 <div class="user-list row">
     <?= $this->render('../_side_menu')?>
     <div class="col-md-9">

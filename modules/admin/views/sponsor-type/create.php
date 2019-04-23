@@ -7,14 +7,16 @@ use app\components\CustomBreadcrumbs;
 
 $this->title = $title;
 
-$breadcrumbs = array();
-$breadcrumbs[] = ['/', 'Главная'];
-$breadcrumbs[] = ['/admin', 'Администрирование'];
-$breadcrumbs[] = ['/admin/sponsor-type', 'Типы спонсоров'];
-$breadcrumbs[] = ['/admin/sponsor-type/create', 'Новый'];
-echo CustomBreadcrumbs::widget(['content' => $breadcrumbs])
 
 ?>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb d-none d-sm-none d-md-flex bg-white">
+        <li class="breadcrumb-item"><a href="/">Главная</a></li>
+        <li class="breadcrumb-item"><a href="/admin">Администрирование</a></li>
+        <li class="breadcrumb-item"><a href="/admin/sponsor-type">Типы спонсоров</a></li>
+        <li class="breadcrumb-item active"><a href="#"><?= $this->title ?></a></li>
+    </ol>
+</nav>
 <div class="sponsor-type-create row">
     <?= $this->render('../_side_menu')?>
     <div class="col-md-9">
