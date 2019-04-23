@@ -1,11 +1,6 @@
-<IfModule mod_rewrite.c>
-    Options +FollowSymLinks
-    IndexIgnore */*
- 
-    RewriteEngine on
- 
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
- 
-    RewriteRule . index.php
-</IfModule>
+RewriteBase /
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule . index.php

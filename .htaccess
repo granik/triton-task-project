@@ -1,2 +1,6 @@
-RewriteEngine on
-RewriteRule ^(.+)?$ /web/$1
+<IfModule mod_rewrite.c>
+    Options -Indexes
+    Options FollowSymlinks
+    RewriteEngine on
+    RewriteRule ^(.*)$ web/$1 [L]
+</IfModule>
