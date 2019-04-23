@@ -103,6 +103,7 @@ class SiteController extends Controller
     
     public function actionRequestPasswordReset()
     {
+        $this->layout = 'nologin';
         $model = new PasswordResetRequestForm();
  
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
@@ -129,6 +130,7 @@ class SiteController extends Controller
      */
     public function actionResetPassword($token)
     {
+        $this->layout = 'nologin';
         try {
             $model = new ResetPasswordForm($token);
         } catch (InvalidParamException $e) {
