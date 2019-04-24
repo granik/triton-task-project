@@ -10,7 +10,6 @@ namespace app\modules\admin\models;
 
 
 use Yii;
-//use yii\base\Model;
 use app\models\User;
 //use app\modules\admin\models\CreateUserForm;
 /**
@@ -23,6 +22,7 @@ class UpdateUserForm extends User {
     
     public $password;
     public $password_repeat;
+   
     
      /**
      * @inheritdoc
@@ -30,10 +30,8 @@ class UpdateUserForm extends User {
     public function rules()
     {
         return [
-//            ['username', 'trim'],
-//            ['username', 'required'],
-//            ['username', 'unique', 'targetClass' => '\app\models\User', 'message' => 'Такой пользователь уже существует!'],
-//            ['username', 'string', 'min' => 2, 'max' => 20],
+            ['email', 'unique', 'targetClass' => User::className(), 'filter' => ['<>', 'id', $this->id],
+                'message' => 'Пользователь с таким E-mail уже существует!'],
             ['email', 'trim'],
             ['email', 'required'],
             ['email', 'email'],
@@ -64,7 +62,7 @@ class UpdateUserForm extends User {
     {
  
         if (!$this->validate()) {
-            throw new \yii\base\ErrorException(print_r($this->errors));
+            throw new \yii\base\ErrorException("Ошибка валидации данных!");
         }
  
         $model = new User();

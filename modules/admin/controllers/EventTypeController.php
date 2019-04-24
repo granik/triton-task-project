@@ -35,7 +35,7 @@ class EventTypeController extends AppAdminController {
     
     public function behaviors()
     {
-        return [
+        $rules = [
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -43,6 +43,8 @@ class EventTypeController extends AppAdminController {
                 ],
             ],
         ];
+        $parentRules = parent::behaviors();
+        return array_merge_recursive($rules, $parentRules);
     }
     
     /**

@@ -37,7 +37,7 @@ class CategoryController extends AppAdminController{
     
     public function behaviors()
     {
-        return [
+        $rules = [
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -45,6 +45,8 @@ class CategoryController extends AppAdminController{
                 ],
             ],
         ];
+        $parentRules = parent::behaviors();
+        return array_merge_recursive($rules, $parentRules);
     }
     
     /**

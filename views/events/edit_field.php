@@ -43,6 +43,18 @@ $this->registerJs('$(".mask-time").mask("99:99");',
     } elseif($fieldType === 'file') {
         echo $form->field($model, 'file_single')
                 ->fileInput();
+        if(null !== $model->value) {
+            echo Html::a("Удалить {$model->value}", 
+                "/events/unlink-file?event_id={$model->event_id}&field_id={$model->field_id}",
+                        [
+                            'class' => 'btn btn-outline-danger',
+                            'data' => [
+                                'method' => 'POST',
+                                'confirm' => 'Удалить ранее загруженный файл?'
+                            ]
+                        ]);
+        }
+        
     } elseif($fieldType === 'time') {
         echo $form->field($model, 'value')
                 ->textInput(['class' => 'mask-time']);

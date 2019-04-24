@@ -178,65 +178,50 @@ class EventsController extends AppController
     public function actionEditField($event_id, $field_id) {
         $title = "Редактирование";
         $edit_form = new EditFieldForm();
-        $where = ['event_id' => $event_id, 'field_id' => $field_id];
-        $file = UploadedFile::getInstance($edit_form, 'file_single');
-        /*обработчик для поля с файлом: начало*/
-        if($file && $file->tempName && $edit_form->validate()) {
-            //пришел один файл
-            $path = Yii::$app->params['pathUploads'] . 'event_files/' . $event_id . '/';
-            if(!is_dir($path)) {
-                mkdir($path, 0755);
-            }
-            $postData = Yii::$app->request->post('EditFieldForm');
-            if( empty(EventInfo::find()->where($where)->one()) ) {
-                //если поле не было заполнено
-                $edit_form->event_id = $event_id;
-                $edit_form->field_id = $field_id;
-                $edit_form->value = $file->getBaseName() . '.' . $file->getExtension();
-                $edit_form->comment = @$postData['comment'];
-                $edit_form->save();
-            
-            } else {
-                //обновить существующее поле
-                $field = $edit_form->find()->where($where)->one();
-                $field->value = $file->getBaseName() . '.' . $file->getExtension();
-                $field->comment = @$postData['comment'];
-                $field->update();
-            }
-            $file->saveAs( $path . $file );
-            
-            return $this->redirect(['event', 'id' => $event_id]);
-            
-        }
-        /*  обработчик для поля с файлом: конец */
+        $where = compact('event_id', 'field_id');
         
+        
+        /*обработчик для поля с файлом: начало*/
+        
+        /*  обработчик для поля с файлом: конец */
         $InfoFields = new InfoFields();
         //получаем данные указанного поля
-        $field = $InfoFields->getData($event_id, $field_id);
-        $Type = $field['type']['name'];
-        $isPost = Yii::$app->request->method === 'POST';
-        
-        /* обработчик формы: начало */
-        if($isPost && $Type == 'file' && empty($file)) {
-            //если отправлено пустое файловое поле
-            $field = EventInfo::find()->where($where)->one();
-            $field->value = null;
-            $field->update();
-//            return $this->redirect('/event/' . $event_id);
-            return $this->redirect(['event', 'id' => $event_id]);
-        } else if ($edit_form->load( Yii::$app->request->post() )) {
+        $field = $InfoFields
+                    ->find()
+                    ->with(['type', 'info' => function(\yii\db\ActiveQuery $query) use ($event_id) {
+                        $query->andWhere('event_id = ' . $event_id);
+                    }])
+                    ->where(['id' => $field_id])
+                    ->one();
+                    
+        if ($edit_form->load( Yii::$app->request->post() )) {
+            
+            if($field->type->name == 'file') {
+                //пришел файл
+                $file = UploadedFile::getInstance($edit_form, 'file_single');
+                if(empty($file)) {
+                    //пришло пустое файловое поле
+                    $edit_form->updateOnlyComment($event_id, $field_id);
+                    return $this->redirect(['event', 'id' => $event_id]);
+                }
+                
+                if(!$edit_form->uploadFile($file, $event_id, $field_id)){
+                    throw new \yii\base\ErrorException("Невозможно загрузить файл!");
+                }
+                
+                return $this->redirect(['event', 'id' => $event_id]);
+                
+            }
             
             if(  null == EventInfo::find()->where($where)->one() ) {
                 //если поле ранее не было заполнено
-                $edit_form->event_id = $event_id;
-                $edit_form->field_id = $field_id;
-                $edit_form->save();
-             
-            } else {
-                //если инфо обновлено
-                if( !$edit_form->updateData($event_id, $field_id) ) {
-                    throw new \yii\base\ErrorException("Невозможно обновить данные!");
+                if(!$edit_form->createNew($event_id, $field_id)) {
+                    throw new \yii\base\ErrorException("Невозможно вставить данные!");
                 }
+             
+            } else if( !$edit_form->updateData($event_id, $field_id) ) {
+                //обновляем существующее
+                throw new \yii\base\ErrorException("Невозможно обновить данные!");
             }
             
             
@@ -245,15 +230,10 @@ class EventsController extends AppController
         
         /*обработчик формы: конец*/
         
-        
+        $model = EditFieldForm::findOne($where);
         $eventModel = new Event();
         //получаем данные о событии (для breadcrumbs и title) 
         $event = $eventModel->getEventAsArray($event_id);
-        $model = $edit_form->find()->where($where)->one();
-        if(!$model) {
-            //если поле еще не было заполнено
-            $model = $edit_form;
-        }
         //отдача шаблона
         return $this->render('edit_field', 
                 compact(
@@ -550,6 +530,34 @@ class EventsController extends AppController
         
         return $this->redirect('/event/' . $event_id);
         
+        
+    }
+    
+    public function actionUnlinkFile($event_id, $field_id) {
+        $InfoFields = new InfoFields();
+        $field = $InfoFields
+                    ->find()
+                    ->with(['type', 'info' => function(\yii\db\ActiveQuery $query) use ($event_id) {
+                        $query->andWhere('event_id = ' . $event_id);
+                    }])
+                    ->where(['id' => $field_id])
+                    ->one();
+        $fileField = EventInfo::findOne(compact('event_id', 'field_id'));
+        
+        if($field->type->name != 'file') {
+            throw new \yii\base\ErrorException("Данное поле не имеет тип 'file'!");
+        }
+        
+        
+        @unlink(Yii::$app->params['pathUploads'] . 'event_files/' . $event_id . '/' . $fileField->value);
+        $fileField->value = null;
+        $fileField->save();
+        
+        return $this->redirect([
+            'edit-field', 
+            'event_id' => $event_id,
+            'field_id' => $field_id
+                ]);
         
     }
   

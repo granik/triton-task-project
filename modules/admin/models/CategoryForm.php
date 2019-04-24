@@ -17,7 +17,9 @@ class CategoryForm extends EventCategory {
                     ['name', 'string', 'min' => 2, 'max' => 30],
                     ['name', 'required'],
                     ['name', 'unique', 'targetClass' => '\app\models\EventCategory', 
-                        'message' => 'Такая категория уже существует!']
+                        'message' => 'Такая категория уже существует!',
+                        'filter' => ['=', 'is_deleted', 0]
+                        ]
                ];
     }
     

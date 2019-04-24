@@ -21,14 +21,7 @@ class InfoFields extends ActiveRecord {
     }
     
     public function getData($event_id, $field_id) {
-        return $this
-            ->find()
-            ->with(['type', 'info' => function(\yii\db\ActiveQuery $query) use ($event_id) {
-                $query->andWhere('event_id = ' . $event_id);
-            }])
-            ->where(['id' => $field_id])
-            ->asArray()
-            ->one();
+        return;
     }
     
     public function getInfo() {

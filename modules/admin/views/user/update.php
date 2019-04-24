@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use app\components\CustomBreadcrumbs;
 /* @var $this yii\web\View */
 /* @var $model app\models\SponsorType */
 
@@ -24,7 +23,6 @@ $this->title = $title;
         <div class="user-update-form">
 
             <?php $form = ActiveForm::begin([
-              'validateOnBlur' => false,
               'method' => 'post',
             ]); ?>
             <?= $form->field($model, 'email') ?>

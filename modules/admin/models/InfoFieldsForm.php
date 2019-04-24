@@ -20,7 +20,9 @@ class InfoFieldsForm extends InfoFields {
                     ['name', 'string', 'min' => 2, 'max' => 30],
                     ['name', 'required'],
                     ['name', 'unique', 'targetClass' => '\app\models\InfoFields', 
-                        'message' => 'Такое поле уже существует!'],
+                        'message' => 'Такое поле уже существует!', 
+                        'filter' => ['=', 'is_deleted', 0]
+                        ],
                     ['type_id', 'integer'],
                     [['position', 'has_comment', 'options', ], 'safe'],
                     [

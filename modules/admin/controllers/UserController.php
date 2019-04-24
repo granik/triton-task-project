@@ -27,7 +27,8 @@ class UserController extends AppAdminController {
     
     public function behaviors()
     {
-        return [
+        
+        $rules = [
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -35,6 +36,8 @@ class UserController extends AppAdminController {
                 ],
             ],
         ];
+        $parentRules = parent::behaviors();
+        return array_merge_recursive($rules, $parentRules);
     }
     public function actionList() {
 //        die('worx!');
@@ -114,5 +117,7 @@ class UserController extends AppAdminController {
         Yii::$app->session->setFlash('success', 'Пользователь успешно активирован');
         return $this->redirect(['list']);
     }
+    
+    
     
 }

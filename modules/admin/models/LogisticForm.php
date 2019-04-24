@@ -21,7 +21,9 @@ class LogisticForm extends LogisticFields {
             ['name', 'string', 'min' => 3, 'max' => 20],
             ['name', 'trim'],
             ['name', 'unique', 'targetClass' => '\app\models\LogisticFields', 
-                        'message' => 'Такое поле уже существует!']
+                        'message' => 'Такое поле уже существует!', 
+                'filter' => ['=', 'is_deleted', 0]
+                ]
         ];
     }
     

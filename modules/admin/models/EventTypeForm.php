@@ -14,7 +14,9 @@ class EventTypeForm extends EventType {
         return [
                     ['name', 'string', 'min' => 2, 'max' => 30],
                     ['name', 'unique', 'targetClass' => '\app\models\EventType', 
-                        'message' => 'Такой тип события уже существует!'],
+                        'message' => 'Такой тип события уже существует!',
+                        'filter' => ['=', 'is_deleted', 0]
+                        ],
                     ['name', 'required']
                ];
     }

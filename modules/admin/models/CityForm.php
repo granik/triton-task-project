@@ -15,7 +15,10 @@ class CityForm extends City {
         return [
                     ['name', 'string', 'min' => 2, 'max' => 30],
                     ['name', 'required'],
-                    ['name', 'unique', 'targetClass' => '\app\models\City', 'message' => 'Такой город уже существует!']
+                    ['name', 'unique', 'targetClass' => '\app\models\City',
+                        'message' => 'Такой город уже существует!',
+                        'filter' => ['=', 'is_deleted', 0]
+                        ]
                ];
     }
     

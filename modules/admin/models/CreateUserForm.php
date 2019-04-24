@@ -30,6 +30,7 @@ class CreateUserForm extends Model {
      /**
      * @inheritdoc
      */
+    
     public function rules()
     {
         return [
@@ -37,7 +38,9 @@ class CreateUserForm extends Model {
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 30],
-            ['email', 'unique', 'targetClass' => '\app\models\User', 'message' => 'Пользователь с таким E-mail уже существует! '],
+            ['email', 'unique', 'targetClass' => '\app\models\User', 'message' => 'Пользователь с таким E-mail уже существует!',
+                'filter' => ['=', 'is_deleted', 0]
+                ],
             [['password', 'password_repeat'], 'required'],
             [['password_repeat'], 'compare', 'compareAttribute' => 'password', 'message' => 'Пароли не совпадают!'],
             ['password', 'string', 'min' => 6, 'max' => 20],

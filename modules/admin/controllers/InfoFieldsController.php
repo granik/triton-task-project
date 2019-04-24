@@ -28,7 +28,7 @@ class InfoFieldsController extends AppAdminController
      */
     public function behaviors()
     {
-        return [
+        $rules = [
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -36,6 +36,9 @@ class InfoFieldsController extends AppAdminController
                 ],
             ],
         ];
+        
+        $parentRules = parent::behaviors();
+        return array_merge_recursive($rules, $parentRules);
     }
 
     /**

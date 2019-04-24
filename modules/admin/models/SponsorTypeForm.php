@@ -19,7 +19,9 @@ class SponsorTypeForm extends SponsorType {
                     ['name', 'string', 'min' => 2, 'max' => 30],
                     ['name', 'required'],
                     ['name', 'unique', 'targetClass' => '\app\models\SponsorType', 
-                        'message' => 'Такой тип спонсора уже существует!']
+                        'message' => 'Такой тип спонсора уже существует!', 
+                        'filter' => ['=', 'is_deleted', 0]
+                        ]
                ];
     }
     

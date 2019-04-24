@@ -7,6 +7,7 @@
  */
 
 namespace app\models;
+use Yii;
 use yii\db\ActiveRecord;
 use app\models\EventInfo;
 /**
@@ -15,36 +16,40 @@ use app\models\EventInfo;
  * @author Granik
  */
 class EditFieldForm extends EventInfo {
-//    public $title;
-//    public $category_id;
-//    public $type_id;
-//    public $date;
-//    public $city_id;
+
+    
     public $file_single;
-//    public $file_one;
-//    public $file_two;
+
     
     public function rules() {
         return [
             ['value', 'trim'],
+            ['value', 'string', 'max' => 100],
+            ['comment', 'string', 'max' => 100],
             ['comment', 'trim'],
-            [['value'], 'string', 'max' => 100],
-            [['comment'], 'string', 'max' => 100],
-            [['file_single'], 'file', 'extensions' => 'pdf, doc, docx, txt', 
+            ['file_single', 'file', 'extensions' => 'pdf, doc, docx, txt', 
                     'skipOnEmpty' => true],
-//            [['file_one'], 'file', 'extensions' => 'pdf', 
-//                    'skipOnEmpty' => true],
-//            [['file_two'], 'file', 'extensions' => 'doc, docx', 
-//                    'skipOnEmpty' => true]
             ];
     }
     
     public function attributeLabels() {
         return['value' => 'Значение',
                'comment' => 'Комментарий',
-//               'file_one' => 'PDF: ',
-//               'file_two' => 'Word: ',
-               'file_single' => 'Файл: '];
+               'file_single' => 'Загрузить файл: '];
+    }
+    
+    public function createNew($event_id, $field_id) {
+        if( !$this->validate() ) {
+            throw new \yii\base\ErrorException("Ошибка валидации данных!");
+        }
+        
+        $model = new EventInfo();
+        $model->field_id = $field_id;
+        $model->event_id = $event_id;
+        $model->value = $this->value;
+        $model->comment = $this->comment;
+        
+        return $model->save() ? true : false;
     }
     
     public function updateData($event_id, $field_id) {
@@ -56,6 +61,47 @@ class EditFieldForm extends EventInfo {
         $field->comment = $this->comment;
         
         return $field->save() ? true : false;
+    }
+    
+    public function updateOnlyComment($event_id, $field_id) {
+        //для файловых полей
+        if( !$this->validate() ) {
+            throw new \yii\base\ErrorException("Ошибка валидации данных!");
+        }
+        $field = $this->findOne( compact('event_id', 'field_id') );
+        $field->comment = $this->comment;
+        
+        return $field->save() ? true : false;
+    }
+    
+    public function uploadFile($file, $event_id, $field_id) {
+        
+        if(!$this->validate() ) {
+            throw new \yii\base\ErrorException("Ошибка валидации данных");
+        }
+        //пришел файл
+        $path = Yii::$app->params['pathUploads'] . 'event_files/' . $event_id . '/';
+        if(!is_dir($path)) {
+            mkdir($path, 0755);
+        }
+        $model = new EventInfo();
+        $field = $model->findOne(compact('event_id', 'field_id'));
+        
+        
+        
+        if( empty($field) ) {
+           $field = $model;
+        } else if(null !== $field->value) {
+            @unlink($path . $field->value);
+        }
+        
+        
+        $field->event_id = $event_id;
+        $field->field_id = $field_id;
+        $field->value = $file->getBaseName() . '.' . $file->getExtension();
+        $field->comment = $this->comment;
+        
+        return $field->save() && $file->saveAs( $path . $file ) ? true : false;
     }
     
 }
