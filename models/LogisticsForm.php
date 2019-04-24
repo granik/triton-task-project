@@ -18,7 +18,7 @@ class LogisticsForm extends LogisticInfo {
     public function rules() {
         return [
             [['event_id', 'type_id', 'to_means', 'between_means', 'home_means'], 'integer'],
-            [['persons'], 'required'],
+            [['persons', 'type_id'], 'required'],
             [['persons'], 'string', 'min' => 3, 'max' => 20],
             [['to_date', 'between_date', 'home_date', 'living_from', 'living_to'], 'date', 'format' => 'yyyy-MM-dd'],
             [['to_time', 'between_time', 'home_time'], 'time', 'format' => 'HH:mm']
@@ -27,7 +27,7 @@ class LogisticsForm extends LogisticInfo {
     
     public function attributeLabels() {
         return [
-            'event_id' => null,
+            'event_id' => '',
             'type_id' => 'Тип',
             'persons' => 'Имена',
             'to_means' => 'Дорога туда',

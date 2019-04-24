@@ -229,8 +229,11 @@ class EventsController extends AppController
         }
         
         /*обработчик формы: конец*/
-        
-        $model = EditFieldForm::findOne($where);
+        $form = new EditFieldForm();
+        $model = $form->findOne($where);
+        if(!$model) {
+            $model = $form;
+        }
         $eventModel = new Event();
         //получаем данные о событии (для breadcrumbs и title) 
         $event = $eventModel->getEventAsArray($event_id);
@@ -363,10 +366,7 @@ class EventsController extends AppController
                 
         $where = ['id' => $item_id];
         
-        $model = $form
-                ->find()
-                ->where($where)
-                ->one();
+        $model = $form->findOne($where);
         
         /* delete */
         if( Yii::$app->request->post('remove') ) {

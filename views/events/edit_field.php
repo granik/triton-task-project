@@ -44,10 +44,10 @@ $this->registerJs('$(".mask-time").mask("99:99");',
         echo $form->field($model, 'file_single')
                 ->fileInput();
         if(null !== $model->value) {
-            echo Html::a("Удалить {$model->value}", 
+            echo Html::a("Удалить загруженный файл", 
                 "/events/unlink-file?event_id={$model->event_id}&field_id={$model->field_id}",
                         [
-                            'class' => 'btn btn-outline-danger',
+                            'class' => 'btn btn-outline-danger d-block ml-auto mr-auto mb-3',
                             'data' => [
                                 'method' => 'POST',
                                 'confirm' => 'Удалить ранее загруженный файл?'
@@ -58,12 +58,6 @@ $this->registerJs('$(".mask-time").mask("99:99");',
     } elseif($fieldType === 'time') {
         echo $form->field($model, 'value')
                 ->textInput(['class' => 'mask-time']);
-    }elseif($fieldType === 'file_double') {
-        //сразу два поля для загрузки файлов
-        echo $form->field($model, 'file_one')
-                ->fileInput();
-        echo $form->field($model, 'file_two')
-                ->fileInput();
     } elseif($fieldType === 'date') {
         echo $form->field($model, 'value')->widget(DatePicker::classname(), [
                 'options' => ['placeholder' => 'Дата'],

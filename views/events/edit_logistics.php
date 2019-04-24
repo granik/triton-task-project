@@ -26,7 +26,7 @@ $this->registerJs('$(".mask-time").mask("99:99");',
         ['class' => 'float-right mb-3 bg-danger p-1 text-center text-white d-block col-md-2 col-xs-12 m-3',
             'data' => [
                 'method' => 'post',
-                'confirm' => 'Удалить спосора?',
+                'confirm' => 'Удалить строку?',
                 'params' => [
                     'remove' => 1
                 ]

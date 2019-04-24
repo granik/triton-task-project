@@ -8,7 +8,6 @@
 
 namespace app\models;
 use Yii;
-use yii\db\ActiveRecord;
 use app\models\EventInfo;
 /**
  * Description of AddEventForm

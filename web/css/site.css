@@ -4,6 +4,11 @@ html, body {
 /*    font-size: 1.1em;*/
 }
 
+.help-block {
+    color: #cc0000;
+    font-size: .8em;
+}
+
 footer.navbar {
     position: relative !important;
     width: 100%;
