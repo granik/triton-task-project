@@ -55,14 +55,13 @@ class LoginForm extends Model
     {
         if (!$this->hasErrors()) {
             $user = $this->getUser();
-            
-            if($user->is_deleted != 0) {
-                $this->addError($attribute, 'Пользователь деактивирован!');
-                return;
-            }
+           
 
             if (!$user || !$user->validatePassword($this->password)) {
                 $this->addError($attribute, 'Неправильный E-mail или пароль!');
+            } else if($user && $user->is_deleted != 0) {
+                $this->addError($attribute, 'Пользователь деактивирован!');
+                return;
             }
         }
     }
