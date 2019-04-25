@@ -554,9 +554,8 @@ class EventsController extends AppController
         $fileField->save();
         
         return $this->redirect([
-            'edit-field', 
-            'event_id' => $event_id,
-            'field_id' => $field_id
+            'event', 
+            'id' => $event_id
                 ]);
         
     }

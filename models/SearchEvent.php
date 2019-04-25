@@ -63,12 +63,12 @@ class SearchEvent extends Event
         if($this->config['is_archive']) {
             $query = Event::find()
                 ->with(['type', 'city', 'category'])
-                ->where("event.date < NOW() OR is_cancel = 1")
+                ->where("event.date < CURDATE() OR is_cancel = 1")
                 ->orderBy(['date' => SORT_DESC]);
         } else {
             $query = Event::find()
                 ->with(['type', 'city', 'category'])
-                ->where("event.date >= NOW() AND is_cancel = 0")
+                ->where("event.date >= CURDATE() AND is_cancel = 0")
                 ->orderBy(['date' => SORT_DESC]);
         }
         
