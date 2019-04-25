@@ -54,7 +54,7 @@ use yii\helpers\Json;
                             echo '[Файл не загружен]';
                         } else {
                             echo '<a href="/app/download?name=' . $row['info']['value'] 
-                                . '&event_id=' . $event['id'] . '">[Скачать]</a>';
+                                . '&event_id=' . $event['id'] . '">[' .$row['info']['value']. ']</a>';
                         }
                         
                     } else if($row['type_id'] == 5) {

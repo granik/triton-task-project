@@ -23,6 +23,7 @@ class City extends ActiveRecord {
     public function getCitiesAsArray() {
         return $this->find()
                 ->where(['is_deleted' => 0])
+                ->orderBy(['name' => SORT_ASC])
                 ->asArray()
                 ->all();
     }
