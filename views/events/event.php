@@ -54,7 +54,7 @@ use yii\helpers\Json;
                             echo '[Файл не загружен]';
                         } else {
                             echo '<a href="/app/download?name=' . $row['info']['value'] 
-                                . '&event_id=' . $event['id'] . '">[' .$row['info']['value']. ']</a>';
+                                . '&event_id=' . $event['id'] . '">[' . Html::encode($row['info']['value']) . ']</a>';
                         }
                         
                     } else if($row['type_id'] == 5) {
@@ -212,6 +212,49 @@ use yii\helpers\Json;
             <?php endforeach;?>
             <?php else: ?>
             <h4>Данных о финансах нет</h4>
+            <?php endif; ?>
+        </table>
+        <h5 class="pt-3 pb-1 text-center"><b>Электронные билеты</b></h5>
+        <?=
+            Html::a(
+                'Добавить билет',
+                '/event/' . $event['id'] . '/add-ticket',
+                ['class' => 'float-right mb-3 bg-primary p-1 text-center text-white d-block col-md-2 col-xs-12']
+                ); 
+        ?>
+        <table id="finances" class="table-striped table-bordered wide font-resp">
+            <?php if( !empty($tickets) ): ?>
+            <tr>
+                <td>
+                    <strong>Имя файла</strong>
+                </td>
+                <td>
+                </td>
+            </tr>
+            <?php foreach ($tickets as $ticket): 
+            $url = "/app/download?name=" . $ticket['filename'] . "&event_id=" . $event['id'];
+            ?>
+            <tr>
+                <td style="word-wrap: break-word;"><?= Html::a($ticket['filename'], $url, [])?></td>
+                <td class=" pl-0 pr-0 text-center">
+                        <?=
+                                Html::a(
+                                    'Удалить',
+                                    '/event/' . $event['id']  . '/delete-ticket/' . $ticket['id'],
+                                    ['class' => 'pl-1 pr-1 text-center text-danger',
+                                     'data' => [
+                                         'method' => 'post',
+                                         'confirm' => 'Удалить билет?'
+                                     ]
+                                        ]
+                                    ); 
+                            ?>
+                </td>
+                
+            </tr>
+            <?php endforeach;?>
+            <?php else: ?>
+            <h4>Билетов нет</h4>
             <?php endif; ?>
         </table>
     </div>

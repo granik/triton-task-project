@@ -31,6 +31,8 @@ define('ROUTE_RULES', serialize(
                 'event/<event_id:\d+>/edit-finance/<item_id:\d+>' => 'events/edit-finance',
                 'event/<event_id:\d+>/cancel' => 'events/cancel',
                 'event/<event_id:\d+>/abort-cancel' => 'events/abort-cancel',
+                'event/<event_id:\d+>/add-ticket' => 'events/add-ticket',
+                'event/<event_id:\d+>/delete-ticket/<id:\d+>' => 'events/delete-ticket',
                 'profile' => 'profile/index',
             ]
         ) 

@@ -42,7 +42,8 @@ class AppController extends Controller
                     'no-cancel' => ['POST'],
                     'remove-sponsor' => ['POST'],
                     'unlink-file' => ['POST'],
-                    'truncate-field' => ['POST']
+                    'truncate-field' => ['POST'],
+                    'delete-ticket' => ['POST']
                 ],
             ],
                                 

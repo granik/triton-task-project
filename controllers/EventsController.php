@@ -11,7 +11,6 @@ namespace app\controllers;
 use Yii;
 use yii\helpers\{Json, ArrayHelper};
 use yii\web\UploadedFile;
-use yii\filters\VerbFilter;
 //models
 use app\models\{
     Event,
@@ -27,7 +26,9 @@ use app\models\{
     LogisticFields,
     FinanceInfo,
     FinanceFields,
-    SearchEvent
+    SearchEvent,
+    EventTicket,
+    EventTicketForm
 };
 
 //forms
@@ -135,6 +136,8 @@ class EventsController extends AppController
                 ->where($where)
                 ->asArray()
                 ->all();
+        
+        $tickets = EventTicket::find()->where($where)->asArray()->all();
         return $this->render('event', 
             compact(
                 'title',
@@ -143,7 +146,8 @@ class EventsController extends AppController
                 'event',
                 'sponsors',
                 'logistics',
-                'finance'
+                'finance',
+                'tickets'
             )
         );
     }
@@ -570,6 +574,43 @@ class EventsController extends AppController
             'event', 
             'id' => $event_id
                 ]);
+    }
+    
+    public function actionAddTicket($event_id) {
+        $title = "Добавить билет";
+        $model = new EventTicketForm();
+        $event = Event::findOne(['id' => $event_id]);
+        if($model->load(Yii::$app->request->post())) {
+            $file = UploadedFile::getInstance($model, 'ticket_file');
+            if(empty($file)) {
+                return $this->redirect(['event', 'id' => $event_id]);
+            }
+
+            if(!$model->uploadFile($file, $event_id)){
+                throw new \yii\base\ErrorException("Невозможно загрузить файл!");
+            }
+
+            return $this->redirect(['event', 'id' => $event_id]);
+        }
+        return $this->render('add_ticket', 
+                compact(
+                        'title',
+                        'event',
+                        'model'
+                        )
+                );
+    }
+    
+    public function actionDeleteTicket($id, $event_id) {
+        
+        $ticket = EventTicket::findOne($id);
+        
+        $ticket->is_deleted = 1;
+        $ticket->update();
+        
+        return $this->redirect(['event', 'id' => $event_id]);
+        
+        
     }
   
     
