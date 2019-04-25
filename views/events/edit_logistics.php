@@ -65,9 +65,9 @@ $this->registerJs('$(".mask-time").mask("99:99");',
         ]
     ]);
     echo $active_form->field($model, 'to_time')
-            ->textInput(['maxlength' => 5, 'class' => 'mask-time form-control', 'value' => $current['to_time']]);
+            ->textInput(['maxlength' => 5, 'class' => 'mask-time form-control']);
     echo $active_form->field($model, 'living_from')->widget(DatePicker::classname(), [
-                'options' => ['placeholder' => 'Дата', 'value' => $current['living_from']],
+                'options' => ['placeholder' => 'Дата'],
                 'removeButton' => false,
 //                'convertFormat' => true,
                 'type' => DatePicker::TYPE_COMPONENT_APPEND,
@@ -81,7 +81,7 @@ $this->registerJs('$(".mask-time").mask("99:99");',
     ]);
     
     echo $active_form->field($model, 'living_to')->widget(DatePicker::classname(), [
-                'options' => ['placeholder' => 'Дата', 'value' => $current['living_to']],
+                'options' => ['placeholder' => 'Дата'],
                 'removeButton' => false,
 //                'convertFormat' => true,
                 'type' => DatePicker::TYPE_COMPONENT_APPEND,
@@ -95,9 +95,9 @@ $this->registerJs('$(".mask-time").mask("99:99");',
     ]);
     
     echo $active_form->field($model, 'between_means')
-           ->dropDownList($means, ['prompt' => 'Выберите', 'value' => $current['between_means']]);
+           ->dropDownList($means, ['prompt' => 'Выберите']);
     echo $active_form->field($model, 'between_date')->widget(DatePicker::classname(), [
-                'options' => ['placeholder' => 'Дата', 'value' => $current['between_date']],
+                'options' => ['placeholder' => 'Дата'],
                 'removeButton' => false,
 //                'convertFormat' => true,
                 'type' => DatePicker::TYPE_COMPONENT_APPEND,
@@ -111,12 +111,12 @@ $this->registerJs('$(".mask-time").mask("99:99");',
     ]);
     
     echo $active_form->field($model, 'between_time')
-            ->textInput(['maxlength' => 5, 'class' => 'mask-time form-control', 'value' => $current['between_time']]);
+            ->textInput(['maxlength' => 5, 'class' => 'mask-time form-control']);
     
     echo $active_form->field($model, 'home_means')
-           ->dropDownList($means, ['prompt' => 'Выберите', 'value' => $current['home_means']]);
+           ->dropDownList($means, ['prompt' => 'Выберите']);
     echo $active_form->field($model, 'home_date')->widget(DatePicker::classname(), [
-                'options' => ['placeholder' => 'Дата', 'value' => $current['home_date']],
+                'options' => ['placeholder' => 'Дата'],
                 'removeButton' => false,
 //                'convertFormat' => true,
                 'type' => DatePicker::TYPE_COMPONENT_APPEND,
@@ -129,7 +129,7 @@ $this->registerJs('$(".mask-time").mask("99:99");',
         ]
     ]);
     echo $active_form->field($model, 'home_time')
-            ->textInput(['maxlength' => 5, 'class' => 'mask-time form-control', 'value' => $current['home_time']]);
+            ->textInput(['maxlength' => 5, 'class' => 'mask-time form-control']);
     ?>
     <div class="form-group">
         <div class="col-lg-offset-1 col-lg-11">
