@@ -56,6 +56,11 @@ class EditFieldForm extends EventInfo {
             throw new \yii\base\ErrorException("Ошибка валидации данных!");
         }
         $field = $this->findOne( compact('event_id', 'field_id') );
+        if(empty($field)) {
+            $field = $this;
+            $field->field_id = $field_id;
+            $field->event_id = $event_id;
+        } 
         $field->value = $this->value;
         $field->comment = $this->comment;
         
@@ -68,6 +73,12 @@ class EditFieldForm extends EventInfo {
             throw new \yii\base\ErrorException("Ошибка валидации данных!");
         }
         $field = $this->findOne( compact('event_id', 'field_id') );
+        if(empty($field)) {
+            $field = $this;
+            $field->field_id = $field_id;
+            $field->event_id = $event_id;
+            
+        } 
         $field->comment = $this->comment;
         
         return $field->save() ? true : false;
