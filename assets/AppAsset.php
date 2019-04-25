@@ -29,7 +29,8 @@ class AppAsset extends AssetBundle
     public $js = [
         'js/DataTables/datatables.min.js',
         'js/swal/sweetalert.min.js',
-        'js/main.js'
+        'js/main.js',
+        'js/jquery.maskedinput.min.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',
