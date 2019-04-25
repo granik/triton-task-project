@@ -40,7 +40,7 @@ use yii\widgets\ActiveForm;
 
 
     <div class="form-group">
-        <?= Html::submitButton(Сохранить, ['class' => 'btn btn-primary mt-5']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary mt-5']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
