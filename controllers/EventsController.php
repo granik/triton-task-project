@@ -604,7 +604,7 @@ class EventsController extends AppController
     public function actionDeleteTicket($id, $event_id) {
         
         $ticket = EventTicket::findOne($id);
-        
+        @unlink(Yii::$app->params['pathUploads'] . 'event_files/' . $event_id . '/' . $ticket->filename);
         $ticket->is_deleted = 1;
         $ticket->update();
         
