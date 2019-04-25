@@ -21,7 +21,7 @@ class LogisticsForm extends LogisticInfo {
             [['persons', 'type_id'], 'required'],
             [['persons'], 'string', 'min' => 3, 'max' => 20],
             [['to_date', 'between_date', 'home_date', 'living_from', 'living_to'], 'date', 'format' => 'yyyy-MM-dd'],
-            [['to_time', 'between_time', 'home_time'], 'time', 'format' => 'HH:mm']
+            [['to_time', 'between_time', 'home_time'], 'trim']
         ];
     }
     
@@ -46,7 +46,7 @@ class LogisticsForm extends LogisticInfo {
     
     public function updateData($id) {
         if(!$this->validate()) {
-            throw new \yii\base\ErrorException("Ошибка валидации данных!");
+            throw new \yii\base\ErrorException(print_r($this->errors));
         }
         $row = $this->findOne($id);
         $row->persons = $this->persons;
