@@ -74,7 +74,7 @@ class LogisticFieldsController extends AppAdminController
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             //всё ОК
-            Yii::$app->session->setFlash('success', "Поле <strong>{$name}</strong> добавлено!");
+            Yii::$app->session->setFlash('success', "Поле добавлено!");
             return $this->redirect(['index']);
         }
 

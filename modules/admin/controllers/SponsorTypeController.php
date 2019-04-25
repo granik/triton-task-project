@@ -70,7 +70,7 @@ class SponsorTypeController extends AppAdminController
         $title = 'Новый тип спонсора';
         $model = new SponsorTypeForm();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('success', 'Тип спонсора <strong>' . $name . '</strong> добавлен');
+            Yii::$app->session->setFlash('success', 'Тип спонсора добавлен');
             return $this->redirect(['index', 'id' => $model->id]);
         }
 

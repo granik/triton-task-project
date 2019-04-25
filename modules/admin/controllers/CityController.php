@@ -73,7 +73,7 @@ class CityController extends AppAdminController
 //        $name = $_POST['CityForm']['name'];
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('success', 'Город <strong>' . $name . '</strong> добавлен!');
+            Yii::$app->session->setFlash('success', 'Город добавлен!');
             return $this->redirect(['list']);
         }
             

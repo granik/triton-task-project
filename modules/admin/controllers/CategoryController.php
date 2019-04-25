@@ -58,7 +58,7 @@ class CategoryController extends AppAdminController{
     {
         $model = new CategoryForm();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('success', 'Категория <strong>' . $name . '</strong> добавлена!');
+            Yii::$app->session->setFlash('success', 'Категория добавлена!');
             return $this->redirect(['list']);
         }
             

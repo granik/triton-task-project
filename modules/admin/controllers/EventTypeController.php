@@ -56,7 +56,7 @@ class EventTypeController extends AppAdminController {
     {
         $model = new EventTypeForm();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('success', 'Тип события <strong>' . $name . '</strong> добавлен!');
+            Yii::$app->session->setFlash('success', 'Тип события добавлен!');
             return $this->redirect(['list']);
         }
             
