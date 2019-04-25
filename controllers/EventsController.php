@@ -559,6 +559,18 @@ class EventsController extends AppController
                 ]);
         
     }
+    
+    public function actionTruncateField($event_id, $field_id) {
+        $EventInfo= new EventInfo();
+        $field = $EventInfo->findOne(compact('event_id', 'field_id'));
+        $field->value = null;
+        $field->save();
+        
+        return $this->redirect([
+            'event', 
+            'id' => $event_id
+                ]);
+    }
   
     
 }

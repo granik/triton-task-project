@@ -32,18 +32,41 @@ $this->registerJs('$(".mask-time").mask("99:99");',
         $items = array_combine($items, $items);
         echo $form->field($model, 'value')
                 ->radioList($items);
+        if(null != $model->value) {
+            echo Html::a("Очистить поле", 
+                    "/events/truncate-field?event_id={$model->event_id}&field_id={$model->field_id}",
+                            [
+                                'class' => 'btn btn-outline-danger d-block ml-auto mr-auto mb-3',
+                                'data' => [
+                                    'method' => 'POST',
+                                    'confirm' => 'Очистить данные?'
+                                ]
+                            ]);
+        }
     } elseif ($fieldType === 'text') {
         echo $form->field($model, 'value')
                 ->textInput();
+        
     } elseif($fieldType === 'select') {
         $opts = Json::decode($field['options']);
         $opts = array_combine($opts, $opts);
         echo $form->field($model, 'value')
                 ->dropDownList($opts);
+        if(null != $model->value) {
+            echo Html::a("Очистить поле", 
+                    "/events/truncate-field?event_id={$model->event_id}&field_id={$model->field_id}",
+                            [
+                                'class' => 'btn btn-outline-danger d-block ml-auto mr-auto mb-3',
+                                'data' => [
+                                    'method' => 'POST',
+                                    'confirm' => 'Очистить данные?'
+                                ]
+                            ]);
+        }
     } elseif($fieldType === 'file') {
         echo $form->field($model, 'file_single')
                 ->fileInput();
-        if(null !== $model->value) {
+        if(null != $model->value) {
             echo Html::a("Удалить загруженный файл", 
                 "/events/unlink-file?event_id={$model->event_id}&field_id={$model->field_id}",
                         [
