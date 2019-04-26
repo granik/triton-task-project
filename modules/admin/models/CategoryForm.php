@@ -18,7 +18,7 @@ class CategoryForm extends EventCategory {
                     ['name', 'required'],
                     ['name', 'unique', 'targetClass' => '\app\models\EventCategory', 
                         'message' => 'Такая категория уже существует!',
-                        'filter' => ['=', 'is_deleted', 0]
+                        'filter' => ['<>', 'id', $this->id ?? 0]
                         ]
                ];
     }
@@ -27,5 +27,20 @@ class CategoryForm extends EventCategory {
         return [
             'name' => 'Название категории'
         ];
+    }
+    
+    public function createNew() {
+        if( !$this->validate() ) {
+            throw new ErrorException("Ошибка валидации данных!");
+        }
+        $deleted = $this->find()->where(['name' => 'removed-'. trim($this->name)])->one();
+        if(!empty($deleted)) {
+            //если уже есть такая, но удалена
+            $deleted->name = str_replace('removed-', '', $deleted->name);
+            $deleted->is_deleted = 0;
+            return $deleted->save() ? true : false;
+        } 
+        
+        return $this->save() ? true : false;
     }
 }

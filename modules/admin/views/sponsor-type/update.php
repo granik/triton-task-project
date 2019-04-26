@@ -6,7 +6,7 @@ use app\components\CustomBreadcrumbs;
 /* @var $this yii\web\View */
 /* @var $model app\models\SponsorType */
 
-$this->title = 'Правка: ' . $model->name;
+$this->title = 'Правка типа спонсора';
 ?>
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb d-none d-sm-none d-md-flex bg-white">

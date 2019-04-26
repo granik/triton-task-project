@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+
 /* @var $this yii\web\View */
 /* @var $model app\models\LogisticFields */
 
@@ -10,7 +11,7 @@ $this->title = 'Правка поля';
     <ol class="breadcrumb d-none d-sm-none d-md-flex bg-white">
         <li class="breadcrumb-item"><a href="/">Главная</a></li>
         <li class="breadcrumb-item"><a href="/admin">Администрирование</a></li>
-        <li class="breadcrumb-item"><a href="/admin/fields/logistics">Поля таблиц</a></li>
+        <li class="breadcrumb-item"><a href="/admin/fields/finance">Поля таблиц</a></li>
         <li class="breadcrumb-item active"><a href="#">Правка</a></li>
     </ol>
 </nav>

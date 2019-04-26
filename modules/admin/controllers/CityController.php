@@ -72,7 +72,7 @@ class CityController extends AppAdminController
         $model = new CityForm();
 //        $name = $_POST['CityForm']['name'];
         
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->createNew()) {
             Yii::$app->session->setFlash('success', 'Город добавлен!');
             return $this->redirect(['list']);
         }
@@ -112,9 +112,10 @@ class CityController extends AppAdminController
      */
     public function actionDelete($id)
     {
-        $model = $this->findModel($id);
+        $model = City::findOne($id);
         $model->is_deleted = 1;
-        $model->update();
+        $model->name = 'removed-' . $model->name;
+        $model->save();
 
         return $this->redirect(['list']);
     }

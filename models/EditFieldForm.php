@@ -105,13 +105,19 @@ class EditFieldForm extends EventInfo {
             @unlink($path . $field->value);
         }
         
-        
+        $baseName = $file->getBaseName();
+        $ext = $file->getExtension();
         $field->event_id = $event_id;
         $field->field_id = $field_id;
-        $field->value = $file->getBaseName() . '.' . $file->getExtension();
+        $field->value = $baseName . '.' . $ext;
         $field->comment = $this->comment;
+        $i = 1;
+        while(file_exists($path . $field->value)) {
+            $field->value = $baseName . "($i)." . $ext;
+            $i++;
+        }
         
-        return $field->save() && $file->saveAs( $path . $file ) ? true : false;
+        return $field->save() && $file->saveAs( $path . $field->value ) ? true : false;
     }
     
 }

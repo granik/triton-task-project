@@ -72,7 +72,7 @@ class LogisticFieldsController extends AppAdminController
         $title = "Новое поле: логистика";
         $model = new LogisticForm();
         
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->createNew()) {
             //всё ОК
             Yii::$app->session->setFlash('success', "Поле добавлено!");
             return $this->redirect(['index']);
@@ -115,8 +115,9 @@ class LogisticFieldsController extends AppAdminController
      */
     public function actionDelete($id)
     {
-        $row = $this->findModel($id);
+        $row = LogisticFields::findOne($id);
         $row->is_deleted = 1;
+        $row->name = 'removed-' . $row->name;
         $row->update();
         return $this->redirect(['index']);
     }

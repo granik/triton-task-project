@@ -189,9 +189,10 @@ class InfoFieldsController extends AppAdminController
      */
     public function actionDelete($id)
     {
-        $row = $this->findModel($id);
+        $row = InfoFields::findOne($id);
+        $row->name = 'removed-' . $row->name;
         $row->is_deleted = 1;
-        $row->update();
+        $row->save();
         
         return $this->redirect(['index']);
     }

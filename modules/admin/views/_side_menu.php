@@ -50,7 +50,7 @@
                     <ul class="list-unstyled">
                        <li><a class="menu-item-admin" href="/admin/fields/info">Основное инфо</a></li>
                        <li><a class="menu-item-admin" href="/admin/fields/logistics">Логистическое инфо</a></li>
-                       <!--<li><a class="menu-item-admin" href="/admin/fields/finance">Финансовое инфо</a></li>-->
+                       <li><a class="menu-item-admin" href="/admin/fields/finance">Финансовое инфо</a></li>
                     </ul>
                 </div>
               </div>

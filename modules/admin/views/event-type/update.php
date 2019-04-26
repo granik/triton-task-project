@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\City */
 
-$this->title = 'Править: ' . $model->name;
+$this->title = 'Править тип события';
 ?>
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb d-none d-sm-none d-md-flex bg-white">

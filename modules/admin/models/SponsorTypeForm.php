@@ -20,7 +20,7 @@ class SponsorTypeForm extends SponsorType {
                     ['name', 'required'],
                     ['name', 'unique', 'targetClass' => '\app\models\SponsorType', 
                         'message' => 'Такой тип спонсора уже существует!', 
-                        'filter' => ['=', 'is_deleted', 0]
+                        'filter' => ['<>', 'id', $this->id ?? 0]
                         ]
                ];
     }
@@ -30,4 +30,20 @@ class SponsorTypeForm extends SponsorType {
             'name' => 'Тип спонсора'
         ];
     }
+    
+    public function createNew() {
+        if( !$this->validate() ) {
+            throw new ErrorException("Ошибка валидации данных!");
+        }
+        $deleted = $this->find()->where(['name' => 'removed-'. trim($this->name)])->one();
+        if(!empty($deleted)) {
+            //если уже есть такая, но удалена
+            $deleted->name = str_replace('removed-', '', $deleted->name);
+            $deleted->is_deleted = 0;
+            return $deleted->save() ? true : false;
+        } 
+        
+        return $this->save() ? true : false;
+    }
+    
 }

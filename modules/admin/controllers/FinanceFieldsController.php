@@ -7,32 +7,22 @@
  */
 
 namespace app\modules\admin\controllers;
-use Yii;
-use app\modules\admin\controllers\AppAdminController;
-use app\models\EventType;
-use yii\data\ActiveDataProvider;
-use app\modules\admin\models\EventTypeForm;
-use yii\filters\VerbFilter;
 
+use app\modules\admin\controllers\AppAdminController;
+use app\models\FinanceFields;
+use app\modules\admin\models\FinanceFieldsForm;
+use yii\filters\VerbFilter;
+use yii\data\ActiveDataProvider;
+use Yii;
 /**
- * Description of EventTypeController
+ * Description of FinanceFieldsController
  *
  * @author Granik
  */
-class EventTypeController extends AppAdminController {
-    
-    public function actionList() {
-        $dataProvider = new ActiveDataProvider([
-            'query' => EventType::find()
-                ->where(['is_deleted' => 0]),
-        ]);
-
-        return $this->render('list', [
-            'dataProvider' => $dataProvider,
-//            'pages' => $pages
-        ]);
-    }
-    
+class FinanceFieldsController extends AppAdminController {
+        /**
+     * {@inheritdoc}
+     */
     public function behaviors()
     {
         $rules = [
@@ -46,27 +36,48 @@ class EventTypeController extends AppAdminController {
         $parentRules = parent::behaviors();
         return array_merge_recursive($rules, $parentRules);
     }
-    
+
     /**
-     * Creates a new City model.
+     * Lists all LogisticFields models.
+     * @return mixed
+     */
+    public function actionIndex()
+    {
+        $title = "Финансовое инфо: поля";
+        $dataProvider = new ActiveDataProvider([
+            'query' => FinanceFields::find()
+                ->where(['is_deleted' => 0]),
+        ]);
+
+        return $this->render('index', compact(
+                'title', 
+                'dataProvider')
+        );
+    }
+
+    /**
+     * Creates a new LogisticFields model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new EventTypeForm();
+        $title = "Новое поле: финансы";
+        $model = new FinanceFieldsForm();
+        
         if ($model->load(Yii::$app->request->post()) && $model->createNew()) {
-            Yii::$app->session->setFlash('success', 'Тип события добавлен!');
-            return $this->redirect(['list']);
+            //всё ОК
+            Yii::$app->session->setFlash('success', "Поле добавлено!");
+            return $this->redirect(['index']);
         }
-            
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+
+        
+
+        return $this->render('create', compact('model', 'title'));
     }
 
     /**
-     * Updates an existing City model.
+     * Updates an existing LogisticFields model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -75,11 +86,13 @@ class EventTypeController extends AppAdminController {
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        if( $model->load( Yii::$app->request->post() ) && $model->save() ) {
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             //всё ОК
-            Yii::$app->session->setFlash('success', 'Данные обновлены!');
-            return $this->redirect(['list']);
+            Yii::$app->session->setFlash('success', "Данные обновлены!");
+            return $this->redirect(['index']);
         }
+
 
         return $this->render('update', [
             'model' => $model,
@@ -87,7 +100,7 @@ class EventTypeController extends AppAdminController {
     }
 
     /**
-     * Deletes an existing City model.
+     * Deletes an existing LogisticFields model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -95,27 +108,26 @@ class EventTypeController extends AppAdminController {
      */
     public function actionDelete($id)
     {
-        $model = EventType::findOne($id);
-        $model->name = 'removed-' . $model->name;
-        $model->is_deleted = 1;
-        $model->save();
-
-        return $this->redirect(['list']);
+        $row = FinanceFields::findOne($id);
+        $row->is_deleted = 1;
+        $row->name = 'removed-' . $row->name;
+        $row->update();
+        return $this->redirect(['index']);
     }
 
     /**
-     * Finds the City model based on its primary key value.
+     * Finds the LogisticFields model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return City the loaded model
+     * @return LogisticFields the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = EventTypeForm::findOne($id)) !== null) {
+        if (($model = FinanceFieldsForm::findOne($id)) !== null) {
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException('Запрошенная страница не существует');
     }
 }

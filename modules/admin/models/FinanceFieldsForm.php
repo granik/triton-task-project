@@ -1,22 +1,26 @@
 <?php
 
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
 namespace app\modules\admin\models;
-use app\models\City;
-
+use app\models\FinanceFields;
 /**
- * Description of CityForm
+ * Description of FinanceFieldsForm
  *
  * @author Granik
  */
-class CityForm extends City {
+class FinanceFieldsForm extends FinanceFields {
     
     public function rules() {
         return [
-                    ['name', 'string', 'min' => 2, 'max' => 30],
+                    ['name', 'string', 'min' => 2, 'max' => 20],
                     ['name', 'required'],
-                    ['name', 'unique', 'targetClass' => '\app\models\City',
-                        'message' => 'Такой город уже существует!',
+                    ['name', 'unique', 'targetClass' => FinanceFields::className(), 
+                        'message' => 'Такой тип спонсора уже существует!', 
                         'filter' => ['<>', 'id', $this->id ?? 0]
                         ]
                ];
@@ -24,7 +28,7 @@ class CityForm extends City {
     
     public function attributeLabels() {
         return [
-            'name' => 'Название'
+            'name' => 'Название поля'
         ];
     }
     
@@ -42,5 +46,4 @@ class CityForm extends City {
         
         return $this->save() ? true : false;
     }
-    
 }

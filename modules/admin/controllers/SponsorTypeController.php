@@ -69,7 +69,7 @@ class SponsorTypeController extends AppAdminController
     {
         $title = 'Новый тип спонсора';
         $model = new SponsorTypeForm();
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->createNew()) {
             Yii::$app->session->setFlash('success', 'Тип спонсора добавлен');
             return $this->redirect(['index', 'id' => $model->id]);
         }
@@ -106,9 +106,10 @@ class SponsorTypeController extends AppAdminController
      */
     public function actionDelete($id)
     {
-       $row = $this->findModel($id);
+       $row = SponsorType::findOne($id);
        $row->is_deleted = 1;
-       $row->update();
+       $row->name = 'removed-' . $row->name;
+       $row->save();
 
        return $this->redirect(['index']);
     }

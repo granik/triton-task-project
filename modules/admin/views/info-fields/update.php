@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\InfoFields */
 
-$this->title = 'Правка поля: ' . $model->name;
+$this->title = 'Правка поля';
 ?>
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb d-none d-sm-none d-md-flex bg-white">

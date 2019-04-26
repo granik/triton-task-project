@@ -16,6 +16,7 @@ define('ROUTE_RULES', serialize(
                 'admin/category' => 'admin/category/list',
                 'admin/event-type' => 'admin/event-type/list',
                 'admin/fields/info' => 'admin/info-fields/index',
+                'admin/fields/finance' => 'admin/finance-fields/index',
                 'admin/sponsor-type' => 'admin/sponsor-type/index',
                 'admin/fields/logistics' => 'admin/logistic-fields/index',
                 '' => 'events',

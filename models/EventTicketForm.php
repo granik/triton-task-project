@@ -39,9 +39,16 @@ class EventTicketForm extends EventTicket {
         if(!is_dir($path)) {
             mkdir($path, 0755);
         }
+        $baseName = $file->getBaseName();
+        $ext = $file->getExtension();
         $this->event_id = $event_id;
-        $this->filename = $file->getBaseName() . '.' . $file->getExtension();
+        $this->filename = $baseName . '.' . $ext;
+        $i = 1;
+        while(file_exists($path . $this->filename)) {
+            $this->filename = $baseName . "($i)." . $ext;
+            $i++;
+        }
         
-        return $this->save() && $file->saveAs( $path . $file ) ? true : false;
+        return $this->save() && $file->saveAs( $path . $this->filename ) ? true : false;
     }
 }

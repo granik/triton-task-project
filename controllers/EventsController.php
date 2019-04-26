@@ -436,6 +436,7 @@ class EventsController extends AppController
         $fieldsModel = new FinanceFields();
         $fields = $fieldsModel
                 ->find()
+                ->where(['is_deleted' => 0])
                 ->asArray()
                 ->all();
         

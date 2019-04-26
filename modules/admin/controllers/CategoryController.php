@@ -57,7 +57,7 @@ class CategoryController extends AppAdminController{
     public function actionCreate()
     {
         $model = new CategoryForm();
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->createNew()) {
             Yii::$app->session->setFlash('success', 'Категория добавлена!');
             return $this->redirect(['list']);
         }
@@ -96,9 +96,10 @@ class CategoryController extends AppAdminController{
      */
     public function actionDelete($id)
     {
-        $model = $this->findModel($id);
+        $model = EventCategory::findOne($id);
+        $model->name = 'removed-' . $model->name;
         $model->is_deleted = 1;
-        $model->update();
+        $model->save();
 
         return $this->redirect(['list']);
     }
