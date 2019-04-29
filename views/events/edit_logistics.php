@@ -32,7 +32,7 @@ $this->registerJs('$(".mask-time").mask("99:99");',
 </div>
 <div class="row justify-content-center">
     <div class="col-sm-5">
-        <?= $this->render('_form_logistics', compact('fields', 'means', 'model')); ?>
+        <?= $this->render('_form_logistics', compact('fields', 'means', 'model', 'event')); ?>
     </div>
 </div>
 

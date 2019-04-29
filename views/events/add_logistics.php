@@ -21,7 +21,8 @@ $this->registerJs('$(".mask-time").mask("99:99");',
     <?= $this->render('_form_logistics', [
         'model' => $form,
         'means' => $means,
-        'fields' => $fields
+        'fields' => $fields,
+        'event' => $event
     ]); ?>
     </div>
 </div>
