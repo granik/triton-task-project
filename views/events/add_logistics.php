@@ -20,6 +20,8 @@ $this->registerJs('$(".mask-time").mask("99:99");',
     <div class="col-sm-5">
     <?= $this->render('_form_logistics', [
         'model' => $form,
+        'means' => $means,
+        'fields' => $fields
     ]); ?>
     </div>
 </div>
