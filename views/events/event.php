@@ -154,10 +154,10 @@ use yii\helpers\Json;
                 <tr>
                     <td class="d-none d-sm-table-cell"><b><?= Html::encode($item['type']['name']); ?></b></td>
                     <td><?= Html::encode($item['persons']); ?></td>
-                    <td><?= '<i>' . Html::encode($item['to']['name']) . '</i> ' . Functions::toShortDate($item['to_date']) . '<br>' . $item['to_time'] .'-'. ($item['to_arrival'] ?? '-/-')?></td>
-                    <td><?= (Functions::toShortDate($item['living_from']) ?? 'н/у') . '-' . (Functions::toShortDate($item['living_to']) ?? 'н/у'); ?></td>
-                    <td><?= '<i>' . Html::encode($item['between']['name']). '</i> ' . Functions::toShortDate($item['between_date']) . '<br>' . $item['between_time'] .'-'. ($item['between_arrival'] ?? '-/-')  ?></td>
-                    <td><?= '<i>' . Html::encode($item['home']['name']) . '</i> ' . Functions::toShortDate($item['home_date']) . '<br>' . $item['home_time'] .'-'. ($item['home_arrival'] ?? '-/-') ?></td>
+                    <td><?= '<i>' . Html::encode($item['to']['name']) . '</i> ' . Functions::toShortDate($item['to_date']) . '<br>' . ($item['to_time'] ?? 'нет ') .'-'. ($item['to_arrival'] ?? ' нет')?></td>
+                    <td><?= (Functions::toShortDate($item['living_from']) ?? 'нет') . '-' . (Functions::toShortDate($item['living_to']) ?? 'нет'); ?></td>
+                    <td><?= '<i>' . Html::encode($item['between']['name']). '</i> ' . Functions::toShortDate($item['between_date']) . '<br>' . ($item['between_time'] ?? 'нет ') .'-'. ($item['between_arrival'] ?? ' нет')  ?></td>
+                    <td><?= '<i>' . Html::encode($item['home']['name']) . '</i> ' . Functions::toShortDate($item['home_date']) . '<br>' . ($item['home_time']?? 'нет ') .'-'. ($item['home_arrival'] ?? ' нет') ?></td>
                     <!--<td class=" pl-0 pr-0 text-center"><button class="btn btn-default btn-sm">Правка</button></td>-->
                     <td style="width: 8%" class=" pl-0 pr-0 text-center">
                             <!--<button class="btn btn-default btn-sm btn-edit">Удалить</button>-->
