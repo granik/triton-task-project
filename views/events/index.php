@@ -75,7 +75,7 @@ $this->title = $title;
                         } else {
                             return $model->type->name . "<br>"
                                 . '<i style="font-size: .7em">Upd: ' 
-                                . date('d.m.Y H:i', $model->updated_on) . '</i>';
+                                . date('d.m.Y H:i', $model->updated_on + 3*3600) . '</i>';
                         }
                         
                     },

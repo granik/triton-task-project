@@ -21,7 +21,7 @@ class EventCategory extends ActiveRecord {
     
     public function getCategories() {
         return $this->find()
-                ->select('*')
+                ->where(['is_deleted' => 0])
                 ->orderBy(['id' => SORT_DESC])
                 ->asArray()
                 ->all();
