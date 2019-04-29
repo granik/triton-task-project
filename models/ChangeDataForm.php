@@ -48,6 +48,8 @@ class ChangeDataForm extends Event {
         $event->date = $this->date;
         $event->city_id = $this->city_id;
         $event->category_id = $this->category_id;
+        //time of the last update
+        Event::setLastUpdateTime($this->id);
         
         return $event->save() ? true : false;
     }

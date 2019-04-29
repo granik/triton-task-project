@@ -109,6 +109,9 @@ class FinanceFieldsController extends AppAdminController {
     public function actionDelete($id)
     {
         $row = FinanceFields::findOne($id);
+        if(!$row) {
+            throw new \yii\web\NotFoundHttpException("Страница не найдена!");
+        }
         $row->is_deleted = 1;
         $row->name = 'removed-' . $row->name;
         $row->update();

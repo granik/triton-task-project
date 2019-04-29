@@ -24,10 +24,12 @@ class EventServiceForm extends EventService {
             ['producer', 'required'],
             ['producer', 'string', 'min' => 2, 'max' => 30],
             ['city_id', 'integer'],
+            ['city_name', 'string', 'min' => 2, 'max' => 30],
             ['date', 'required'],
             ['date', 'date', 'format' => 'php:Y-m-d'],
             ['people_amount', 'integer'],
             ['event_id', 'integer'],
+            ['status', 'required'],
             ['status', 'integer']
         ];
     }
@@ -39,6 +41,7 @@ class EventServiceForm extends EventService {
             'customer' => 'Заказчик',
             'producer' => 'Исполнитель',
             'city_id' => 'Город отпр.',
+            'city_name' => 'Город (не из списка)',
             'date' => 'Дата',
             'people_amount' => 'Кол-во чел.',
             'status' => 'Оплачен'

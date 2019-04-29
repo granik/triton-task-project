@@ -43,4 +43,10 @@ class Event extends ActiveRecord {
             ->asArray()
             ->one();
     }
+    
+    public static function setLastUpdateTime($eventId) {
+        $event = self::findOne($eventId);
+        $event->updated_on = time();
+        $event->save();
+    }
 }

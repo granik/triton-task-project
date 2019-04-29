@@ -63,6 +63,8 @@ class EditFieldForm extends EventInfo {
         } 
         $field->value = $this->value;
         $field->comment = $this->comment;
+        //last update
+        Event::setLastUpdateTime($event_id);
         
         return $field->save() ? true : false;
     }

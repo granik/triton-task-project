@@ -8,7 +8,8 @@
 
 namespace app\controllers;
 use app\controllers\AppController;
-
+use app\models\User;
+use Yii;
 /**
  * Description of ProfileController
  *
@@ -18,6 +19,12 @@ class ProfileController extends AppController {
     
     public function actionIndex() {
         $title = "Профиль";
-        return $this->render('profile', compact('title'));
+//        $uId = Yii::$app->user->getId();
+//        $user = User::find()
+//                ->where(['id' => $uId])
+//                ->with('role')
+//                ->one();
+        
+        return $this->render('profile', compact('title', 'user'));
     }
 }

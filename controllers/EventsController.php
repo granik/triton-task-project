@@ -174,6 +174,8 @@ class EventsController extends AppController
         if ($model->load(Yii::$app->request->post())) {
 
             if($model->save()){
+                //last update
+                Event::setLastUpdateTime($event_id);
                 return $this->goBack();
             }
         }
@@ -222,13 +224,16 @@ class EventsController extends AppController
                 if(empty($file)) {
                     //пришло пустое файловое поле
                     $edit_form->updateOnlyComment($event_id, $field_id);
+                    //last update
+                    Event::setLastUpdateTime($event_id);
                     return $this->redirect(['event', 'id' => $event_id]);
                 }
                 
                 if(!$edit_form->uploadFile($file, $event_id, $field_id)){
                     throw new \yii\base\ErrorException("Невозможно загрузить файл!");
                 }
-                
+                //last update
+                Event::setLastUpdateTime($event_id);
                 return $this->redirect(['event', 'id' => $event_id]);
                 
             }
@@ -244,7 +249,8 @@ class EventsController extends AppController
                 throw new \yii\base\ErrorException("Невозможно обновить данные!");
             }
             
-            
+            //last update
+            Event::setLastUpdateTime($event_id);
             return $this->redirect(['event', 'id' => $event_id]);
         }
         
@@ -276,6 +282,8 @@ class EventsController extends AppController
             if(!$change_form->updateData()) {
                 throw new \yii\base\ErrorException("Невозможно обновить данные!");
             }
+            //last update
+            Event::setLastUpdateTime($event_id);
             return $this->redirect(['event', 'id' => $event_id]);
         }
         /* end form handler */
@@ -316,6 +324,8 @@ class EventsController extends AppController
         /*begin form handler*/
         if ($form->load(Yii::$app->request->post()) && $form->validate()) {
             $form->save();
+            //last update
+            Event::setLastUpdateTime($event_id);
             return $this->redirect(['event', 'id' => $event_id] );
         }
         /*end form handler*/
@@ -344,6 +354,8 @@ class EventsController extends AppController
         
         if ($form->load(Yii::$app->request->post()) && $form->validate()) {
             $form->save();
+            //last update
+            Event::setLastUpdateTime($event_id);
             return $this->redirect(['event', 'id' => $event_id]);
         }
         
@@ -393,6 +405,8 @@ class EventsController extends AppController
             $currentRow = LogisticInfo::findOne($item_id);
             $currentRow->is_deleted = 1;
             $currentRow->update();
+            //last update
+            Event::setLastUpdateTime($event_id);
             return $this->redirect(['event', 'id' => $event_id]);
         }
         /* end delete */
@@ -446,6 +460,8 @@ class EventsController extends AppController
         
         if ($form->load(Yii::$app->request->post()) && $form->validate()) {
             $form->save();
+            //last update
+            Event::setLastUpdateTime($event_id);
             return $this->redirect(['event', 'id' => $event_id]);
         }
         
@@ -485,6 +501,8 @@ class EventsController extends AppController
             if( !$form->updateData($item_id) ) {
                 throw new \yii\base\ErrorException("Невозможно обновить данные!");
             }
+            //last update
+            Event::setLastUpdateTime($event_id);
             return $this->redirect(['event', 'id' => $event_id]);
         }
         
@@ -525,6 +543,8 @@ class EventsController extends AppController
         $sponsor = Sponsor::find()->where(compact('id', 'event_id'))->one();
         $sponsor->is_deleted = 1;
         $sponsor->update();
+        //last update
+        Event::setLastUpdateTime($event_id);
         return $this->redirect('/event/' . $event_id);
    
     }
@@ -536,7 +556,8 @@ class EventsController extends AppController
         
         $event->is_cancel = 1;
         $event->update();
-        
+        //last update
+        Event::setLastUpdateTime($event_id);
         return $this->redirect('/event/' . $event_id);
         
         
@@ -548,7 +569,8 @@ class EventsController extends AppController
         
         $event->is_cancel = 0;
         $event->update();
-        
+        //last update
+        Event::setLastUpdateTime($event_id);
         return $this->redirect('/event/' . $event_id);
         
         
@@ -573,7 +595,8 @@ class EventsController extends AppController
         @unlink(Yii::$app->params['pathUploads'] . 'event_files/' . $event_id . '/' . $fileField->value);
         $fileField->value = null;
         $fileField->save();
-        
+        //last update
+        Event::setLastUpdateTime($event_id);
         return $this->redirect([
             'event', 
             'id' => $event_id
@@ -586,7 +609,8 @@ class EventsController extends AppController
         $field = $EventInfo->findOne(compact('event_id', 'field_id'));
         $field->value = null;
         $field->save();
-        
+        //last update
+        Event::setLastUpdateTime($event_id);
         return $this->redirect([
             'event', 
             'id' => $event_id
@@ -606,7 +630,8 @@ class EventsController extends AppController
             if(!$model->uploadFile($file, $event_id)){
                 throw new \yii\base\ErrorException("Невозможно загрузить файл!");
             }
-
+            //last update
+            Event::setLastUpdateTime($event_id);
             return $this->redirect(['event', 'id' => $event_id]);
         }
         return $this->render('add_ticket', 
@@ -624,7 +649,8 @@ class EventsController extends AppController
         @unlink(Yii::$app->params['pathUploads'] . 'event_files/' . $event_id . '/' . $ticket->filename);
         $ticket->is_deleted = 1;
         $ticket->update();
-        
+        //last update
+        Event::setLastUpdateTime($event_id);
         return $this->redirect(['event', 'id' => $event_id]);
         
         
@@ -642,7 +668,8 @@ class EventsController extends AppController
         }
         
         if($model->load(Yii::$app->request->post()) && $model->save()) {
-
+            //last update
+            Event::setLastUpdateTime($event_id);
             return $this->redirect(['event', 'id' => $event_id]);
         }
         return $this->render('add_service', 
@@ -666,9 +693,14 @@ class EventsController extends AppController
         if(!$event) {
             throw new \yii\web\NotFoundHttpException("Нет события с таким ID");
         }
-        $cities= City::findAll(['is_deleted' => 0]);
+        $cities= City::find()
+                ->where(['is_deleted' => 0])
+                ->orderBy(['name' => SORT_ASC])
+                ->all();
         $city_items = ArrayHelper::map($cities, 'id', 'name');
         if($model->load(Yii::$app->request->post()) && $model->save()) {
+            //last update
+            Event::setLastUpdateTime($event_id);
             return $this->redirect(['event', 'id' => $event_id]);
         }
         return $this->render('edit_service', 
@@ -686,7 +718,8 @@ class EventsController extends AppController
         $service = EventService::findOne(compact('id', 'event_id'));
         $service->is_deleted = 1;
         $service->save();
-        
+        //last update
+        Event::setLastUpdateTime($event_id);
         return $this->redirect(['event', 'id' => $event_id]);
     }
   

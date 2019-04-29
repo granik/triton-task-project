@@ -16,6 +16,7 @@ use kartik\date\DatePicker;
     <?= $form->field($model, 'customer')->textInput(['maxlength' => 25]) ?>
     <?= $form->field($model, 'producer')->textInput(['maxlength' => 25]) ?>
     <?= $form->field($model, 'city_id')->dropDownList($city_items) ?>
+    <?= $form->field($model, 'city_name')->textInput(['maxlength' => 30]) ?>
     <?= $form->field($model, 'date')->widget(DatePicker::classname(), [
                 'options' => ['placeholder' => 'Дата'],
                 'removeButton' => false,

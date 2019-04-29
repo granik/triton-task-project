@@ -304,7 +304,13 @@ use yii\helpers\Json;
                     <?= Html::encode($service['producer']); ?>
                 </td>
                 <td>
-                    <?= Html::encode($service['city']['name']); ?>
+                    <?php
+                    if(!empty($service['city_name']) ) {
+                        echo Html::encode($service['city_name']);
+                    } else {
+                        echo Html::encode($service['city']['name']);
+                    }
+                    ?>
                 </td>
                 <td>
                     <?= Html::encode(Functions::toShortDate($service['date'])); ?>

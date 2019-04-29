@@ -68,9 +68,20 @@ $this->title = $title;
             'columns' => [
                 [
                     'attribute'=>'type.name',
+                    'format' => 'raw',
+                    'value' => function($model) {
+                        if(empty($model->updated_on)) {
+                            return $model->type->name;
+                        } else {
+                            return $model->type->name . "<br>"
+                                . '<i style="font-size: .7em">Upd: ' 
+                                . date('d.m.Y H:i', $model->updated_on) . '</i>';
+                        }
+                        
+                    },
                     'label'=>'Событие',
                     'contentOptions' =>function ($model, $key, $index, $column){
-                        return ['class' => 'type-name', 'style' => 'width: 300px'];
+                        return ['class' => 'type-name', 'style' => 'width: 300px; line-height: 1rem'];
                     },
                     'filter' => 
                     Html::activeDropDownList(
