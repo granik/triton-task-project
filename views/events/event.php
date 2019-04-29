@@ -126,7 +126,7 @@ use yii\helpers\Json;
             </tr>
             <?php endforeach; ?>
             <?php else: ?>
-            <h4>Данных о спонсорах нет</h4>
+            <h4>Данных о спонсорах еще нет</h4>
         <?php endif;?>
     
         </table>
@@ -143,10 +143,10 @@ use yii\helpers\Json;
             <thead>
                 <th class="d-none d-sm-table-cell"></th>
                 <th>Имя</th>
-                <th>Туда, выезд</th>
+                <th>Туда</th>
                 <th>Проживание</th>
-                <th>М.городами, выезд</th>
-                <th>Домой, выезд</th>
+                <th>М.городами</th>
+                <th>Домой</th>
                 <th></th>
             </thead>
             <tbody>
@@ -154,10 +154,10 @@ use yii\helpers\Json;
                 <tr>
                     <td class="d-none d-sm-table-cell"><b><?= Html::encode($item['type']['name']); ?></b></td>
                     <td><?= Html::encode($item['persons']); ?></td>
-                    <td><?= Html::encode($item['to']['name']) . ' ' . Functions::withoutSec($item['to_time']) . ' ' . Functions::toShortDate($item['to_date']) ?></td>
+                    <td><?= '<i>' . Html::encode($item['to']['name']) . '</i> ' . Functions::toShortDate($item['to_date']) . '<br>' . $item['to_time'] .'-'. ($item['to_arrival'] ?? '-/-')?></td>
                     <td><?= (Functions::toShortDate($item['living_from']) ?? 'н/у') . '-' . (Functions::toShortDate($item['living_to']) ?? 'н/у'); ?></td>
-                    <td><?= Html::encode($item['between']['name']) . ' ' . Functions::withoutSec($item['between_time']) . ' ' . Functions::toShortDate($item['between_date']) ?></td>
-                    <td><?= Html::encode($item['home']['name']) . ' ' . Functions::withoutSec($item['home_time']) . ' ' . Functions::toShortDate($item['home_date']) ?></td>
+                    <td><?= '<i>' . Html::encode($item['between']['name']). '</i> ' . Functions::toShortDate($item['between_date']) . '<br>' . $item['between_time'] .'-'. ($item['between_arrival'] ?? '-/-')  ?></td>
+                    <td><?= '<i>' . Html::encode($item['home']['name']) . '</i> ' . Functions::toShortDate($item['home_date']) . '<br>' . $item['home_time'] .'-'. ($item['home_arrival'] ?? '-/-') ?></td>
                     <!--<td class=" pl-0 pr-0 text-center"><button class="btn btn-default btn-sm">Правка</button></td>-->
                     <td style="width: 8%" class=" pl-0 pr-0 text-center">
                             <!--<button class="btn btn-default btn-sm btn-edit">Удалить</button>-->
@@ -172,7 +172,7 @@ use yii\helpers\Json;
                 </tr>
             <?php endforeach; ?>
             <?php else: ?>
-            <h4>Данных логистики нет</h4>
+            <h4>Данных логистики еще нет</h4>
             <?php endif;?>
             </tbody>
         </table>
@@ -211,7 +211,7 @@ use yii\helpers\Json;
             </tr>
             <?php endforeach;?>
             <?php else: ?>
-            <h4>Данных о финансах нет</h4>
+            <h4>Данных о финансах еще нет</h4>
             <?php endif; ?>
         </table>
         <h5 class="pt-3 pb-1 text-center"><b>Электронные билеты</b></h5>
@@ -225,7 +225,7 @@ use yii\helpers\Json;
         <table id="finances" class="table-striped table-bordered wide font-resp">
             <?php if( !empty($tickets) ): ?>
             <tr>
-                <td>
+                <td style="width: 90%">
                     <strong>Имя файла</strong>
                 </td>
                 <td>
@@ -254,7 +254,82 @@ use yii\helpers\Json;
             </tr>
             <?php endforeach;?>
             <?php else: ?>
-            <h4>Билетов нет</h4>
+            <h4>Билетов еще нет</h4>
+            <?php endif; ?>
+        </table>
+        <h5 class="pt-3 pb-1 text-center"><b>Дополн. услуги</b></h5>
+        <?=
+            Html::a(
+                'Добавить услугу',
+                '/event/' . $event['id'] . '/add-service',
+                ['class' => 'float-right mb-3 bg-primary p-1 text-center text-white d-block col-md-2 col-xs-12']
+                ); 
+        ?>
+        <table id="finances" class="table-striped table-bordered wide font-resp">
+            <?php if( !empty($services) ): ?>
+            <tr>
+                <td class="d-none d-md-block">
+                    <strong>Название</strong>
+                </td>
+                <td>
+                    <strong>Заказчик</strong>
+                </td>
+                <td>
+                    <strong>Исполнит.</strong>
+                </td>
+                <td>
+                    <strong>Город отпр.</strong>
+                </td>
+                <td>
+                    <strong>Дата</strong>
+                </td>
+                <td>
+                    <strong>Кол-во чел.</strong>
+                </td>
+                <td>
+                    <strong>Оплач.</strong>
+                </td>
+                <td>
+                </td>
+            </tr>
+            <?php foreach ($services as $service):?>
+            <tr>
+                <td class="d-none d-md-block">
+                    <strong><?= Html::encode($service['title']); ?></strong>
+                </td>
+                <td>
+                    <?= Html::encode($service['customer']); ?>
+                </td>
+                <td>
+                    <?= Html::encode($service['producer']); ?>
+                </td>
+                <td>
+                    <?= Html::encode($service['city']['name']); ?>
+                </td>
+                <td>
+                    <?= Html::encode(Functions::toShortDate($service['date'])); ?>
+                </td>
+                <td>
+                    <?= Html::encode($service['people_amount']); ?>
+                </td>
+                <td>
+                    <?= $service['status'] == 0 ? 'Нет' : 'Да'; ?>
+                </td>
+                <td class=" pl-0 pr-0 text-center">
+                        <?=
+                                Html::a(
+                                    'Правка',
+                                    '/event/' . $event['id']  . '/edit-service/' . $service['id'],
+                                    ['class' => 'pl-1 pr-1 text-center text-primary',
+                                        ]
+                                    ); 
+                            ?>
+                </td>
+                
+            </tr>
+            <?php endforeach;?>
+            <?php else: ?>
+            <h4>Доп. услуг еще нет</h4>
             <?php endif; ?>
         </table>
     </div>

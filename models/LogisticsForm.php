@@ -21,7 +21,8 @@ class LogisticsForm extends LogisticInfo {
             [['persons', 'type_id'], 'required'],
             [['persons'], 'string', 'min' => 3, 'max' => 20],
             [['to_date', 'between_date', 'home_date', 'living_from', 'living_to'], 'date', 'format' => 'yyyy-MM-dd'],
-            [['to_time', 'between_time', 'home_time'], 'trim']
+            [['to_time', 'between_time', 'home_time', 'to_arrival' , 'between_arrival', 'home_arrival'], 'string', 'min' => 5, 'max' => 5],
+            [['to_time', 'between_time', 'home_time', 'to_arrival', 'between_arrival', 'home_arrival'], 'trim']
         ];
     }
     
@@ -31,16 +32,19 @@ class LogisticsForm extends LogisticInfo {
             'type_id' => 'Тип',
             'persons' => 'Имена',
             'to_means' => 'Дорога туда',
-            'to_date' => 'Дорога туда (дата выезда)',
-            'to_time' => 'Дорога туда (время выезда)',
+            'to_date' => 'Туда (дата выезда)',
+            'to_time' => 'Туда (время выезда)',
+            'to_arrival' => 'Туда (прибытие)',
+            'between_arrival' => 'Между городами (прибытие)',
+            'home_arrival' => 'Домой (прибытие)',
             'living_from' => 'Проживание с',
             'living_to' => 'Проживание по',
             'between_means' => 'Между городами',
             'between_date' => 'Между городами (дата выезда)',
             'between_time' => 'Между городами (время выезда)',
-            'home_means' => 'Дорога домой',
-            'home_date' => 'Дорога домой (дата выезда)',
-            'home_time' => 'Дорога домой (время выезда)',
+            'home_means' => 'Домой',
+            'home_date' => 'Домой (дата выезда)',
+            'home_time' => 'Домой (время выезда)',
             ];
     }
     
@@ -53,6 +57,9 @@ class LogisticsForm extends LogisticInfo {
         $row->to_means = $this->to_means;
         $row->to_date = $this->to_date;
         $row->to_time = $this->to_time;
+        $row->to_arrival = $this->to_arrival;
+        $row->between_arrival = $this->between_arrival;
+        $row->home_arrival = $this->home_arrival;
         $row->living_from = $this->living_from;
         $row->living_to = $this->living_to;
         $row->between_means = $this->between_means;

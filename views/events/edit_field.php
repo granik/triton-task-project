@@ -4,10 +4,6 @@ use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\widgets\ActiveForm;
 use kartik\date\DatePicker;
-$this->registerJsFile('/web/js/jquery.maskedinput.min.js', [
-    'position' => \yii\web\View::POS_BEGIN,
-        ]
-        );
 $this->registerJs('$(".mask-time").mask("99:99");', 
     \yii\web\View::POS_END
         );

@@ -28,7 +28,7 @@ use app\models\{
     FinanceFields,
     SearchEvent,
     EventTicket,
-    EventTicketForm
+    EventService
 };
 
 //forms
@@ -38,7 +38,9 @@ use app\models\{
     ChangeDataForm,
     LogisticsForm,
     FinanceForm,
-    AddSponsorForm
+    AddSponsorForm,
+    EventTicketForm,
+    EventServiceForm
 };
 
 
@@ -97,6 +99,9 @@ class EventsController extends AppController
         $where = ['event_id' => $id, 'is_deleted' => 0];
         $eventModel = new Event();
         $event = $eventModel->getEventAsArray($id);
+        if(empty($event)) {
+            throw new \yii\web\NotFoundHttpException("Страница не найдена");
+        }
         $event['date'] = $this->toRussianDate($event['date']);
         
         $model = new InfoFields();
@@ -138,6 +143,15 @@ class EventsController extends AppController
                 ->all();
         
         $tickets = EventTicket::find()->where($where)->asArray()->all();
+        
+        $services = EventService::find()
+                ->where([
+                    'is_deleted' => 0,
+                    'event_id' => $id
+                    ])
+                ->with('city')
+                ->asArray()
+                ->all();
         return $this->render('event', 
             compact(
                 'title',
@@ -147,7 +161,8 @@ class EventsController extends AppController
                 'sponsors',
                 'logistics',
                 'finance',
-                'tickets'
+                'tickets',
+                'services'
             )
         );
     }
@@ -168,6 +183,7 @@ class EventsController extends AppController
         $Category = new EventCategory();
         $categories = $Category->getCategories();
         $types = EventType::getEventTypes();
+        
         
         return $this->render('add',
                 compact('title',
@@ -383,9 +399,9 @@ class EventsController extends AppController
         
         $form = new LogisticsForm();
         /* begin handler form */
-        if ($form->load(Yii::$app->request->post())) {
+        if ($model->load(Yii::$app->request->post())) {
 //            $postData = Yii::$app->request->post('LogisticsForm');
-            if( !$form->updateData($item_id) ) {
+            if( !$model->updateData($item_id) ) {
                 throw new \yii\base\ErrorException("Невозможно обновить данные!");
             }
             return $this->redirect(['event', 'id' => $event_id]);
@@ -612,6 +628,66 @@ class EventsController extends AppController
         return $this->redirect(['event', 'id' => $event_id]);
         
         
+    }
+    
+    public function actionAddService($event_id) {
+        $title = "Добавить доп. услугу";
+        $model = new EventServiceForm();
+        $event = Event::findOne($event_id);
+        $cities= City::findAll(['is_deleted' => 0]);
+        $city_items = ArrayHelper::map($cities, 'id', 'name');
+        
+        if(!$event) {
+            throw new \yii\web\NotFoundHttpException("Нет события с таким ID");
+        }
+        
+        if($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            return $this->redirect(['event', 'id' => $event_id]);
+        }
+        return $this->render('add_service', 
+                compact(
+                        'title',
+                        'event',
+                        'model',
+                        'city_items'
+                        )
+                );
+        
+    }
+    
+    public function actionEditService($event_id, $id) {
+        $title = "Править доп. услугу";
+        $model = EventServiceForm::findOne($id);
+        if(!$model) {
+            throw new \yii\web\NotFoundHttpException("Нет доп. услуги с таким ID");
+        }
+        $event = Event::findOne($event_id);
+        if(!$event) {
+            throw new \yii\web\NotFoundHttpException("Нет события с таким ID");
+        }
+        $cities= City::findAll(['is_deleted' => 0]);
+        $city_items = ArrayHelper::map($cities, 'id', 'name');
+        if($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['event', 'id' => $event_id]);
+        }
+        return $this->render('edit_service', 
+                compact(
+                        'title',
+                        'event',
+                        'model',
+                        'city_items'
+                        )
+                );
+        
+    }
+    
+    public function actionDeleteService($event_id, $id) {
+        $service = EventService::findOne(compact('id', 'event_id'));
+        $service->is_deleted = 1;
+        $service->save();
+        
+        return $this->redirect(['event', 'id' => $event_id]);
     }
   
     
