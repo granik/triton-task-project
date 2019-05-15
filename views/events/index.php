@@ -5,6 +5,8 @@ use yii\helpers\ArrayHelper;
 use app\models\EventCategory;
 use app\models\EventType;
 use app\components\Functions;
+use app\models\City;
+use yii\jui\AutoComplete;
 $this->title = $title;
 ?>
 <div class="row">
@@ -45,6 +47,13 @@ $this->title = $title;
                 'class' => 'pl-3 pr-3 pb-2 pt-2 btn btn-outline-info d-block col-sm-4'
             ]
     );
+    
+    $cityList = City::find()
+            ->select(['name as value', 'name as label',])
+            ->where(['is_deleted' => 0])
+            ->asArray()
+            ->all();
+
 ?>
         </div>
     <div class="col-md-12 mr-md-auto ml-md-auto pull-right bg-light p-3" style="min-height: 500px;">
@@ -118,11 +127,18 @@ $this->title = $title;
                     'contentOptions' =>function ($model, $key, $index, $column){
                         return ['class' => 'city'];
                     },
-                    'filter' => 
-                    Html::activeTextInput(
-                            $searchModel, 
-                            'city', 
-                            ['class' =>'form-control d-none d-sm-block']),
+                    'filter' => AutoComplete::widget([
+                        'attribute' => 'city',
+                        'name' => 'SearchEvent[city]',
+                        'model' => $cityList,
+                        'clientOptions' => [
+                            'source' => $cityList,
+                            'minChars' => 2,
+                        ],
+                        'options' => [
+                            'class' => 'form-control'
+                        ]
+                    ])
                 ],
                 [
                     'attribute'=>'date',

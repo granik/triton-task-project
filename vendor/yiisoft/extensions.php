@@ -84,4 +84,22 @@ return array (
       '@kartik/datetime' => $vendorDir . '/kartik-v/yii2-widget-datetimepicker/src',
     ),
   ),
+  'anmaslov/yii2-autocomplete-widget' => 
+  array (
+    'name' => 'anmaslov/yii2-autocomplete-widget',
+    'version' => '1.1.0.0',
+    'alias' => 
+    array (
+      '@anmaslov/autocomplete' => $vendorDir . '/anmaslov/yii2-autocomplete-widget/src',
+    ),
+  ),
+  'yiisoft/yii2-jui' => 
+  array (
+    'name' => 'yiisoft/yii2-jui',
+    'version' => '2.0.7.0',
+    'alias' => 
+    array (
+      '@yii/jui' => $vendorDir . '/yiisoft/yii2-jui',
+    ),
+  ),
 );

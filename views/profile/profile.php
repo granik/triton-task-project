@@ -1,9 +1,9 @@
 <?php
-echo 'Раздел в процессе разработки.';
+//echo 'Раздел в процессе разработки.';
 $this->title = $title;
 ?>
 
-<!--<nav aria-label="breadcrumb">
+<nav aria-label="breadcrumb">
     <ol class="breadcrumb d-none d-sm-none d-md-flex bg-white">
         <li class="breadcrumb-item"><a href="/">Главная</a></li>
         <li class="breadcrumb-item active"><a href="/profile">Мой профиль</a></li>
@@ -11,25 +11,19 @@ $this->title = $title;
 </nav>
 
 <div class="row">
-    <div class="col-md-2 pull-left border p-1">
-            <nav class="nav flex-column">
-              <a class="nav-link" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Active</a>
-                    <div class="collapse ml-3" id="collapseExample">
-                        <nav class="nav flex-column">
-                            <a class="nav-link" href="#">Link</a>
-                                    <a class="nav-link" href="#">Link</a>
-                                    <a class="nav-link disabled" href="#">Disabled</a>
-                        </nav>
-                    </div>
-              <a class="nav-link" href="#">Link</a>
-              <a class="nav-link" href="#">Link</a>
-              <a class="nav-link disabled" href="#">Disabled</a>
-            </nav>
-    </div>
+    <?= $this->render('_menu'); ?>
     <div class="col-md-10 mr-md-auto ml-md-auto pull-right bg-light p-3" style="min-height: 500px;">
+        <?php if (Yii::$app->session->hasFlash('success')): ?>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <?= Yii::$app->session->getFlash('success'); ?>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <?php endif; ?>
         <h3 class="mt-1 ml-1"><?= $user->first_name . ' ' . $user->last_name?></h3>
-        <p class="ml-1"><?= $user['role']['name']?></p>
-        <h6 class="ml-1">Мои уведомления:</h6>
+        <p class="ml-1 text-secondary"><?= $user['role']['name']?></p>
+<!--        <h6 class="ml-1">Мои уведомления:</h6>
 
         <ul class="nav nav-tabs mb-2" id="myTab" role="tablist">
           <li class="nav-item">
@@ -81,7 +75,7 @@ $this->title = $title;
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-        </div>
+        </div>-->
       </div>
     </div>
-</div>-->
+</div>
