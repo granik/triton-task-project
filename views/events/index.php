@@ -66,11 +66,15 @@ $this->title = $title;
         'filterModel' => $searchModel,
         'options' => ['class' => 'font-resp table-events'],
         'rowOptions' => function ($model, $key, $index, $grid) {
+           $bgColor = $model->type->name === 'Вебинар' ? '#FFCCFF' : $model->category->color;
             return [
-                'onmouseover' => "this.style['background-color'] = '#cccccc'",
-                'onmouseout' => "this.style['background-color'] = ''",
-                'onclick' => 'location.href="' 
-                    .'/event/' . $model->id . '";',
+                'style' => 'cursor: pointer; background-color: ' . "$bgColor",
+                'onmouseover' => "this.style['background-color'] = '#fff'",
+                'onmouseout' => "this.style['background-color'] = '$bgColor'",
+                'onclick' => $model->type->name !== 'Вебинар' ? 'location.href="' 
+                    .'/event/' . $model->id . '";' : 
+                'location.href="' 
+                    .'/webinar/' . $model->id . '";',
             ];
         },
         'layout'=>"{summary}\n{items}\n{pager}",
@@ -79,14 +83,21 @@ $this->title = $title;
                     'attribute'=>'type.name',
                     'format' => 'raw',
                     'value' => function($model) {
-                        if(empty($model->updated_on)) {
-                            return $model->type->name;
+                        $val = null;
+                        
+                        if(!empty($model->type_custom)) {
+                            $val = $model->type->name . ' (' . $model->type_custom . ')';
                         } else {
-                            return $model->type->name . "<br>"
+                            $val = $model->type->name;
+                        }
+                        
+                        if(!empty($model->updated_on)) {
+                            $val .= "<br>"
                                 . '<i style="font-size: .7em">Upd: ' 
                                 . date('d.m.Y H:i', $model->updated_on + 3*3600) . '</i>';
                         }
                         
+                        return $val;
                     },
                     'label'=>'Событие',
                     'contentOptions' =>function ($model, $key, $index, $column){
@@ -97,7 +108,7 @@ $this->title = $title;
                             $searchModel, 
                             'type_id', 
                             ArrayHelper::map(
-                                    EventType::find()->all(), 
+                                    EventType::findAll(['is_deleted' => 0]), 
                                     'id', 
                                     'name'
                                     ), 
@@ -115,7 +126,7 @@ $this->title = $title;
                             $searchModel, 
                             'category_id', 
                             ArrayHelper::map(
-                                    EventCategory::find()->all(), 
+                                    EventCategory::findAll(['is_deleted' => 0]), 
                                     'id', 
                                     'name'
                                     ), 

@@ -64,12 +64,12 @@ class SearchEvent extends Event
             $query = Event::find()
                 ->with(['type', 'city', 'category'])
                 ->where("event.date < CURDATE() OR is_cancel = 1")
-                ->orderBy(['date' => SORT_DESC]);
+                ->orderBy(['date' => SORT_ASC]);
         } else {
             $query = Event::find()
                 ->with(['type', 'city', 'category'])
                 ->where("event.date >= CURDATE() AND is_cancel = 0")
-                ->orderBy(['date' => SORT_DESC]);
+                ->orderBy(['date' => SORT_ASC]);
         }
         
         

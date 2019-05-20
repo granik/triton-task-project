@@ -19,6 +19,7 @@ define('ROUTE_RULES', serialize(
                 'admin/fields/finance' => 'admin/finance-fields/index',
                 'admin/sponsor-type' => 'admin/sponsor-type/index',
                 'admin/fields/logistics' => 'admin/logistic-fields/index',
+                'admin/fields/webinars' => 'admin/webinar-fields/index',
                 '' => 'events',
                 'event/<id:\d+>' => 'events/event',
                 'event/add' => 'events/add',
@@ -37,7 +38,11 @@ define('ROUTE_RULES', serialize(
                 'event/<event_id:\d+>/add-service' => 'events/add-service',
                 'event/<event_id:\d+>/edit-service/<id:\d+>' => 'events/edit-service',
                 'event/<event_id:\d+>/delete-service/<id:\d+>' => 'events/delete-service',
+                'webinar/<id:\d+>' => 'webinars/webinar',
                 'profile' => 'profile/index',
+                'webinar/<webinar_id:\d+>/add-sponsor' => 'webinars/add-sponsor',
+                'webinar/<webinar_id:\d+>/remove-sponsor/<id:\d+>' => 'webinars/remove-sponsor',
+                'webinar/<webinar_id:\d+>/edit/<field_id:\d+>' => 'webinars/edit-field',
             ]
         ) 
 );

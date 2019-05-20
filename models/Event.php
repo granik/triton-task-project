@@ -35,10 +35,10 @@ class Event extends ActiveRecord {
     
     public function getEventAsArray($id) {
         return $this->find()
-            ->select(['event.*', 'event_type.name as type', 'event_category.name as category', 'city.name as city'])
+            ->select(['event.*', 'event_type.name as type', 'event.type_custom', 'event_category.name as category', 'city.name as city'])
             ->innerJoin('event_type', 'event.type_id = event_type.id')
             ->innerJoin('event_category', 'event.category_id = event_category.id')
-            ->innerJoin('city', 'event.city_id = city.id')
+            ->leftJoin('city', 'event.city_id = city.id')
             ->where(['event.id' => $id])
             ->asArray()
             ->one();

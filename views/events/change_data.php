@@ -64,6 +64,8 @@ use kartik\date\DatePicker;
         echo $form->field($event, 'category_id')->dropDownList($category_items); 
 
         echo $form->field($event, 'type_id')->dropDownList($type_items) ;
+        
+        echo $form->field($event, 'type_custom')->textInput(['maxlength' => 20]) ;
 
         echo $form->field($event, 'date')->widget(DatePicker::classname(), [
                 'options' => ['placeholder' => 'Дата'],

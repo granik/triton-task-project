@@ -28,7 +28,8 @@ use app\models\{
     FinanceFields,
     SearchEvent,
     EventTicket,
-    EventService
+    EventService,
+    WebinarFields
 };
 
 //forms
@@ -98,10 +99,10 @@ class EventsController extends AppController
         $title = "Страница события";
         $where = ['event_id' => $id, 'is_deleted' => 0];
         $eventModel = new Event();
+//        if($eventModel->find()->with('type')->where(compact($id))->one()->type->name === 'Вебинар' ) {
+//             return $this->redirect('/webinar/' . $id);
+//        }
         $event = $eventModel->getEventAsArray($id);
-        if(empty($event)) {
-            throw new \yii\web\NotFoundHttpException("Страница не найдена");
-        }
         $event['date'] = $this->toRussianDate($event['date']);
         
         $model = new InfoFields();
@@ -167,17 +168,14 @@ class EventsController extends AppController
         );
     }
     
+    
     public function actionAdd() {
         $title = "Добавить событие";
         $model = new AddEventForm();
         
         if ($model->load(Yii::$app->request->post())) {
-
-            if($model->save()){
-                //last update
-                Event::setLastUpdateTime($event_id);
-                return $this->goBack();
-            }
+            $model->insertEvent();
+            return $this->goBack();
         }
         
         $Cities = new City();
@@ -282,9 +280,16 @@ class EventsController extends AppController
             if(!$change_form->updateData()) {
                 throw new \yii\base\ErrorException("Невозможно обновить данные!");
             }
+            
             //last update
             Event::setLastUpdateTime($event_id);
+            //ВЕБИНАР
+            if(Event::find()->where(['id' => $event_id])->with('type')->one()->type->name === 'Вебинар') {
+                return $this->redirect('/webinar/' . $event_id);
+            }
+            
             return $this->redirect(['event', 'id' => $event_id]);
+            
         }
         /* end form handler */
         $model = new ChangeDataForm();

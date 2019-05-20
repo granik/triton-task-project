@@ -27,7 +27,6 @@ class AppAsset extends AssetBundle
         'forceCopy' => true
     ];
     public $js = [
-        'js/DataTables/datatables.min.js',
         'js/swal/sweetalert.min.js',
         'js/main.js',
         'js/jquery.maskedinput.min.js'

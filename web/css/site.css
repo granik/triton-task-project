@@ -98,3 +98,8 @@ table#sponsors tr
 {
     line-height: 30px;
 }
+
+.table-events td {
+    border-top-color: #000;
+    border-bottom-color: #000;
+}

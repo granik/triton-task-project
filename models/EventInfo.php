@@ -28,12 +28,4 @@ class EventInfo extends ActiveRecord {
                 ->one();
     }
 
-
-    public function getFields() {
-        return $this->hasMany(InfoFields::className(), ['id' => 'field_id']);
-    }
-
-    public function getField() {
-        return $this->hasMany(InfoFields::className(), ['id' => 'field_id']);
-    }
 }

@@ -30,7 +30,9 @@ use kartik\date\DatePicker;
 
         echo $form->field($model, 'category_id')->dropDownList($category_items, $params); 
 
-        echo $form->field($model, 'type_id')->dropDownList($type_items, $params) ;
+        echo $form->field($model, 'type_id')->dropDownList($type_items) ;
+        
+        echo $form->field($model, 'type_custom')->textInput(['maxlength' => 20]);
 
         echo $form->field($model, 'date')->widget(DatePicker::classname(), [
                 'options' => ['placeholder' => 'Дата'],

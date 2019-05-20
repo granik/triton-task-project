@@ -28,6 +28,14 @@ use yii\helpers\Json;
         ?>
         <table class="table-striped table-bordered wide font-resp" id="event-desc">
             <tbody>
+                 <tr>
+                     <td><b>Тип</b></td>
+                    <td><?= $event['type'] !== 'Другое' ? Html::encode($event['type']) : 
+                                Html::encode($event['type'] . ' (' . ($event['type_custom'] ?? 'не указано')  . ')') 
+                            ?>
+                    </td>
+                    <td></td>
+                </tr>
                 <tr>
                     <td><b>Категория</b></td>
                     <td><?= Html::encode($event['category']) ?></td>
