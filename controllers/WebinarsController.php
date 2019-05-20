@@ -51,7 +51,7 @@ class WebinarsController extends AppController{
         if(empty($webinar)) {
             throw new \yii\web\NotFoundHttpException("Страница не найдена");
         }
-        $event['date'] = $this->toRussianDate($event['date']);
+        $webinar['date'] = $this->toRussianDate($webinar['date']);
         
         $model = new WebinarFields();
         $data = $model::find()->with([ 
