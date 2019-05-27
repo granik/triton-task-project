@@ -40,7 +40,7 @@ use app\models\{
 class WebinarsController extends AppController{
     //put your code here
      public function actionWebinar($id) {
-        $title = "Страница события";
+        $title = "Страница вебинара";
         $webinar = Event::find()
             ->select(['event.*', 'event_type.name as type', 'event_category.name as category'])
             ->innerJoin('event_type', 'event.type_id = event_type.id')
@@ -165,7 +165,7 @@ class WebinarsController extends AppController{
     }
     
     public function actionChangeData($webinar_id) {
-        $title = "Изменить событие";
+        $title = "Изменить вебинар";
         $change_form = new ChangeDataForm();
         /* begin form handler */
         if ($change_form->load(Yii::$app->request->post())) {

@@ -17,13 +17,15 @@ class EventTypeForm extends EventType {
                         'message' => 'Такой тип события уже существует!',
                         'filter' => ['<>', 'id', $this->id ?? 0]
                         ],
-                    ['name', 'required']
+                    ['name', 'required'],
+                    ['color', 'string', 'length' => 7]
                ];
     }
     
     public function attributeLabels() {
         return [
-            'name' => 'Тип события'
+            'name' => 'Тип события',
+            'color' => 'Цвет в таблице'
         ];
     }
 

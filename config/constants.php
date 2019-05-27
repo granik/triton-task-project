@@ -20,6 +20,7 @@ define('ROUTE_RULES', serialize(
                 'admin/sponsor-type' => 'admin/sponsor-type/index',
                 'admin/fields/logistics' => 'admin/logistic-fields/index',
                 'admin/fields/webinars' => 'admin/webinar-fields/index',
+                'admin/fields/mossem' => 'admin/mossem-fields/index',
                 '' => 'events',
                 'event/<id:\d+>' => 'events/event',
                 'event/add' => 'events/add',
@@ -43,6 +44,7 @@ define('ROUTE_RULES', serialize(
                 'webinar/<webinar_id:\d+>/add-sponsor' => 'webinars/add-sponsor',
                 'webinar/<webinar_id:\d+>/remove-sponsor/<id:\d+>' => 'webinars/remove-sponsor',
                 'webinar/<webinar_id:\d+>/edit/<field_id:\d+>' => 'webinars/edit-field',
+                'mossem/<mossem_id:\d+>/edit/<field_id:\d+>' => 'events/edit-mossemfield',
             ]
         ) 
 );

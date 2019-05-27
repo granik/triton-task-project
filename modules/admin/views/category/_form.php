@@ -16,6 +16,7 @@ use yii\widgets\ActiveForm;
     ]); ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => 30,]) ?>
+    <?= $form->field($model, 'color')->textInput(['maxlength' => 7,]) ?>
 
 
     <div class="form-group">

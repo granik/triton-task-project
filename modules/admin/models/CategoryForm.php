@@ -19,13 +19,15 @@ class CategoryForm extends EventCategory {
                     ['name', 'unique', 'targetClass' => '\app\models\EventCategory', 
                         'message' => 'Такая категория уже существует!',
                         'filter' => ['<>', 'id', $this->id ?? 0]
-                        ]
+                        ],
+                    ['color', 'string', 'min'=>7, 'max'=>7]
                ];
     }
     
     public function attributeLabels() {
         return [
-            'name' => 'Название категории'
+            'name' => 'Название категории',
+            'color'=> 'Цвет в таблице'
         ];
     }
     

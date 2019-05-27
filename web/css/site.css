@@ -103,3 +103,11 @@ table#sponsors tr
     border-top-color: #000;
     border-bottom-color: #000;
 }
+
+p.color-indicator {
+    margin: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 60px;
+    border: 1px solid #000;
+}

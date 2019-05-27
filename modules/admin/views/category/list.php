@@ -46,21 +46,31 @@ $this->title = 'Категории';
                     'attribute'=>'id',
                     'label'=>'#',
                     'contentOptions' =>function ($model, $key, $index, $column){
-                        return ['class' => 'id', 'style' => 'width: 50px'];
+                        return ['class' => 'id', 'style' => 'width: 30px'];
                     },
                 ],
                 [
                     'attribute'=>'name',
                     'label'=>'Название',
                     'contentOptions' =>function ($model, $key, $index, $column){
-                        return ['class' => 'name'];
+                        return ['class' => 'name', 'style' => 'width: 400px'];
+                    },
+                ],
+                [
+//                    'attribute' => 'color',
+                    'contentOptions' =>function ($model, $key, $index, $column){
+                        return ['class' => 'color',
+                            'style' => 'vertical-align: middle;width:50px;'];
+                    },
+                    'label' => 'Цвет',
+                    'format' => 'raw',
+                    'value' => function($model){
+                        if(empty($model->color)) return 'Не задан';
+                        return '<p  title="'.$model->color.'" class="color-indicator" style="background:' . "$model->color" . '"></p>';
                     },
                 ],
                 [
                     'class' => 'yii\grid\ActionColumn',
-                    'contentOptions' =>function ($model, $key, $index, $column){
-                        return ['class' => 'name', 'style' => 'width: 250px'];
-                    },
                     'template' => '{update} {delete}',
                     'buttons' => [
                         'update' => function ($url,$model) {

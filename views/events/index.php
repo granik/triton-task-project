@@ -66,7 +66,8 @@ $this->title = $title;
         'filterModel' => $searchModel,
         'options' => ['class' => 'font-resp table-events'],
         'rowOptions' => function ($model, $key, $index, $grid) {
-           $bgColor = $model->type->name === 'Вебинар' ? '#FFCCFF' : $model->category->color;
+           $bgColor =   !empty($model->type->color) ? $model->type->color :
+                       (!empty($model->category->color) ? $model->category->color : '');
             return [
                 'style' => 'cursor: pointer; background-color: ' . "$bgColor",
                 'onmouseover' => "this.style['background-color'] = '#fff'",
@@ -95,6 +96,9 @@ $this->title = $title;
                             $val .= "<br>"
                                 . '<i style="font-size: .7em">Upd: ' 
                                 . date('d.m.Y H:i', $model->updated_on + 3*3600) . '</i>';
+                        } else {
+                            $val .= "<br>"
+                                . '<i style="font-size: .7em">- ';
                         }
                         
                         return $val;
@@ -147,7 +151,7 @@ $this->title = $title;
                             'minChars' => 2,
                         ],
                         'options' => [
-                            'class' => 'form-control'
+                            'class' => 'form-control d-none d-md-block'
                         ]
                     ])
                 ],

@@ -49,9 +49,11 @@
                 <div class="card-body">
                     <ul class="list-unstyled">
                        <li><a class="menu-item-admin" href="/admin/fields/info">Основное инфо</a></li>
+                       <li><a class="menu-item-admin" href="/admin/fields/webinars">Вебинары: осн.инфо</a></li>
+                       <li><a class="menu-item-admin" href="/admin/fields/mossem">Мос.семинары: осн.инфо</a></li>
                        <li><a class="menu-item-admin" href="/admin/fields/logistics">Логистическое инфо</a></li>
                        <li><a class="menu-item-admin" href="/admin/fields/finance">Финансовое инфо</a></li>
-                       <li><a class="menu-item-admin" href="/admin/fields/webinars">Вебинары инфо</a></li>
+                       
                     </ul>
                 </div>
               </div>

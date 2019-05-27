@@ -30,7 +30,7 @@ $this->registerJs('$(".mask-time").mask("99:99");',
                 ->radioList($items);
         if(null != $model->value) {
             echo Html::a("Очистить поле", 
-                    "/events/truncate-field?event_id=" . $model->event_id ."&field_id={$model->field_id}",
+                    "/events/truncate-field?event_id=" . $model->mossem_id ."&field_id={$model->field_id}",
                             [
                                 'class' => 'btn btn-outline-danger d-block ml-auto mr-auto mb-3',
                                 'data' => [
@@ -50,7 +50,7 @@ $this->registerJs('$(".mask-time").mask("99:99");',
                 ->dropDownList($opts);
         if(null != $model->value) {
             echo Html::a("Очистить поле", 
-                    "/events/truncate-field?event_id=" . $model->event_id ."&field_id={$model->field_id}",
+                    "/events/truncate-field?event_id=" . $model->mossem_id ."&field_id={$model->field_id}",
                             [
                                 'class' => 'btn btn-outline-danger d-block ml-auto mr-auto mb-3',
                                 'data' => [
@@ -64,7 +64,7 @@ $this->registerJs('$(".mask-time").mask("99:99");',
                 ->fileInput();
         if(null != $model->value) {
             echo Html::a("Удалить загруженный файл", 
-                "/events/unlink-file?event_id=" . $model->event_id ."&field_id={$model->field_id}",
+                "/events/unlink-file?event_id=" . $model->mossem_id ."&field_id={$model->field_id}",
                         [
                             'class' => 'btn btn-outline-danger d-block ml-auto mr-auto mb-3',
                             'data' => [

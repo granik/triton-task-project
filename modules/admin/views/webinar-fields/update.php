@@ -11,7 +11,7 @@ $this->title = 'Правка поля';
     <ol class="breadcrumb d-none d-sm-none d-md-flex bg-white">
         <li class="breadcrumb-item"><a href="/">Главная</a></li>
         <li class="breadcrumb-item"><a href="/admin">Администрирование</a></li>
-        <li class="breadcrumb-item"><a href="/admin/fields/info">Поля таблиц</a></li>
+        <li class="breadcrumb-item"><a href="/admin/fields/webinars">Поля таблиц</a></li>
         <li class="breadcrumb-item active"><a href="#"><?= $this->title ?></a></li>
     </ol>
 </nav>

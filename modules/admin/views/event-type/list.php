@@ -56,6 +56,19 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                 ],
                 [
+//                    'attribute' => 'color',
+                    'contentOptions' =>function ($model, $key, $index, $column){
+                        return ['class' => 'color',
+                            'style' => 'vertical-align: middle;width:50px;'];
+                    },
+                    'label' => 'Цвет',
+                    'format' => 'raw',
+                    'value' => function($model){
+                        if(empty($model->color)) return 'Не задан';
+                        return '<p  title="'.$model->color.'" class="color-indicator" style="background:' . "$model->color" . '"></p>';
+                    },
+                ],
+                [
                     'class' => 'yii\grid\ActionColumn',
                     'contentOptions' =>function ($model, $key, $index, $column){
                         return ['class' => 'name', 'style' => 'width: 250px'];

@@ -29,7 +29,9 @@ use app\models\{
     SearchEvent,
     EventTicket,
     EventService,
-    WebinarFields
+    WebinarFields,
+    MossemFields,
+    MossemInfo
 };
 
 //forms
@@ -41,7 +43,8 @@ use app\models\{
     FinanceForm,
     AddSponsorForm,
     EventTicketForm,
-    EventServiceForm
+    EventServiceForm,
+    EditMossemFieldForm
 };
 
 
@@ -103,6 +106,10 @@ class EventsController extends AppController
 //             return $this->redirect('/webinar/' . $id);
 //        }
         $event = $eventModel->getEventAsArray($id);
+        //если это вебинар
+        if($event['type'] === 'Вебинар') {
+            return $this->redirect('/webinar/' . $id);
+        }
         $event['date'] = $this->toRussianDate($event['date']);
         
         $model = new InfoFields();
@@ -115,10 +122,30 @@ class EventsController extends AppController
             ->where(['info_fields.is_deleted' => 0])
                 //чтобы если поле было удалено из админки, 
                 //в событиях заполненная инфа осталась
-            ->orWhere("event_info.value <> '' AND event_info.field_id = info_fields.id")
+            ->orWhere("event_info.event_id = {$id} AND event_info.value <> '' AND event_info.field_id = info_fields.id")
             ->orderBy(['position' => SORT_ASC])
             ->asArray()
             ->all();
+        
+        if($event['type'] === 'Московский семинар') {
+            $mossem_data = MossemFields::find()->with([ 
+                'info' => function (\yii\db\ActiveQuery $query) use ($id) {
+
+                $query->andWhere('mossem_id = '. $id);
+                },])
+                ->leftJoin('mossem_info', 'field_id')
+                ->where(['mossem_fields.is_deleted' => 0])
+                    //чтобы если поле было удалено из админки, 
+                    //в событиях заполненная инфа осталась
+                ->orWhere("mossem_info.mossem_id = {$id} AND mossem_info.value <> '' AND mossem_info.field_id = mossem_fields.id")
+                ->orderBy(['position' => SORT_ASC])
+                ->asArray()
+                ->all();
+        } else {
+            $mossem_data = [];
+        }
+        
+        
         
         $sponsor = new Sponsor();
         $sponsors = $sponsor
@@ -158,6 +185,7 @@ class EventsController extends AppController
                 'title',
                 'id',
                 'data',
+                'mossem_data',
                 'event',
                 'sponsors',
                 'logistics',
@@ -263,6 +291,83 @@ class EventsController extends AppController
         $event = $eventModel->getEventAsArray($event_id);
         //отдача шаблона
         return $this->render('edit_field', 
+                compact(
+                'title',
+                'model',
+                'field',
+                'event'
+                )
+            );
+    }
+    
+    public function actionEditMossemfield($mossem_id, $field_id) {
+        $title = "Редактирование";
+        $edit_form = new EditMossemFieldForm();
+        $where = compact('mossem_id', 'field_id');
+        
+        
+        /*обработчик для поля с файлом: начало*/
+        
+        /*  обработчик для поля с файлом: конец */
+        $InfoFields = new MossemFields();
+        //получаем данные указанного поля
+        $field = $InfoFields
+                    ->find()
+                    ->with(['type', 'info' => function(\yii\db\ActiveQuery $query) use ($mossem_id) {
+                        $query->andWhere('mossem_id = ' . $mossem_id);
+                    }])
+                    ->where(['id' => $field_id])
+                    ->one();
+                    
+        if ($edit_form->load( Yii::$app->request->post() )) {
+            
+            if($field->type->name == 'file') {
+                //пришел файл
+                $file = UploadedFile::getInstance($edit_form, 'file_single');
+                if(empty($file)) {
+                    //пришло пустое файловое поле
+                    $edit_form->updateOnlyComment($mossem_id, $field_id);
+                    //last update
+                    Event::setLastUpdateTime($mossem_id);
+                    return $this->redirect(['event', 'id' => $mossem_id]);
+                }
+                
+                if(!$edit_form->uploadFile($file, $mossem_id, $field_id)){
+                    throw new \yii\base\ErrorException("Невозможно загрузить файл!");
+                }
+                //last update
+                Event::setLastUpdateTime($mossem_id);
+                return $this->redirect(['event', 'id' => $mossem_id]);
+                
+            }
+            
+            if(  null == MossemInfo::find()->where($where)->one() ) {
+                //если поле ранее не было заполнено
+                if(!$edit_form->createNew($mossem_id, $field_id)) {
+                    throw new \yii\base\ErrorException("Невозможно вставить данные!");
+                }
+             
+            } else if( !$edit_form->updateData($mossem_id, $field_id) ) {
+                //обновляем существующее
+                throw new \yii\base\ErrorException("Невозможно обновить данные!");
+            }
+            
+            //last update
+            Event::setLastUpdateTime($mossem_id);
+            return $this->redirect(['event', 'id' => $mossem_id]);
+        }
+        
+        /*обработчик формы: конец*/
+        $form = new EditMossemFieldForm();
+        $model = $form->findOne($where);
+        if(!$model) {
+            $model = $form;
+        }
+        $eventModel = new Event();
+        //получаем данные о событии (для breadcrumbs и title) 
+        $event = $eventModel->getEventAsArray($mossem_id);
+        //отдача шаблона
+        return $this->render('edit_mossem_field', 
                 compact(
                 'title',
                 'model',
@@ -610,8 +715,18 @@ class EventsController extends AppController
     }
     
     public function actionTruncateField($event_id, $field_id) {
-        $EventInfo= new EventInfo();
-        $field = $EventInfo->findOne(compact('event_id', 'field_id'));
+        $event = Event::find()
+                ->where(['id' => $event_id])
+                ->with('type')->one();
+        if($event->type->name === 'Московский семинар') {
+            $EventInfo= new MossemInfo();
+            $field = $EventInfo->findOne(compact('mossem_id', 'field_id'));
+            //мос.семинары
+        } else {
+            $EventInfo = new EventInfo();
+            $field = $EventInfo->findOne(compact('event_id', 'field_id'));
+        }
+        
         $field->value = null;
         $field->save();
         //last update

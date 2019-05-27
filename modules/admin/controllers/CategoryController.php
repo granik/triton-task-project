@@ -31,7 +31,6 @@ class CategoryController extends AppAdminController{
 
         return $this->render('list', [
             'dataProvider' => $dataProvider,
-//            'pages' => $pages
         ]);
     }
     

@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\admin\searchInfoFields */
+/* @var $searchModel app\modules\admin\models\SearchWebinarFields */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = $title;
@@ -14,23 +14,15 @@ $this->registerJs('$(".grid-view").addClass("font-resp")');
     <ol class="breadcrumb d-none d-sm-none d-md-flex bg-white">
         <li class="breadcrumb-item"><a href="/">Главная</a></li>
         <li class="breadcrumb-item"><a href="/admin">Администрирование</a></li>
-        <li class="breadcrumb-item"><a href="/admin/fields/info">Поля таблиц: основное инфо</a></li>
+        <li class="breadcrumb-item"><a href="/admin/fields/mossem">Поля таблиц: вебинары</a></li>
     </ol>
 </nav>
 <div class="row">
     <?= $this->render('../_side_menu')?>
     <div class="col-md-9">
-    <div class="info-fields-index">
-        <?php if( Yii::$app->session->hasFlash('success') ): ?>
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <?= Yii::$app->session->getFlash('success'); ?>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <?php endif; ?>
         <h3><?= Html::encode($this->title) ?></h3>
-        <?php Pjax::begin(['id' => 'info-fields']); ?>
+        <?php Pjax::begin(); ?>
+        <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
         <p>
             <?= Html::a(
@@ -43,12 +35,10 @@ $this->registerJs('$(".grid-view").addClass("font-resp")');
         <?= GridView::widget([
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
-            'tableOptions' => [
-                'class' => 'table table-striped table-bordered pjax-reloadable' 
-                ],
             'columns' => [
                     [
                         'attribute'=>'id',
+                        'filter' => '',
                         'label'=>'#',
                         'contentOptions' =>function ($model, $key, $index, $column){
                             return ['class' => 'id hidden-sm', 'style' => 'width: 50px'];
@@ -113,8 +103,8 @@ $this->registerJs('$(".grid-view").addClass("font-resp")');
                         'contentOptions' =>function ($model, $key, $index, $column){
                             return ['class' => 'id', 'style' => 'width: 40px'];
                         },
-                    ],
-                ],
+                    ], 
+                ]
         ]); ?>
         <?php Pjax::end(); ?>
     </div>
