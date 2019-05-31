@@ -12,13 +12,8 @@ $this->title = $title;
 ?>
 <div class='row button-group' role="group" aria-label="Basic example">
 <?php
-    if(!$isArchive) {
         $classA = 'btn-outline-primary';
         $classB = 'btn-outline-secondary';
-    } else {
-        $classB = 'btn-outline-primary';
-        $classA = 'btn-outline-secondary';
-    }
 ?>
 <?=
     Html::a(
