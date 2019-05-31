@@ -39,6 +39,7 @@ define('ROUTE_RULES', serialize(
                 'event/<event_id:\d+>/add-service' => 'events/add-service',
                 'event/<event_id:\d+>/edit-service/<id:\d+>' => 'events/edit-service',
                 'event/<event_id:\d+>/delete-service/<id:\d+>' => 'events/delete-service',
+                'events/set-presence/<event_id:\d+>' => 'events/set-presence',
                 'webinar/<id:\d+>' => 'webinars/webinar',
                 'profile' => 'profile/index',
                 'webinar/<webinar_id:\d+>/add-sponsor' => 'webinars/add-sponsor',

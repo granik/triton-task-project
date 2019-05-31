@@ -49,4 +49,9 @@ class Event extends ActiveRecord {
         $event->updated_on = time();
         $event->save();
     }
+    
+    public static function isEventPast($id) {
+        $event = self::findOne($id);
+        return $event->date < date("Y-m-d");
+    }
 }

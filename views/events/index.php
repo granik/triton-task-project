@@ -10,7 +10,7 @@ use yii\jui\AutoComplete;
 $this->title = $title;
 ?>
 <div class="row">
-    <div style="width: 100%" class=" btn-group row" role="group" aria-label="Basic example">
+    <div class="row btn-group" style="width: 100%; margin: 0;" role="group" aria-label="Basic example">
 <?php
     if(!$isArchive) {
         $classA = 'btn-outline-primary';
@@ -25,7 +25,7 @@ $this->title = $title;
             'Актуальные события',
             '/', 
             [
-                'class' => 'pl-3 pr-3 pb-2 pt-2 btn ' . $classA .  ' d-block col-sm-4'
+                'class' => 'pl-3 pr-3 pb-2 pt-2 btn ' . $classA .  ' d-block col-sm-3'
             ]
     );
 ?>
@@ -34,7 +34,17 @@ $this->title = $title;
             'Архив событий',
             '/events/archive', 
             [
-                'class' => 'pl-3 pr-3 pb-2 pt-2 btn ' . $classB . ' d-block col-sm-4'
+                'class' => 'pl-3 pr-3 pb-2 pt-2 btn ' . $classB . ' d-block col-sm-3'
+            ]
+    );
+?>
+        
+<?=
+    Html::a(
+            'Итоговая явка',
+            '/events/presence-table', 
+            [
+                'class' => 'pl-3 pr-3 pb-2 pt-2 btn btn-outline-info d-block col-sm-3'
             ]
     );
 ?>
@@ -44,7 +54,7 @@ $this->title = $title;
             'Добавить событие',
             '/events/add', 
             [
-                'class' => 'pl-3 pr-3 pb-2 pt-2 btn btn-outline-info d-block col-sm-4'
+                'class' => 'pl-3 pr-3 pb-2 pt-2 btn btn-outline-info d-block col-sm-3'
             ]
     );
     

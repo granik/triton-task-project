@@ -10,7 +10,7 @@ namespace app\controllers;
 
 use Yii;
 use yii\helpers\{Json, ArrayHelper};
-use yii\web\UploadedFile;
+use yii\data\ActiveDataProvider;
 //models
 use app\models\{
     Event,
@@ -44,7 +44,8 @@ use app\models\{
     AddSponsorForm,
     EventTicketForm,
     EventServiceForm,
-    EditMossemFieldForm
+    EditMossemFieldForm,
+    EventPresenceForm
 };
 
 
@@ -843,5 +844,46 @@ class EventsController extends AppController
         return $this->redirect(['event', 'id' => $event_id]);
     }
   
+    
+    public function actionSetPresence($event_id) {
+        $title = 'Установить итоговую явку на событие';
+        if(!Event::isEventPast($event_id)) {
+            //если это актуальное событие
+            return $this->redirect(['event', 'id' => $event_id]);
+        }
+        
+        
+        $model = new EventPresenceForm();
+        if($model->load(Yii::$app->request->post()) && $model->updateEventPresence($event_id)) {
+            return $this->redirect(['presence-table']);
+        }
+        $modelData = Event::find()->where(['id' => $event_id])->asArray()->one();
+        if(!empty($modelData)) {
+            //для редактирования
+            $model->load(['EventPresenceForm'=> $modelData]);
+        }
+        
+        return $this->render('set_presence', compact('event_id', 'model', 'title'));
+    }
+    
+    public function actionPresenceTable() {
+        $title = 'Итоговая явка';
+        $dataProvider = new ActiveDataProvider([
+            'query' => Event::find()
+                ->innerJoin('city', 'city.id = event.city_id')
+                ->select('event.id, title, date, city.name as city, presence, presence_comment')
+                ->where(['event.is_deleted' => 0])
+                ->andWhere("event.presence IS NOT NULL OR event.presence != ''")
+                ->andWhere(['event.is_cancel' => 0])
+                ->andWhere(['event.is_cancel' => 0])
+                ->andWhere('event.date < CURDATE()')
+                ->orderBy(['date' => SORT_ASC])
+        ]);
+
+        return $this->render('presence_table', compact(
+                'title', 
+                'dataProvider')
+        );
+    }
     
 }
