@@ -34,7 +34,7 @@ class AddEventForm extends Event {
     public function attributeLabels() {
         return['title' => 'Название',
             'type_id' => 'Тип события',
-            'type_custom' => 'Тип (если другое)',
+            'type_custom' => 'Тип (доп.)',
             'date' => 'День проведения',
             'city_id' => 'Город',
             'category_id' => 'Категория'];
@@ -45,10 +45,10 @@ class AddEventForm extends Event {
         if( !$this->validate() ) {
             throw new \yii\base\ErrorException("Ошибка валидации данных!");
         }
-        $otherType = EventType::findOne(['name' => 'Другое'])->id;
-        if(null != $this->type_custom && !empty($otherType) ){
-            $this->type_id = $otherType;
-        }
+//        $otherType = EventType::findOne(['name' => 'Другое'])->id;
+//        if(null != $this->type_custom && !empty($otherType) ){
+//            $this->type_id = $otherType;
+//        }
         
         $this->save();
     }

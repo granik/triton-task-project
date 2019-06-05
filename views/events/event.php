@@ -8,7 +8,7 @@ use yii\helpers\Json;
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb d-none d-sm-none d-md-flex bg-white">
         <li class="breadcrumb-item"><a href="/events">События</a></li>
-        <li class="breadcrumb-item active"><a href="#"><?= $event['title']?></a></li>
+        <li class="breadcrumb-item active"><a href="/event/<?= $event['id'] ?>"><?= $event['title']?></a></li>
     </ol>
 </nav>
 <div class="row">
@@ -48,9 +48,14 @@ use yii\helpers\Json;
                 <?php endif;?>
                  <tr>
                      <td><b>Тип</b></td>
-                    <td><?= $event['type'] !== 'Другое' ? Html::encode($event['type']) : 
-                                Html::encode($event['type'] . ' (' . ($event['type_custom'] ?? 'не указано')  . ')') 
-                            ?>
+                    <td><?php
+                            if($event['type_custom']) {
+                                echo "{$event['type']} ({$event['type_custom']})";
+                            } else {
+                                echo $event['type'];
+                            }
+                            
+                        ?>
                     </td>
                     <td></td>
                 </tr>

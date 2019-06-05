@@ -4,6 +4,7 @@ use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 use kartik\date\DatePicker;
+use yii\helpers\Url;
 ?>
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb d-none d-sm-none d-md-flex bg-white">
@@ -12,35 +13,44 @@ use kartik\date\DatePicker;
     </ol>
 </nav>
 <div class="row justify-content-end">
+    <?=
+    Html::a(
+        'Удалить событие',
+        Url::to(['events/delete', 'event_id' => $event['id']]),
+            [
+            'class' => 'cancel float-right mb-3 mr-2 bg-danger p-1 text-center text-white d-block col-md-2 col-xs-12',
+            'data' => [
+                'method' => 'post',
+                'confirm' => 'Удалить событие?'
+            ]
+        ]);
+    ?>
     <?php if(!$event['is_cancel']): ?>
-    <form id="cancel-event" method="POST" action="<?= '/event/' . $event['id'] . '/cancel' ?>">
-        <input type="hidden" name="<?= \yii::$app->request->csrfParam ?>"
-                                    value="<?=Yii::$app->request->getCsrfToken()?>" />
-    </form>
     <?=
     Html::a(
         'Отменить событие',
-        '#',
-
+        Url::to(['events/cancel', 'event_id' => $event['id']]),
             [
-            'class' => 'cancel float-right mb-3 mr-2 bg-danger p-1 text-center text-white d-block col-md-2 col-xs-12',
-            'onclick' => "document.getElementById('cancel-event').submit(); return false;"
+            'class' => 'float-right mb-3 mr-2 bg-info p-1 text-center text-white d-block col-md-2 col-xs-12',
+            'data' => [
+                        'method' => 'post',
+                        'confirm' => 'Отменить событие?'
+                    ]
             ]
         );
     ?>
+    
     <?php else: ?>
-    <form id="abort-cancel-event" method="POST" action="<?= '/event/' . $event['id'] . '/abort-cancel' ?>">
-        <input type="hidden" name="<?= \yii::$app->request->csrfParam ?>"
-                            value="<?=Yii::$app->request->getCsrfToken()?>" />
-    </form>
     <?=
         Html::a(
             'Вернуть событие',
-            '#',
-             
+            Url::to(['events/abort-cancel', 'event_id' => $event['id']]),
                 [
-                'class' => ' abort-cancel float-right mb-3 mr-2 bg-success p-1 text-center text-white d-block col-md-2 col-xs-12',
-                'onclick' => "document.getElementById('abort-cancel-event').submit(); return false;"
+                'class' => 'float-right mb-3 mr-2 bg-success p-1 text-center text-white d-block col-md-2 col-xs-12',
+                'data' => [
+                        'method' => 'post',
+                        'confirm' => 'Вернуть событие?'
+                    ]
                 ]
             ); 
     ?>

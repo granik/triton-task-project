@@ -886,4 +886,16 @@ class EventsController extends AppController
         );
     }
     
+    //удалить событие
+    public function actionDelete($event_id) {
+        $eventModel = new Event();
+        $event = $eventModel->findOne($event_id);
+        
+        $event->is_deleted = 1;
+        $event->update();
+//        //last update
+//        Event::setLastUpdateTime($event_id);
+        return $this->redirect(['index']);
+    }
+    
 }

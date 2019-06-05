@@ -74,7 +74,7 @@ $this->title = $title;
     GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'options' => ['class' => 'font-resp table-events'],
+        'options' => ['class' => 'font-resp table-events grid-view'],
         'rowOptions' => function ($model, $key, $index, $grid) {
            $bgColor =   !empty($model->type->color) ? $model->type->color :
                        (!empty($model->category->color) ? $model->category->color : '');

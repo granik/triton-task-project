@@ -43,6 +43,7 @@ use kartik\date\DatePicker;
                     'autoclose' => true,
                     'format' => 'yyyy-mm-dd',
                     'bsVersion' => '4',
+                    'orientation' => 'top'
 //                    'startDate'=> date('yyyy-mm-dd', strtotime(time()))artik
                     
                 ]

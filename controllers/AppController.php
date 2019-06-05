@@ -39,6 +39,7 @@ class AppController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'cancel' => ['POST'],
+                    'delete' => ['POST'],
                     'no-cancel' => ['POST'],
                     'remove-sponsor' => ['POST'],
                     'unlink-file' => ['POST'],
