@@ -14,6 +14,7 @@ use app\models\EditFieldWebinarForm;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\web\UploadedFile;
+use app\components\Functions;
 //models
 use app\models\{
     Event,
@@ -38,54 +39,60 @@ use app\models\{
  * @author Granik
  */
 class WebinarsController extends AppController{
+    
+    //week days
+    private $days = ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'];
     //put your code here
-     public function actionWebinar($id) {
-        $title = "Страница вебинара";
-        $webinar = Event::find()
-            ->select(['event.*', 'event_type.name as type', 'event_category.name as category'])
-            ->innerJoin('event_type', 'event.type_id = event_type.id')
-            ->innerJoin('event_category', 'event.category_id = event_category.id')
-            ->where(['event.id' => $id, 'event.is_deleted' => 0])
-            ->asArray()
-            ->one();
-        if(empty($webinar)) {
-            throw new \yii\web\NotFoundHttpException("Страница не найдена");
-        }
-        $webinar['date'] = $this->toRussianDate($webinar['date']);
-        
-        $model = new WebinarFields();
-        $data = $model::find()->with([ 
-        'info' => function (\yii\db\ActiveQuery $query) use ($id) {
-            
-        $query->andWhere('webinar_id = '. $id);
-        },])
-            ->leftJoin('webinar_info', 'field_id')
-            ->where(['webinar_fields.is_deleted' => 0])
-                //чтобы если поле было удалено из админки, 
-                //в событиях заполненная инфа осталась
-            ->orWhere("webinar_info.value <> '' AND webinar_info.field_id = webinar_fields.id")
-            ->orderBy(['position' => SORT_ASC])
-            ->asArray()
-            ->all();
-        
-        $sponsor = new Sponsor();
-        $sponsors = $sponsor
-                ->find()
-                ->with('type')
-                ->where(['event_id' => $id, 'is_deleted' => 0])
-                ->asArray()
-                ->all();
-        
-        return $this->render('webinar', 
-            compact(
-                'title',
-                'id',
-                'data',
-                'webinar',
-                'sponsors'
-            )
-        );
-    }
+    public function actionWebinar($id) {
+       $title = "Страница вебинара";
+       $webinar = Event::find()
+           ->select(['event.*', 'event_type.name as type', 'event_category.name as category'])
+           ->innerJoin('event_type', 'event.type_id = event_type.id')
+           ->innerJoin('event_category', 'event.category_id = event_category.id')
+           ->where(['event.id' => $id, 'event.is_deleted' => 0])
+           ->asArray()
+           ->one();
+       if(empty($webinar)) {
+           throw new \yii\web\NotFoundHttpException("Страница не найдена");
+       }
+       $days = $this->days;
+       $timestamp = strtotime($webinar['date']);
+       $webinar['date'] = Functions::toSovietDate($webinar['date']);
+       $webinar['date_weekday'] = $webinar['date'] . ' (' . $days[date("w", $timestamp)] . ')';
+
+       $model = new WebinarFields();
+       $data = $model::find()->with([ 
+       'info' => function (\yii\db\ActiveQuery $query) use ($id) {
+
+       $query->andWhere('webinar_id = '. $id);
+       },])
+           ->leftJoin('webinar_info', 'field_id')
+           ->where(['webinar_fields.is_deleted' => 0])
+               //чтобы если поле было удалено из админки, 
+               //в событиях заполненная инфа осталась
+           ->orWhere("webinar_info.value <> '' AND webinar_info.field_id = webinar_fields.id")
+           ->orderBy(['position' => SORT_ASC])
+           ->asArray()
+           ->all();
+
+       $sponsor = new Sponsor();
+       $sponsors = $sponsor
+               ->find()
+               ->with('type')
+               ->where(['event_id' => $id, 'is_deleted' => 0])
+               ->asArray()
+               ->all();
+
+       return $this->render('webinar', 
+           compact(
+               'title',
+               'id',
+               'data',
+               'webinar',
+               'sponsors'
+           )
+       );
+   }
     
     public function actionEditField($webinar_id, $field_id) {
         $title = "Редактирование";

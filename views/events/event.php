@@ -17,7 +17,7 @@ use yii\helpers\Json;
         <div class="alert alert-info" role="alert">
             Событие отменено!
         </div>
-        <?php elseif($event['date'] < date("d.m.Y") ):
+        <?php elseif(strtotime($event['date']) < time() ):
             define('IS_PAST', true);
             ?>
         <div class="alert alert-primary" role="alert">
@@ -71,7 +71,7 @@ use yii\helpers\Json;
                 </tr>
                 <tr>
                     <td><b>Дата</b></td>
-                    <td><?= $event['date']?></td>
+                    <td><?= $event['date_weekday']?></td>
                     <td></td>
                 </tr>
                 

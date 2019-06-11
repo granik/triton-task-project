@@ -17,6 +17,12 @@ use yii\helpers\Json;
         <div class="alert alert-info" role="alert">
             Событие отменено!
         </div>
+        <?php elseif(strtotime($webinar['date']) < time() ):
+            define('IS_PAST', true);
+            ?>
+        <div class="alert alert-primary" role="alert">
+            Событие прошло <b><?=$webinar['date']?></b>
+        </div>
         <?php endif; ?>
         <h6 class="pl-2 pr-2 mb-4 float-left"><?= Html::encode($webinar['title']) ?></h6>
         <?=
@@ -28,6 +34,18 @@ use yii\helpers\Json;
         ?>
         <table class="table-striped table-bordered wide font-resp" id="event-desc">
             <tbody>
+                <?php if(defined('IS_PAST')): ?>
+                <tr>
+                    <td><i><b>Итоговая явка</b></i></td>
+                    <td><?= $event['presence'] ?? 'Не указано' ?></td>
+                    <td><?= Html::a('Правка', '/events/set-presence/' . $event['id']);?></td>
+                </tr>
+                <tr>
+                    <td><i><b>Итоговый комментарий</b></i></td>
+                    <td><?= Html::encode($event['presence_comment']) ?? '-' ?></td>
+                    <td></td>
+                </tr>
+                <?php endif;?>
                  <tr>
                      <td><b>Тип</b></td>
                     <td>
@@ -42,7 +60,7 @@ use yii\helpers\Json;
                 </tr>
                 <tr>
                     <td><b>Дата</b></td>
-                    <td><?= $webinar['date']?></td>
+                    <td><?= $webinar['date_weekday']?></td>
                     <td></td>
                 </tr>
                 <?php foreach($data as $row): ?>

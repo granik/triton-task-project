@@ -11,6 +11,7 @@ namespace app\controllers;
 use Yii;
 use yii\helpers\{Json, ArrayHelper};
 use yii\data\ActiveDataProvider;
+use \app\components\Functions;
 //models
 use app\models\{
     Event,
@@ -54,6 +55,9 @@ use app\models\{
 class EventsController extends AppController
 {
 
+    //week days
+    private $days = ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'];
+
     public function actions()
     {
         return [
@@ -70,14 +74,15 @@ class EventsController extends AppController
         $categories = $Category->getCategories();
         $searchModel = new SearchEvent();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        
+        $days = $this->days;
 
         return $this->render('index', 
                 compact('title', 
                         'categories', 
                         'searchModel', 
                         'dataProvider',
-                        'isArchive')
+                        'isArchive',
+                        'days')
                 );
     }
     
@@ -88,14 +93,15 @@ class EventsController extends AppController
         $categories = $Category->getCategories();
         $searchModel = new SearchEvent(['is_archive' => true]);
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        
+        $days = $this->days;
 
         return $this->render('index', 
                 compact('title', 
                         'categories', 
                         'searchModel', 
                         'dataProvider',
-                        'isArchive')
+                        'isArchive',
+                        'days')
                 );
     }
 
@@ -111,7 +117,10 @@ class EventsController extends AppController
         if($event['type'] === 'Вебинар') {
             return $this->redirect('/webinar/' . $id);
         }
-        $event['date'] = $this->toRussianDate($event['date']);
+        $days = $this->days;
+        $timestamp = strtotime($event['date']);
+        $event['date'] = Functions::toSovietDate($event['date']);
+        $event['date_weekday'] = $event['date'] . ' (' . $days[date("w", $timestamp)] . ')';
         
         $model = new InfoFields();
         $data = $model::find()->with([ 

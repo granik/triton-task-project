@@ -171,8 +171,10 @@ $this->title = $title;
                     'contentOptions' =>function ($model, $key, $index, $column){
                         return ['class' => 'date', 'style' => 'width: 150px'];
                     },
-                    'value' => function($model) {
-                        return Functions::toSovietDate($model->date);
+                    'value' => function($model) use ($days) {
+                        $timestamp = strtotime($model->date);
+                        $date = Functions::toSovietDate($model->date);
+                        return $date . ' ' . $days[date("w", $timestamp)];
                     },
                     'filter' => ''
                 ],

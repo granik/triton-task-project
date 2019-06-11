@@ -61,14 +61,6 @@ class AppController extends Controller
         die("<pre>" . print_r($var, true) . "</pre>");
     }
     
-    protected function toRussianDate($date_string) {
-        $pattern = "/^(\d\d\d\d)-(\d\d)-(\d\d)$/";
-        preg_match($pattern, $date_string, $matches);
-        unset($matches[0]);
-        $result = implode(array_reverse($matches), '.');
-        return $result;
-    }
-    
     public function actionDownload($name, $section = 'event_files', $event_id) {
         $path = Yii::$app->params['pathUploads'];
         $file = $path . '/' . $section . '/' . $event_id . '/' . $name;
