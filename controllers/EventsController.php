@@ -916,7 +916,7 @@ class EventsController extends AppController
         }
         
         $data = Event::find()
-                ->with(['type', 'category'])
+                ->with(['type', 'category', 'city'])
                 ->where(['between', 'date', "{$year}-{$month}-01", "{$year}-{$month}-31"])
                 ->andWhere(['event.is_deleted' => 0, 'event.is_cancel' => 0])
                 ->asArray()

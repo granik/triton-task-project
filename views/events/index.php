@@ -8,7 +8,7 @@ use app\components\Functions;
 use app\models\City;
 use yii\jui\AutoComplete;
 $this->title = $title;
-$this->registerCssFile("/css/calendar.css");
+$this->registerCssFile("/css/calendar.css?" . time());
 $this->registerJsFile("/js/calendar.js?" . time());
 ?>
 <div class="row">
