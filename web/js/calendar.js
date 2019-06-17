@@ -101,7 +101,7 @@ function LoadEvents(month, year) {
         dataType: 'JSON',
         success: function (response){
             for(var i=0; i< response.length; i++) {
-                var day = String.substr(response[i].date, -2, 2);
+                var day = response[i].date.substr(-2, 2);
                 var dropdownDiv = $('<div></div>');
                 dropdownDiv.addClass('dropdown-menu');
                 dropdownDiv.addClass('dd-calendar');
