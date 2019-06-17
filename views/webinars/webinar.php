@@ -37,12 +37,12 @@ use yii\helpers\Json;
                 <?php if(defined('IS_PAST')): ?>
                 <tr>
                     <td><i><b>Итоговая явка</b></i></td>
-                    <td><?= $event['presence'] ?? 'Не указано' ?></td>
-                    <td><?= Html::a('Правка', '/events/set-presence/' . $event['id']);?></td>
+                    <td><?= $webinar['presence'] ?? 'Не указано' ?></td>
+                    <td><?= Html::a('Правка', '/events/set-presence/' . $webinar['id']);?></td>
                 </tr>
                 <tr>
                     <td><i><b>Итоговый комментарий</b></i></td>
-                    <td><?= Html::encode($event['presence_comment']) ?? '-' ?></td>
+                    <td><?= Html::encode($webinar['presence_comment']) ?? '-' ?></td>
                     <td></td>
                 </tr>
                 <?php endif;?>
