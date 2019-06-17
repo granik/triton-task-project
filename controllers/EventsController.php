@@ -908,17 +908,18 @@ class EventsController extends AppController
     }
     
     public function actionAjaxCalendar($year, $month) { //month: 1-12
-//        if(!Yii::$app->request->isAjax) {
-//            throw new \yii\web\NotFoundHttpException("Страница не найдена");
-//        }
+        if(!Yii::$app->request->isAjax) {
+            throw new \yii\web\NotFoundHttpException("Страница не найдена");
+        }
         
         $data = Event::find()
                 ->with(['type', 'category'])
                 ->where(['between', 'date', "{$year}-{$month}-01", "{$year}-{$month}-31"])
                 ->asArray()
                 ->all();
-                
-        die(Json::encode($data));
+        header("Content-Type: application/json");        
+        echo Json::encode($data);
+        exit;
         
     }
     

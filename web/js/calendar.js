@@ -102,10 +102,10 @@ function LoadEvents(month, year) {
         success: function (response){
             for(var i=0; i< response.length; i++) {
                 var day = String.substr(response[i].date, -2, 2);
-                var dropdownDiv = document.createElement('div');
-                dropdownDiv.classList.add('dropdown-menu');
-                dropdownDiv.classList.add('dd-calendar');
-                dropdownDiv.setAttribute('aria-labelledby', 'day-' + day);
+                var dropdownDiv = $('<div></div>');
+                dropdownDiv.addClass('dropdown-menu');
+                dropdownDiv.addClass('dd-calendar');
+                dropdownDiv.attr('aria-labelledby', 'day-' + day);
                 $('#day-' + day).append(dropdownDiv);
                 $('#day-' + day).css('background-color', '#97CBFF');
                 $('#day-' + day).css('border-radius', '20px');
