@@ -14,7 +14,7 @@ use app\models\City;
 ?>
 
 <div class="logistic-fields-search d-block d-sm-none">
-
+    <h5>Фильтр:</h5>
     <?php $form = ActiveForm::begin([
         'action' => [''],
         'method' => 'get',

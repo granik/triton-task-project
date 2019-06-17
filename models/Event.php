@@ -5,6 +5,7 @@ use yii\db\ActiveRecord;
 use app\models\EventType;
 use app\models\City;
 use app\models\EventCategory;
+use app\models\EventInfo;
 /**
  * Description of EventModel
  *
@@ -18,6 +19,10 @@ class Event extends ActiveRecord {
     
     public function getType() {
         return $this->hasOne(EventType::className(), ['id' => 'type_id']);
+    }
+    
+    public function getInfo() {
+        return $this->hasOne(EventInfo::className(), ['event_id' => 'id']);
     }
     
     public function getCity() {

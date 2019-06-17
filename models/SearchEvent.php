@@ -48,7 +48,7 @@ class SearchEvent extends Event
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
-        return Model::scenarios();
+        return Event::scenarios();
     }
 
     /**
@@ -92,11 +92,12 @@ class SearchEvent extends Event
         $query->andFilterWhere([
             'category_id' => $this->category_id,
             'type_id' => $this->type_id,
-            'date' => Functions::toDBdate($this->date)
         ]);
+        $query->andFilterWhere(['like', 'date', Functions::toDBdate($this->date)]);
         $query->andFilterWhere([
             'event.is_deleted' => 0
         ]);
+        
        
 
         

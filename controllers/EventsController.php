@@ -11,7 +11,7 @@ namespace app\controllers;
 use Yii;
 use yii\helpers\{Json, ArrayHelper};
 use yii\data\ActiveDataProvider;
-use \app\components\Functions;
+use app\components\Functions;
 //models
 use app\models\{
     Event,
@@ -905,6 +905,21 @@ class EventsController extends AppController
 //        //last update
 //        Event::setLastUpdateTime($event_id);
         return $this->redirect(['index']);
+    }
+    
+    public function actionAjaxCalendar($year, $month) { //month: 1-12
+//        if(!Yii::$app->request->isAjax) {
+//            throw new \yii\web\NotFoundHttpException("Страница не найдена");
+//        }
+        
+        $data = Event::find()
+                ->with(['type', 'category'])
+                ->where(['between', 'date', "{$year}-{$month}-01", "{$year}-{$month}-31"])
+                ->asArray()
+                ->all();
+                
+        die(Json::encode($data));
+        
     }
     
 }

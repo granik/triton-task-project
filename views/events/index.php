@@ -8,6 +8,8 @@ use app\components\Functions;
 use app\models\City;
 use yii\jui\AutoComplete;
 $this->title = $title;
+$this->registerCssFile("/css/calendar.css");
+$this->registerJsFile("/js/calendar.js");
 ?>
 <div class="row">
     <div class="row btn-group" style="width: 100%; margin: 0;" role="group" aria-label="Basic example">
@@ -66,10 +68,19 @@ $this->title = $title;
 
 ?>
         </div>
-    <div class="col-md-12 mr-md-auto ml-md-auto pull-right bg-light p-3" style="min-height: 500px;">
+    <div class="col-lg-2 bg-light p-3">
+        <!--Календарь начало--> 
+        <table id="calendar2">
+            <thead>
+              <tr><td>‹<td id="date" colspan="5"><td>›
+              <tr><td>Пн<td>Вт<td>Ср<td>Чт<td>Пт<td>Сб<td>Вс
+            <tbody>
+        </table>
+        <!--Календарь конец-->
+    </div>
+    <div class="col-lg-10 col-xs-12 mr-md-auto ml-md-auto pull-right bg-light p-3" style="min-height: 500px;">
         
         <h4 class="pt-2 pb-2"><?= $isArchive ? 'Архив событий' : 'Актуальные события'; ?></h4>
-    <?= $this->render('_search', ['model' => $searchModel]); ?>
     <?=
     GridView::widget([
         'dataProvider' => $dataProvider,
@@ -176,11 +187,16 @@ $this->title = $title;
                         $date = Functions::toSovietDate($model->date);
                         return $date . ' ' . $days[date("w", $timestamp)];
                     },
-                    'filter' => ''
+                    'filter' => Html::textInput('SearchEvent[date]','', [
+                                'class' => 'form-control d-none',
+                                'id'    => 'date-input'
+                            ]
+                        )
                 ],
             ],
  
     ]);
     ?>
+    <?= $this->render('_search', ['model' => $searchModel]); ?>
     </div>
 </div>

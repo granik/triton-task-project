@@ -9,6 +9,7 @@
 namespace app\models;
 use yii\db\ActiveRecord;
 use app\models\InfoFields;
+use app\models\FieldType;
 /**
  * Description of EventInfo
  *
@@ -26,6 +27,13 @@ class EventInfo extends ActiveRecord {
                 ->andWhere(compact('field_id'))
                 ->asArray()
                 ->one();
+    
+    
     }
+//    
+//    public function getFtype() {
+//        return $this->hasOne(FieldType::className(), ['id' => 'field_id']);
+//    }
+    
 
 }
