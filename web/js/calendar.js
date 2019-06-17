@@ -94,6 +94,7 @@ function LoadEvents(month, year) {
     $.ajax({
         url: '/events/ajax-calendar',
         type: 'get',
+        async: false,
         data: {
             year: year,
             month: month
@@ -110,7 +111,9 @@ function LoadEvents(month, year) {
                 $('#day-' + day).css('background-color', '#97CBFF');
                 $('#day-' + day).css('border-radius', '20px');
                 $('#day-' + (day <= 9 ? '0'+day : day) + ' .dropdown-menu').append(
-                        `<a onclick="location.href=this.href;return false;" class="dropdown-item" href="/event/${response[i].id}"><strong>${response[i].type.name}</strong> (${response[i].category.name})<p class="where">${response[i].city.name}</p></a>`
+                        `<a onclick="location.href=this.href;return false;" class="dropdown-item" 
+                                href="/event/${response[i].id}"><strong>${response[i].type.name}</strong> 
+                                (${response[i].category.name})<p class="where">${response[i].city.name}</p></a>`
                         );
             }
         }
