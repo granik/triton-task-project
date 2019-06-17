@@ -9,7 +9,7 @@ use app\models\City;
 use yii\jui\AutoComplete;
 $this->title = $title;
 $this->registerCssFile("/css/calendar.css");
-$this->registerJsFile("/js/calendar.js");
+$this->registerJsFile("/js/calendar.js?" . time());
 ?>
 <div class="row">
     <div class="row btn-group" style="width: 100%; margin: 0;" role="group" aria-label="Basic example">

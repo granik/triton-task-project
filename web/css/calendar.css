@@ -46,3 +46,8 @@
     
 }
 
+#calendar2 tbody td .dropdown-menu a:hover {
+    /*color: #0080FF;*/
+    text-decoration: underline;
+}
+
