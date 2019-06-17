@@ -114,6 +114,9 @@ class EventsController extends AppController
 //        }
         $event = $eventModel->getEventAsArray($id);
         //если это вебинар
+        if($event['is_deleted']) {
+            throw new \yii\web\NotFoundHttpException("Событие не найдено. Возможно, оно было удалено или еще не создано");
+        }
         if($event['type'] === 'Вебинар') {
             return $this->redirect('/webinar/' . $id);
         }
@@ -915,6 +918,7 @@ class EventsController extends AppController
         $data = Event::find()
                 ->with(['type', 'category'])
                 ->where(['between', 'date', "{$year}-{$month}-01", "{$year}-{$month}-31"])
+                ->andWhere(['event.is_deleted' => 0, 'event.is_cancel' => 0])
                 ->asArray()
                 ->all();
         header("Content-Type: application/json");        
