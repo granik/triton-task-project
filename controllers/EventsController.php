@@ -12,6 +12,8 @@ use Yii;
 use yii\helpers\{Json, ArrayHelper};
 use yii\data\ActiveDataProvider;
 use app\components\Functions;
+use yii\web\UploadedFile;
+
 //models
 use app\models\{
     Event,
