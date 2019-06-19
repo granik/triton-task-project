@@ -16,9 +16,9 @@ use yii\helpers\Html;
     <?php $active_form = ActiveForm::begin([
       'validateOnBlur' => false,
       'method' => 'post',
-    ]); 
-    echo $active_form->field($model, 'ticket_file')
-            ->fileInput();
+    ]);
+    echo "<i style='font-size: 0.7em'>Можно выбрать несколько файлов, удерживая CTRL</i>";
+    echo $active_form->field($model, 'ticket_file[]')->fileInput(['multiple' => true]);
     ?>
     <div class="form-group">
         <div class="col-lg-offset-1 col-lg-11">

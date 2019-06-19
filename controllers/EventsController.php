@@ -757,13 +757,13 @@ class EventsController extends AppController
         $model = new EventTicketForm();
         $event = Event::findOne(['id' => $event_id]);
         if($model->load(Yii::$app->request->post())) {
-            $file = UploadedFile::getInstance($model, 'ticket_file');
-            if(empty($file)) {
+            $files = UploadedFile::getInstances($model, 'ticket_file');
+            if(empty($files)) {
                 return $this->redirect(['event', 'id' => $event_id]);
             }
 
-            if(!$model->uploadFile($file, $event_id)){
-                throw new \yii\base\ErrorException("Невозможно загрузить файл!");
+            if(!$model->uploadFiles($files, $event_id)){
+                throw new \yii\base\ErrorException("Невозможно загрузить файлы!");
             }
             //last update
             Event::setLastUpdateTime($event_id);

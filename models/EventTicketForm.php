@@ -20,17 +20,17 @@ class EventTicketForm extends EventTicket {
     
     public function rules() {
         return [
-            ['ticket_file', 'file', 'extensions' => 'pdf, jpeg, jpg, png, bmp', 'skipOnEmpty' => true]
+            ['ticket_file', 'file', 'extensions' => 'pdf, jpeg, jpg, png, bmp', 'maxFiles' => 10, 'skipOnEmpty' => true]
         ];
     }
     
     public function attributeLabels() {
         return [
-            'ticket_file' => 'Загрузить файл'
+            'ticket_file' => 'Загрузить билет(ы)'
         ];
     }
     
-    public function uploadFile($file, $event_id) {
+    public function uploadFiles($files, $event_id) {
         if(!$this->validate() ) {
             throw new \yii\base\ErrorException('Ошибка вадидации данных');
         }
@@ -39,16 +39,27 @@ class EventTicketForm extends EventTicket {
         if(!is_dir($path)) {
             mkdir($path, 0755);
         }
-        $baseName = $file->getBaseName();
-        $ext = $file->getExtension();
-        $this->event_id = $event_id;
-        $this->filename = $baseName . '.' . $ext;
-        $i = 1;
-        while(file_exists($path . $this->filename)) {
-            $this->filename = $baseName . "($i)." . $ext;
-            $i++;
+        $rows = [];
+        foreach($files as $file) {
+            $baseName = $file->getBaseName();
+            $ext = $file->getExtension();
+            $filename = $baseName . '.' . $ext;
+            $i = 1;
+            while(file_exists($path . $filename)) {
+                //если файл существует - добавляем цифру в имя
+                $filename = $baseName . "($i)." . $ext;
+                $i++;
+            }
+            $file->saveAs( $path . $filename );
+            $rows[] = [$event_id, $filename];
         }
+        if(empty($rows)) {
+            return false;
+        }
+        //вставляем
+        $command = Yii::$app->db->createCommand();
+            $command->batchInsert(self::tableName(),['event_id','filename'], $rows)->execute();
         
-        return $this->save() && $file->saveAs( $path . $this->filename ) ? true : false;
+        return true;
     }
 }
