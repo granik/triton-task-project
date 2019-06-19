@@ -19,7 +19,7 @@ class LogisticsForm extends LogisticInfo {
         return [
             [['event_id', 'type_id', 'to_means', 'between_means', 'home_means'], 'integer'],
             [['persons', 'type_id'], 'required'],
-            [['persons'], 'string', 'min' => 3, 'max' => 20],
+            [['persons'], 'string', 'min' => 3, 'max' => 70],
             [['to_date', 'between_date', 'home_date', 'living_from', 'living_to'], 'date', 'format' => 'yyyy-MM-dd'],
             [['to_time', 'between_time', 'home_time', 'to_arrival' , 'between_arrival', 'home_arrival'], 'string', 'min' => 5, 'max' => 5],
             [['to_time', 'between_time', 'home_time', 'to_arrival', 'between_arrival', 'home_arrival'], 'trim']
