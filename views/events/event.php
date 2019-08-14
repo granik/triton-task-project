@@ -301,7 +301,7 @@ use yii\helpers\Json;
             Html::a(
                 'Добавить билет',
                 '/event/' . $event['id'] . '/add-ticket',
-                ['class' => 'float-right mb-3 bg-primary p-1 text-center text-white d-block col-md-2 col-xs-12']
+                ['class' => 'float-right mb-3 bg-primary p-1 text-center text-white d-block col-md-2 col-xs-12',]
                 ); 
         ?>
         <table id="finances" class="table-striped table-bordered wide font-resp">
@@ -317,7 +317,7 @@ use yii\helpers\Json;
             $url = "/app/download?name=" . $ticket['filename'] . "&event_id=" . $event['id'];
             ?>
             <tr>
-                <td style="word-wrap: break-word;"><?= Html::a($ticket['filename'], $url, [])?></td>
+                <td style="word-wrap: break-word;"><?= Html::a($ticket['filename'], $url, ['target' => '_blank'])?></td>
                 <td class=" pl-0 pr-0 text-center">
                         <?=
                                 Html::a(
