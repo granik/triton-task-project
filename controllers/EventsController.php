@@ -869,7 +869,7 @@ class EventsController extends AppController
         
         $model = new EventPresenceForm();
         if($model->load(Yii::$app->request->post()) && $model->updateEventPresence($event_id)) {
-            return $this->redirect(['presence-table']);
+            return $this->redirect(['archive']);
         }
         $modelData = Event::find()->where(['id' => $event_id])->asArray()->one();
         if(!empty($modelData)) {
