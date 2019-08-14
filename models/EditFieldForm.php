@@ -108,6 +108,9 @@ class EditFieldForm extends EventInfo {
         }
         
         $baseName = $file->getBaseName();
+        if(count(explode(' ', $baseName)) !== 1)  {
+            $baseName = str_replace(' ','_' , $baseName);
+        }
         $ext = $file->getExtension();
         $field->event_id = $event_id;
         $field->field_id = $field_id;
