@@ -102,7 +102,7 @@ function LoadEvents(month, year) {
         dataType: 'JSON',
         success: function (response){
             for(var i=0; i< response.length; i++) {
-                var day = response[i].date.substr(-2, 2);
+                var day = parseInt(response[i].date.substr(-2, 2));
                 var dropdownDiv = $('<div></div>');
                 dropdownDiv.addClass('dropdown-menu');
                 dropdownDiv.addClass('dd-calendar');
@@ -110,7 +110,7 @@ function LoadEvents(month, year) {
                 $('#day-' + day).append(dropdownDiv);
                 $('#day-' + day).css('background-color', '#97CBFF');
                 $('#day-' + day).css('border-radius', '20px');
-                $('#day-' + (day <= 9 ? '0'+day : day) + ' .dropdown-menu').append(
+                $('#day-' + day + ' .dropdown-menu').append(
                         `<a onclick="location.href=this.href;return false;" class="dropdown-item" 
                                 href="/event/${response[i].id}"><strong>${response[i].type.name}</strong> 
                                 (${response[i].category.name})<p class="where">${response[i].city.name}</p></a>`

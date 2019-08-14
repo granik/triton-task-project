@@ -66,7 +66,17 @@ class AppController extends Controller
         $file = $path . '/' . $section . '/' . $event_id . '/' . $name;
 
         if (file_exists($file)) {
-            return Yii::$app->response->sendFile($file);
+            //чтобы файл открывался в браузере
+            $mimetype = mime_content_type($file);
+            header("Content-Type: {$mimetype}");
+            header('Content-Disposition: inline; filename=' . $name);
+            if ($fd = fopen($file, 'rb')) {
+                while (!feof($fd)) {
+                  print fread($fd, 1024);
+                }
+                fclose($fd);
+            }
+            exit;
         } 
         throw new \yii\base\ErrorException('Файл не найден!');
     }
