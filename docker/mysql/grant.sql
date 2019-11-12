@@ -1,0 +1,5 @@
+CREATE USER 'triton'@'%' IDENTIFIED WITH mysql_native_password BY '123456789';
+
+GRANT ALL PRIVILEGES ON *.* TO 'triton'@'%' WITH GRANT OPTION;
+
+FLUSH PRIVILEGES;

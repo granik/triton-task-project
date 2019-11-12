@@ -916,10 +916,10 @@ class EventsController extends AppController
         if(!Yii::$app->request->isAjax) {
             throw new \yii\web\NotFoundHttpException("Страница не найдена");
         }
-        
+        $daysAmount = [null, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
         $data = Event::find()
                 ->with(['type', 'category', 'city'])
-                ->where(['between', 'date', "{$year}-{$month}-01", "{$year}-{$month}-31"])
+                ->where(['between', 'date', "{$year}-{$month}-01", "{$year}-{$month}-{$daysAmount[$month]}"])
                 ->andWhere(['event.is_deleted' => 0, 'event.is_cancel' => 0])
                 ->asArray()
                 ->all();

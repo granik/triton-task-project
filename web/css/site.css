@@ -96,7 +96,7 @@ table#logistics tr,
 table#finances tr,
 table#sponsors tr
 {
-    line-height: 30px;
+    line-height: 35px;
 }
 
 .table-events td {
@@ -110,4 +110,13 @@ p.color-indicator {
     height: 32px;
     border-radius: 60px;
     border: 1px solid #000;
+}
+
+.control-td {
+    font-size: 1.6em;
+    width: 5%;
+}
+
+.title-td {
+    width: 25% !important;
 }

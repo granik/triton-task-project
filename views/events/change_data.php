@@ -12,50 +12,6 @@ use yii\helpers\Url;
         <li class="breadcrumb-item active"><a href="/event/add">Редактировать событие</a></li>
     </ol>
 </nav>
-<div class="row justify-content-end">
-    <?=
-    Html::a(
-        'Удалить событие',
-        Url::to(['events/delete', 'event_id' => $event['id']]),
-            [
-            'class' => 'cancel float-right mb-3 mr-2 bg-danger p-1 text-center text-white d-block col-md-2 col-xs-12',
-            'data' => [
-                'method' => 'post',
-                'confirm' => 'Удалить событие?'
-            ]
-        ]);
-    ?>
-    <?php if(!$event['is_cancel']): ?>
-    <?=
-    Html::a(
-        'Отменить событие',
-        Url::to(['events/cancel', 'event_id' => $event['id']]),
-            [
-            'class' => 'float-right mb-3 mr-2 bg-info p-1 text-center text-white d-block col-md-2 col-xs-12',
-            'data' => [
-                        'method' => 'post',
-                        'confirm' => 'Отменить событие?'
-                    ]
-            ]
-        );
-    ?>
-    
-    <?php else: ?>
-    <?=
-        Html::a(
-            'Вернуть событие',
-            Url::to(['events/abort-cancel', 'event_id' => $event['id']]),
-                [
-                'class' => 'float-right mb-3 mr-2 bg-success p-1 text-center text-white d-block col-md-2 col-xs-12',
-                'data' => [
-                        'method' => 'post',
-                        'confirm' => 'Вернуть событие?'
-                    ]
-                ]
-            ); 
-    ?>
-    <?php endif; ?>
-</div>
 <div class="row justify-content-center">
     <div class="col-sm-5">
         <?php $form = ActiveForm::begin([

@@ -18,7 +18,6 @@
       <path value="$PROJECT_DIR$/vendor/sebastian/version" />
       <path value="$PROJECT_DIR$/vendor/symfony/console" />
       <path value="$PROJECT_DIR$/vendor/symfony/css-selector" />
-      <path value="$PROJECT_DIR$/vendor/symfony/debug" />
       <path value="$PROJECT_DIR$/vendor/phar-io/manifest" />
       <path value="$PROJECT_DIR$/vendor/symfony/event-dispatcher" />
       <path value="$PROJECT_DIR$/vendor/phar-io/version" />
@@ -51,7 +50,6 @@
       <path value="$PROJECT_DIR$/vendor/doctrine/instantiator" />
       <path value="$PROJECT_DIR$/vendor/guzzlehttp/psr7" />
       <path value="$PROJECT_DIR$/vendor/psr/http-message" />
-      <path value="$PROJECT_DIR$/vendor/psr/log" />
       <path value="$PROJECT_DIR$/vendor/swiftmailer/swiftmailer" />
       <path value="$PROJECT_DIR$/vendor/ezyang/htmlpurifier" />
       <path value="$PROJECT_DIR$/vendor/bower-asset/typeahead.js" />
@@ -68,10 +66,18 @@
       <path value="$PROJECT_DIR$/vendor/cebe/markdown" />
       <path value="$PROJECT_DIR$/vendor/fzaninotto/faker" />
       <path value="$PROJECT_DIR$/vendor/ralouphie/getallheaders" />
-      <path value="$PROJECT_DIR$/vendor/bower-asset/fancybox" />
-      <path value="$PROJECT_DIR$/vendor/twbs/bootstrap" />
-      <path value="$PROJECT_DIR$/vendor/grozzzny/depends" />
-      <path value="$PROJECT_DIR$/vendor/components/font-awesome" />
+      <path value="$PROJECT_DIR$/vendor/yiisoft/yii2-jui" />
+      <path value="$PROJECT_DIR$/vendor/bower-asset/jquery-ui" />
+      <path value="$PROJECT_DIR$/vendor/bower-asset/devbridge-autocomplete" />
+      <path value="$PROJECT_DIR$/vendor/anmaslov/yii2-autocomplete-widget" />
+      <path value="$PROJECT_DIR$/vendor/kartik-v/yii2-krajee-base" />
+      <path value="$PROJECT_DIR$/vendor/kartik-v/yii2-widget-datepicker" />
+      <path value="$PROJECT_DIR$/vendor/npm-asset/bootstrap" />
+      <path value="$PROJECT_DIR$/vendor/yiisoft/yii2-bootstrap4" />
+      <path value="$PROJECT_DIR$/vendor/symfony/event-dispatcher-contracts" />
+      <path value="$PROJECT_DIR$/vendor/symfony/service-contracts" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php73" />
+      <path value="$PROJECT_DIR$/vendor/psr/container" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="5.4.0" />

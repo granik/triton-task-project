@@ -1,9 +1,41 @@
 version: '2'
 services:
   php:
+    container_name: yii2_php_web
     image: yiisoftware/yii2-php:7.1-apache
     volumes:
       - ~/.composer-docker/cache:/root/.composer/cache:delegated
       - ./:/app:delegated
     ports:
-      - '8000:80'
+      - '8090:80'
+
+  mysql:
+    container_name: mysql
+    build:
+      context: ./docker/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: '123456789'
+      MYSQL_USER: 'triton'
+      MYSQL_PASS: '123456789'
+    volumes:
+      - db-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=mysql
+      - MYSQL_USER=triton
+      - MYSQL_PASSWORD=123456789
+      - MYSQL_ROOT_PASSWORD=123456789
+    ports:
+      - "8091:80"
+    depends_on:
+      - mysql
+
+volumes:
+  db-data:
+  

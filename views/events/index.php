@@ -93,10 +93,10 @@ $this->registerJsFile("/js/calendar.js?" . time());
                 'style' => 'cursor: pointer; background-color: ' . "$bgColor",
                 'onmouseover' => "this.style['background-color'] = '#fff'",
                 'onmouseout' => "this.style['background-color'] = '$bgColor'",
-                'onclick' => $model->type->name !== 'Вебинар' ? 'location.href="' 
-                    .'/event/' . $model->id . '";' : 
-                'location.href="' 
-                    .'/webinar/' . $model->id . '";',
+                'onclick' => $model->type->name !== 'Вебинар' ? 'window.open("'
+                    .'/event/' . $model->id . '");' :
+                'window.open("'
+                    .'/webinar/' . $model->id . '");',
             ];
         },
         'layout'=>"{summary}\n{items}\n{pager}",
