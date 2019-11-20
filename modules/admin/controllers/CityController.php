@@ -3,13 +3,11 @@
 namespace app\modules\admin\controllers;
 
 use Yii;
-use app\models\City;
-use yii\data\ActiveDataProvider;
-use app\modules\admin\controllers\AppAdminController;
+use app\models\common\City;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\modules\admin\models\SearchCity;
-use app\modules\admin\models\CityForm;
+use app\modules\admin\models\source\SearchCity;
+use app\modules\admin\models\source\CityForm;
 
 /**
  * AdminController implements the CRUD actions for City model.

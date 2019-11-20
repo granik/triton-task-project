@@ -3,21 +3,15 @@
 namespace app\modules\admin\controllers;
 
 use Yii;
-use app\modules\admin\controllers\AppAdminController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\helpers\{
-    ArrayHelper,
-    Json
-};
-use app\models\{
-    InfoFields, 
-    FieldType
-};
-use app\modules\admin\models\{
-    InfoFieldsForm, 
-    SearchInfoFields
-};
+use yii\helpers\ArrayHelper;
+use yii\helpers\Json;
+use app\models\event\main\InfoFields;
+use app\models\event\main\FieldType;
+use app\modules\admin\models\fields\InfoFieldsForm;
+use app\modules\admin\models\fields\SearchInfoFields;
+
 /**
  * InfoFieldsController implements the CRUD actions for InfoFields model.
  */

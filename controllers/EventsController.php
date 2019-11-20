@@ -1,55 +1,41 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Granik
- * Date: 13.02.2019
- * Time: 14:54
- */
 
 namespace app\controllers;
 
 use Yii;
-use yii\helpers\{Json, ArrayHelper};
+use yii\helpers\Json;
+use yii\helpers\ArrayHelper;
 use yii\data\ActiveDataProvider;
 use app\components\Functions;
 use yii\web\UploadedFile;
-
-//models
-use app\models\{
-    Event,
-    EventCategory,
-    City,
-    EventType,
-    InfoFields,
-    EventInfo,
-    Sponsor,
-    SponsorType,
-    LogisticInfo,
-    LogisticMeans,
-    LogisticFields,
-    FinanceInfo,
-    FinanceFields,
-    SearchEvent,
-    EventTicket,
-    EventService,
-    WebinarFields,
-    MossemFields,
-    MossemInfo
-};
-
-//forms
-use app\models\{
-    AddEventForm,
-    EditFieldForm,
-    ChangeDataForm,
-    LogisticsForm,
-    FinanceForm,
-    AddSponsorForm,
-    EventTicketForm,
-    EventServiceForm,
-    EditMossemFieldForm,
-    EventPresenceForm
-};
+use app\models\event\main\Event;
+use app\models\event\main\EventCategory;
+use app\models\common\City;
+use app\models\event\main\EventType;
+use app\models\event\main\InfoFields;
+use app\models\event\main\EventInfo;
+use app\models\event\sponsor\Sponsor;
+use app\models\event\sponsor\SponsorType;
+use app\models\event\logistics\LogisticInfo;
+use app\models\event\logistics\LogisticMeans;
+use app\models\event\logistics\LogisticFields;
+use app\models\event\finance\FinanceInfo;
+use app\models\event\finance\FinanceFields;
+use app\models\event\main\SearchEvent;
+use app\models\event\tickets\EventTicket;
+use app\models\mossem\MossemFields;
+use app\models\mossem\MossemInfo;
+use app\models\event\main\AddEventForm;
+use app\models\event\main\EditFieldForm;
+use app\models\event\main\ChangeDataForm;
+use app\models\event\logistics\LogisticsForm;
+use app\models\event\finance\FinanceForm;
+use app\models\event\sponsor\AddSponsorForm;
+use app\models\event\tickets\EventTicketForm;
+use app\models\event\services\EventServiceForm;
+use app\models\mossem\EditMossemFieldForm;
+use app\models\event\main\EventPresenceForm;
+use app\models\event\services\EventService;
 
 
 
@@ -185,7 +171,10 @@ class EventsController extends AppController
                 ->asArray()
                 ->all();
         
-        $tickets = EventTicket::find()->where($where)->asArray()->all();
+        $ticketDataProvider = new ActiveDataProvider([
+            'query'=> EventTicket::find()->where($where),
+            'sort' => false,
+        ]);
         
         $services = EventService::find()
                 ->where([
@@ -205,7 +194,7 @@ class EventsController extends AppController
                 'sponsors',
                 'logistics',
                 'finance',
-                'tickets',
+                'ticketDataProvider',
                 'services'
             )
         );

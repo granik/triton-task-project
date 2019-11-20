@@ -2,11 +2,11 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use app\models\EventType;
-use app\models\EventCategory;
+use app\models\event\main\EventType;
+use app\models\event\main\EventCategory;
 use yii\helpers\ArrayHelper;
 use anmaslov\autocomplete\AutoComplete;
-use app\models\City;
+use app\models\common\City;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\admin\SearchLogisticFields */

@@ -9,9 +9,9 @@
 namespace app\modules\admin\controllers;
 use Yii;
 use app\modules\admin\controllers\AppAdminController;
-use app\models\EventType;
+use app\models\event\main\EventType;
 use yii\data\ActiveDataProvider;
-use app\modules\admin\models\EventTypeForm;
+use app\modules\admin\models\source\EventTypeForm;
 use yii\filters\VerbFilter;
 
 /**

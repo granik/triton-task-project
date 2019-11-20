@@ -27,7 +27,7 @@ $this->title = $title;
         <?= $this->render('event/finance', compact('event','finance')); ?>
         <!--//-->
         <!--/билеты/-->
-        <?= $this->render('event/tickets', compact('event','tickets')); ?>
+        <?= $this->render('event/tickets', compact('event','ticketDataProvider')); ?>
         <!--//-->
         <!--/услуги/-->
         <?= $this->render('event/services', compact('event','services')); ?>

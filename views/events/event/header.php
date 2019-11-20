@@ -32,7 +32,7 @@
     <?php
     if ($event['is_cancel']) {
         echo Html::a(
-            '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>',
+            '<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>',
             Url::to(['events/abort-cancel', 'event_id' => $event['id']]),
             ['class' => 'pl-4 pr-4 m-1 btn btn-mg btn-success',
                 'data' => [
@@ -43,7 +43,7 @@
         );
     } else {
         echo Html::a(
-            '<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>',
+            '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>',
             Url::to(['events/cancel', 'event_id' => $event['id']]),
             ['class' => 'pl-4 pr-4 m-1 btn btn-mg btn-warning',
                 'data' => [

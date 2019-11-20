@@ -8,7 +8,7 @@ use app\components\Functions;
         <tr>
             <td><i><b>Итоговая явка</b></i></td>
             <td><?= $event['presence'] ?? 'Не указано' ?></td>
-            <td><?= Html::a('<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>', '/events/set-presence/' . $event['id']);?></td>
+            <td class="control-td text-center"><?= Html::a('<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>', '/events/set-presence/' . $event['id']);?></td>
         </tr>
         <tr>
             <td><i><b>Итоговый комментарий</b></i></td>

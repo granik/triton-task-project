@@ -5,7 +5,7 @@ use yii\helpers\Html;
 <?=
 Html::a(
     'Добавить спонсора',
-    '/event/' . $event['id'] . '/add-sponsor',
+    '/event/' . $event['id'] . '/add-event_sponsor',
     ['class' => 'float-right mb-3 bg-primary p-1 text-center text-white d-block col-md-2 col-xs-12']
 );
 ?>
@@ -26,7 +26,7 @@ Html::a(
                 <?=
                 Html::a(
                     '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>',
-                    '/event/' . $event['id'] . '/remove-sponsor/' . $sponsor['id'],
+                    '/event/' . $event['id'] . '/remove-event_sponsor/' . $sponsor['id'],
                     ['class' => 'pl-1 pr-1 text-center text-danger',
                         'data' => [
                             'method' => 'post',

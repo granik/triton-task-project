@@ -1,22 +1,16 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace app\modules\admin\controllers;
+
 use Yii;
 use yii\helpers\ArrayHelper;
-use app\modules\admin\controllers\AppAdminController;
-use app\modules\admin\models\CreateUserForm;
-use app\modules\admin\models\UpdateUserForm;
+use app\modules\admin\models\user\CreateUserForm;
+use app\modules\admin\models\user\UpdateUserForm;
 use app\models\User;
 use app\modules\admin\models\SearchUser;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
-use app\models\UserRole;
+use app\models\common\UserRole;
 /**
  * Description of UserController
  *

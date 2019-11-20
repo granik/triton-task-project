@@ -3,11 +3,10 @@
 namespace app\modules\admin\controllers;
 
 use Yii;
-use app\models\WebinarFields;
-use app\modules\admin\models\WebinarFieldsForm;
-use app\models\FieldType;
-use app\modules\admin\models\SearchWebinarFields;
-use app\modules\admin\controllers\AppAdminController;
+use app\models\webinar\WebinarFields;
+use app\modules\admin\models\fields\WebinarFieldsForm;
+use app\models\event\main\FieldType;
+use app\modules\admin\controllers\SearchWebinarFields;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;

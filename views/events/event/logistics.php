@@ -6,7 +6,7 @@ use app\components\Functions;
 <?=
 Html::a(
     'Добавить информацию',
-    '/event/' . $event['id'] . '/add-logistics',
+    '/event/' . $event['id'] . '/add-event_logistics',
     ['class' => 'float-right mb-3 bg-primary p-1 text-center text-white d-block col-md-2 col-xs-12']
 );
 ?>
@@ -36,7 +36,7 @@ Html::a(
                 <?=
                 Html::a(
                     '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>',
-                    '/event/' . $event['id'] . '/edit-logistics/' . $item['id'],
+                    '/event/' . $event['id'] . '/edit-event_logistics/' . $item['id'],
                     ['class' => 'pl-1 pr-1 text-danger text-center remove-']
                 );
                 ?>

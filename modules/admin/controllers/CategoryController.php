@@ -9,10 +9,9 @@
 namespace app\modules\admin\controllers;
 
 use Yii;
-use app\modules\admin\controllers\AppAdminController;
-use app\models\EventCategory;
+use app\models\event\main\EventCategory;
 use yii\data\ActiveDataProvider;
-use app\modules\admin\models\CategoryForm;
+use app\modules\admin\models\source\CategoryForm;
 use yii\filters\VerbFilter;
 
 

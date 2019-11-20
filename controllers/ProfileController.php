@@ -7,11 +7,10 @@
  */
 
 namespace app\controllers;
-use app\controllers\AppController;
-use app\models\User;
-use app\models\ProfileEditForm;
+
+use app\models\common\ProfileEditForm;
 use Yii;
-use app\models\ChangePasswordForm;
+use app\models\common\ChangePasswordForm;
 /**
  * Description of ProfileController
  *

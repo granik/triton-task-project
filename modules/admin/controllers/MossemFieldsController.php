@@ -3,11 +3,10 @@
 namespace app\modules\admin\controllers;
 
 use Yii;
-use app\models\MossemFields;
-use app\modules\admin\models\MossemFieldsForm;
-use app\models\FieldType;
-use app\modules\admin\models\SearchMossemFields;
-use app\modules\admin\controllers\AppAdminController;
+use app\models\mossem\MossemFields;
+use app\modules\admin\models\fields\MossemFieldsForm;
+use app\models\event\main\FieldType;
+use app\modules\admin\models\fields\SearchMossemFields;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;

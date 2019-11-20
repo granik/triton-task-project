@@ -1,37 +1,22 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace app\controllers;
-use app\controllers\AppController;
-use app\models\WebinarFields;
-use app\models\WebinarInfo;
-use app\models\EditFieldWebinarForm;
+
+use app\models\webinar\WebinarFields;
+use app\models\webinar\WebinarInfo;
+use app\models\webinar\EditFieldWebinarForm;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\web\UploadedFile;
 use app\components\Functions;
-//models
-use app\models\{
-    Event,
-    EventCategory,
-    City,
-    EventType,
-    InfoFields,
-    EventInfo,
-    Sponsor,
-    SponsorType
-};
-
-//forms
-use app\models\{
-    ChangeDataForm,
-    AddSponsorForm
-};
+use app\models\event\main\Event;
+use app\models\event\main\EventCategory;
+use app\models\common\City;
+use app\models\event\main\EventType;
+use app\models\event\sponsor\Sponsor;
+use app\models\event\sponsor\SponsorType;
+use app\models\event\main\ChangeDataForm;
+use app\models\event\sponsor\AddSponsorForm;
 
 /**
  * Description of WebinarsController

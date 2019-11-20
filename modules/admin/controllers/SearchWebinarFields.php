@@ -4,7 +4,7 @@ namespace app\modules\admin\controllers;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\WebinarFields;
+use app\models\webinar\WebinarFields;
 
 /**
  * SearchWebinarFields represents the model behind the search form of `app\models\WebinarFields`.

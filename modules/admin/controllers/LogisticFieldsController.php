@@ -3,10 +3,9 @@
 namespace app\modules\admin\controllers;
 
 use Yii;
-use app\models\LogisticFields;
-use app\modules\admin\models\LogisticForm;
-use app\modules\admin\models\SearchLogisticFields;
-use app\modules\admin\controllers\AppAdminController;
+use app\models\event\logistics\LogisticFields;
+use app\modules\admin\models\fields\LogisticForm;
+use app\modules\admin\models\fields\SearchLogisticFields;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 

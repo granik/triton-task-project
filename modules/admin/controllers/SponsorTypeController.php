@@ -3,10 +3,9 @@
 namespace app\modules\admin\controllers;
 
 use Yii;
-use app\modules\admin\models\SponsorTypeForm;
-use app\models\SponsorType;
-use app\modules\admin\models\SearchSponsorType;
-use app\modules\admin\controllers\AppAdminController;
+use app\modules\admin\models\source\SponsorTypeForm;
+use app\models\event\sponsor\SponsorType;
+use app\modules\admin\models\source\SearchSponsorType;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 

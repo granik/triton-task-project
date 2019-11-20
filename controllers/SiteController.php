@@ -2,15 +2,13 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\User;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
-use app\models\LoginForm;
-use app\models\CreateUserForm;
-use app\models\PasswordResetRequestForm;
-use app\models\ResetPasswordForm;
+use app\models\common\LoginForm;
+use app\models\common\PasswordResetRequestForm;
+use app\models\common\ResetPasswordForm;
 
 class SiteController extends Controller
 {

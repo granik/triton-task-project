@@ -2,10 +2,10 @@
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
-use app\models\EventCategory;
-use app\models\EventType;
+use app\models\event\main\EventCategory;
+use app\models\event\main\EventType;
 use app\components\Functions;
-use app\models\City;
+use app\models\common\City;
 use yii\jui\AutoComplete;
 $this->title = $title;
 $this->registerCssFile("/css/calendar.css?" . time());
