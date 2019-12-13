@@ -1,29 +1,34 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace app\models\event\finance;
+
+use yii\base\ErrorException;
+
 /**
- * Description of addFinanceForm
+ * Форма добавления финансового инфо
  *
  * @author Granik
  */
-class FinanceForm extends FinanceInfo {
-    
-    public function rules() {
+class FinanceForm extends FinanceInfo
+{
+    /**
+     * @inheritDoc
+     */
+    public function rules()
+    {
         return [
-                [['exist', 'status'], 'safe'],
-                ['comment', 'string', 'min' => 1, 'max' => 50],
-                [['event_id', 'type_id'], 'integer'],
-                [['event_id', 'type_id'], 'required']
-            ];
+            [['exist', 'status'], 'safe'],
+            ['comment', 'string', 'min' => 1, 'max' => 50],
+            [['event_id', 'type_id'], 'integer'],
+            [['event_id', 'type_id'], 'required']
+        ];
     }
-    
-    public function attributeLabels() {
+
+    /**
+     * @inheritDoc
+     */
+    public function attributeLabels()
+    {
         return [
             'comment' => 'Примечание',
             'status' => 'Статус',
@@ -32,18 +37,26 @@ class FinanceForm extends FinanceInfo {
             'event_id' => ''
         ];
     }
-    
-    public function updateData($id) {
-        if( !$this->validate() ) {
-            throw new \yii\base\ErrorException("Ошибка валидации данных!");
+
+    /**
+     * Обновить финансовую информацию
+     *
+     * @param $id ID строки в таблице финансового инфо
+     * @return bool
+     * @throws ErrorException
+     */
+    public function updateData($id)
+    {
+        if (!$this->validate()) {
+            throw new ErrorException("Ошибка валидации данных!");
         }
-        
+
         $row = $this->findOne($id);
         $row->type_id = $this->type_id;
         $row->exist = $this->exist;
         $row->status = $this->status;
         $row->comment = $this->comment;
-        
-        return $row->save() ? true : false;
+
+        return $row->save();
     }
 }

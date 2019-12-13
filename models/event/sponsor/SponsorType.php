@@ -1,26 +1,30 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace app\models\event\sponsor;
+
 use yii\db\ActiveRecord;
 
 /**
- * Description of SponsorType
+ * Модель типов спонсоров
  *
  * @author Granik
  */
-class SponsorType extends ActiveRecord {
-    //put your code here
-    public static function tableName() {
+class SponsorType extends ActiveRecord
+{
+    /**
+     * {@inheritDoc}
+     */
+    public static function tableName()
+    {
         return 'sponsor_type';
     }
-    
-    public function getSponsors() {
+
+    /**
+     * Связь с моделью спонсоров
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSponsors()
+    {
         return $this->hasMany(Sponsor::className(), ['type_id' => 'id']);
     }
 }

@@ -1,25 +1,32 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace app\models\event\finance;
+
+use app\models\event\main\FieldType;
 use yii\db\ActiveRecord;
 
 /**
- * Description of financeInfo
+ * Модель финансового инфо
  *
  * @author Granik
  */
-class FinanceInfo extends ActiveRecord {
-    public static function tableName() {
+class FinanceInfo extends ActiveRecord
+{
+    /**
+     * @inheritDoc
+     */
+    public static function tableName()
+    {
         return 'finance_info';
     }
-    
-    public function getFields() {
-        return $this->hasOne(FinanceFields::className(), ['id' => 'type_id']);
+
+    /**
+     * Связь c типом поля
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getType()
+    {
+        return $this->hasOne(FieldType::className(), ['id' => 'type_id']);
     }
 }

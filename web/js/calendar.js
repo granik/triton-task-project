@@ -92,7 +92,7 @@ Date.prototype.toSovietDate = function() {
 
 function LoadEvents(month, year) {
     $.ajax({
-        url: '/events/ajax-calendar',
+        url: '/event/main/ajax-calendar',
         type: 'get',
         async: false,
         data: {

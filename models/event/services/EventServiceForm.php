@@ -1,20 +1,18 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace app\models\event\services;
 /**
- * Description of EventServiceForm
+ * Модель формы добавления доп. услуг
  *
  * @author Granik
  */
-class EventServiceForm extends EventService {
-    //put your code here
-    public function rules() {
+class EventServiceForm extends EventService
+{
+    /**
+     * {@inheritDoc}
+     */
+    public function rules()
+    {
         return [
             ['title', 'required'],
             ['title', 'string', 'min' => 2, 'max' => 30],
@@ -32,8 +30,12 @@ class EventServiceForm extends EventService {
             ['status', 'integer']
         ];
     }
-    
-    public function attributeLabels() {
+
+    /**
+     * {@inheritDoc}
+     */
+    public function attributeLabels()
+    {
         return [
             'event_id' => '',
             'title' => 'Название',

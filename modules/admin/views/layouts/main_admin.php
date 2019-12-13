@@ -27,7 +27,7 @@ AppAsset::register($this);
                 <a class="nav-link" href="/">События</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/profile">Профиль и уведомления</a>
+                <a class="nav-link" href="/profile">Профиль</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/admin">Администрирование</a>

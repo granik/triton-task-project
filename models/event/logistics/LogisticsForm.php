@@ -1,31 +1,33 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace app\models\event\logistics;
+
 /**
- * Description of AddLogisticsForm
+ * Модель формы добавления/редактирования логистического инфо
  *
  * @author Granik
  */
-class LogisticsForm extends LogisticInfo {
-    
-    public function rules() {
+class LogisticsForm extends LogisticInfo
+{
+    /**
+     * @inheritDoc
+     */
+    public function rules()
+    {
         return [
-            [['event_id', 'type_id', 'to_means', 'between_means', 'home_means'], 'integer'],
+            [['event_id', 'type_id', 'to_means', 'between_means', 'home_means', 'type_id'], 'integer'],
             [['persons', 'type_id'], 'required'],
             [['persons'], 'string', 'min' => 3, 'max' => 70],
             [['to_date', 'between_date', 'home_date', 'living_from', 'living_to'], 'date', 'format' => 'yyyy-MM-dd'],
-            [['to_time', 'between_time', 'home_time', 'to_arrival' , 'between_arrival', 'home_arrival'], 'string', 'min' => 5, 'max' => 5],
-            [['to_time', 'between_time', 'home_time', 'to_arrival', 'between_arrival', 'home_arrival'], 'trim']
+            [['to_time', 'between_time', 'home_time', 'to_arrival', 'between_arrival', 'home_arrival'], 'string', 'min' => 5, 'max' => 5],
         ];
     }
-    
-    public function attributeLabels() {
+
+    /**
+     * @inheritDoc
+     */
+    public function attributeLabels()
+    {
         return [
             'event_id' => '',
             'type_id' => 'Тип',
@@ -44,11 +46,17 @@ class LogisticsForm extends LogisticInfo {
             'home_means' => 'Домой',
             'home_date' => 'Домой (дата выезда)',
             'home_time' => 'Домой (время выезда)',
-            ];
+        ];
     }
-    
-    public function updateData($id) {
-        if(!$this->validate()) {
+
+    /**
+     * @param $id ИД строки логистического инфо
+     * @return bool
+     * @throws \yii\base\ErrorException
+     */
+    public function updateData($id)
+    {
+        if (!$this->validate()) {
             throw new \yii\base\ErrorException(print_r($this->errors));
         }
         $row = $this->findOne($id);
@@ -67,7 +75,7 @@ class LogisticsForm extends LogisticInfo {
         $row->home_means = $this->home_means;
         $row->home_date = $this->home_date;
         $row->home_time = $this->home_time;
-        
-        return $row->save() ? true : false;
+
+        return $row->save();
     }
 }

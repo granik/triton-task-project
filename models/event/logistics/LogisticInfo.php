@@ -1,42 +1,61 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace app\models\event\logistics;
+
 use yii\db\ActiveRecord;
-use app\models\event\main\Event;
 
 /**
- * Description of LogisticInfo
+ * Модель логистического инфо
  *
  * @author Granik
  */
-class LogisticInfo extends ActiveRecord {
-    public static function tableName() {
+class LogisticInfo extends ActiveRecord
+{
+    /**
+     * @inheritDoc
+     */
+    public static function tableName()
+    {
         return 'logistic_info';
     }
-    
-//    public function getEvent() {
-//        return $this->hasOne(Event::className(), ['event_id' => 'id']);
-//    }
-    
-    public function getType() {
+
+    /**
+     * Связь с типом поля
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getType()
+    {
         return $this->hasOne(LogisticFields::className(), ['id' => 'type_id']);
     }
-    
-    public function getTo() {
+
+    /**
+     * Связь со средствами передвижения
+     * (поездка туда)
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTo()
+    {
         return $this->hasOne(LogisticMeans::className(), ['id' => 'to_means']);
     }
-    
-    public function getBetween() {
+
+    /**
+     * Связь со средствами передвижения
+     * (поездка между городами)
+     * @return \yii\db\ActiveQuery
+     */
+    public function getBetween()
+    {
         return $this->hasOne(LogisticMeans::className(), ['id' => 'between_means']);
     }
-    
-    public function getHome() {
+
+    /**
+     * Связь со средствами передвижения
+     * (поездка домой)
+     * @return \yii\db\ActiveQuery
+     */
+    public function getHome()
+    {
         return $this->hasOne(LogisticMeans::className(), ['id' => 'home_means']);
     }
 }

@@ -2,22 +2,22 @@
 
 namespace app\modules\admin\models\user;
 
-use Yii;
 use app\models\User;
-//use app\modules\admin\models\CreateUserForm;
+
 /**
  * Description of UpdateUserForm
  *
  * @author Granik
  */
-class UpdateUserForm extends User {
+class UpdateUserForm extends User
+{
     //put your code here
-    
+
     public $password;
     public $password_repeat;
-   
-    
-     /**
+
+
+    /**
      * @inheritdoc
      */
     public function rules()
@@ -39,8 +39,9 @@ class UpdateUserForm extends User {
             [['first_name', 'last_name'], 'string', 'min' => 2, 'max' => 30],
         ];
     }
-    
-    public function attributeLabels() {
+
+    public function attributeLabels()
+    {
         return [
             'email' => 'E-mail',
             'password' => 'Новый пароль',
@@ -50,24 +51,24 @@ class UpdateUserForm extends User {
             'role_id' => 'Роль пользователя'
         ];
     }
-    
+
     public function updateUser($id)
     {
- 
+
         if (!$this->validate()) {
             throw new \yii\base\ErrorException("Ошибка валидации данных!");
         }
- 
+
         $model = new User();
         $user = $model->findOne($id);
         $user->email = $this->email;
         $user->first_name = $this->first_name;
         $user->last_name = $this->last_name;
-        if($id != 1) {
-           $user->role_id = $this->role_id; 
+        if ($id != 1) {
+            $user->role_id = $this->role_id;
         }
 //        $user->generateAuthKey();
-        if(!empty($this->password)) {
+        if (!empty($this->password)) {
             $user->setPassword($this->password);
         }
         return $user->save() ? $user : null;

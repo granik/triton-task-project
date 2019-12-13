@@ -4,6 +4,7 @@ namespace app\models\common;
 
 use Yii;
 use yii\base\Model;
+use app\models\User;
 
 /**
  * LoginForm is the model behind the login form.
@@ -35,8 +36,9 @@ class LoginForm extends Model
             ['password', 'validatePassword'],
         ];
     }
-    
-    public function attributeLabels() {
+
+    public function attributeLabels()
+    {
         return [
             'email' => 'E-mail',
             'password' => 'Пароль',
@@ -55,11 +57,11 @@ class LoginForm extends Model
     {
         if (!$this->hasErrors()) {
             $user = $this->getUser();
-           
+
 
             if (!$user || !$user->validatePassword($this->password)) {
                 $this->addError($attribute, 'Неправильный E-mail или пароль!');
-            } else if($user && $user->is_deleted != 0) {
+            } else if ($user && $user->is_deleted != 0) {
                 $this->addError($attribute, 'Пользователь деактивирован!');
                 return;
             }
@@ -73,7 +75,7 @@ class LoginForm extends Model
     public function login()
     {
         if ($this->validate()) {
-            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600*24*30 : 0);
+            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
         }
         return false;
     }

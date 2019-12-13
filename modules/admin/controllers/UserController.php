@@ -3,96 +3,163 @@
 namespace app\modules\admin\controllers;
 
 use Yii;
+use yii\base\ErrorException;
 use yii\helpers\ArrayHelper;
 use app\modules\admin\models\user\CreateUserForm;
 use app\modules\admin\models\user\UpdateUserForm;
 use app\models\User;
-use app\modules\admin\models\SearchUser;
+use app\modules\admin\models\user\SearchUser;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
 use app\models\common\UserRole;
+use yii\helpers\Url;
+
 /**
- * Description of UserController
+ * Контроллер, отвечающий за пользователей сайта
  *
  * @author Granik
  */
-class UserController extends AppAdminController {
-    //put your code here
-    
-    public function behaviors()
+class UserController extends AppAdminController
+{
+    /**
+     * Инстанс модели поиска
+     * @var SearchUser
+     */
+    protected $search_model;
+    /**
+     * Инстанс модели формы создания
+     * @var CreateUserForm
+     */
+    protected $create_form;
+
+    /**
+     * UserController constructor.
+     * @param $id
+     * @param $module
+     * @param array $config
+     * @param SearchUser $search_model
+     * @param CreateUserForm $create_form
+     */
+    public function __construct($id, $module, $config = [], SearchUser $search_model, CreateUserForm $create_form)
     {
-        
-        $rules = [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-        $parentRules = parent::behaviors();
-        return array_merge_recursive($rules, $parentRules);
+        $this->search_model = $search_model;
+        $this->create_form = $create_form;
+        parent::__construct($id, $module, $config);
     }
-    public function actionList() {
-//        die('worx!');
+    /**
+     * Список пользователей
+     *
+     * @return string
+     */
+    public function actionList()
+    {
         $title = 'Пользователи';
-        $searchModel = new SearchUser();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        
+        $dataProvider = $this->search_model->search(Yii::$app->request->queryParams);
 
         return $this->render('list', [
-            'searchModel' => $searchModel,
+            'searchModel' => $this->search_model,
             'dataProvider' => $dataProvider,
             'title' => $title,
         ]);
     }
-    
-    public function actionCreate() {
-        $title = 'Новый пользователь';
-        $model = new CreateUserForm();
- 
-        if ($model->load(Yii::$app->request->post())) {
-            if ($user = $model->signup()) {
-//                if (Yii::$app->getUser()->login($user)) {
-//                    return $this->goHome();
-//                }
-                return $this->redirect(['list']);
-            }
-        }
- 
-        return $this->render('create', compact('model', 'title'));
+
+    /**
+     * Страница с формой создания пользователя
+     *
+     * @return string
+     */
+    public function actionCreate()
+    {
+        return $this->render('create', [
+                'title' => 'Новый пользователь',
+                'model' => $this->create_form
+            ]
+        );
     }
-    
+
+    /**
+     * Обработчик формы создания пользователя
+     *
+     * @return \yii\web\Response
+     * @throws ErrorException
+     */
+    public function actionStore()
+    {
+        $model = $this->create_form;
+        if ($model->load(Yii::$app->request->post())) {
+            $model->signup();
+            return $this->redirect(['list']);
+        }
+        throw new ErrorException('Ошибка обработки формы');
+
+    }
+
+    /**
+     * Страница просмотра пользователя
+     *
+     * @param $id
+     * @return string
+     * @throws NotFoundHttpException
+     */
     public function actionView($id)
     {
         $title = "Пользователи";
-        $user = new User();
-        $model = $user->findOne($id);
-        if(empty($model->id)) {
+        $model = User::findOne($id);
+        if (empty($model->id)) {
             throw new NotFoundHttpException("Страница не найдена");
         }
-        return $this->render('view', compact('model', 'title') );
+        return $this->render('view', compact('model', 'title'));
     }
-    
-    public function actionUpdate($id) {
+
+    /**
+     * Страница с формой редактирования пользователя
+     *
+     * @param $id
+     * @return string
+     * @throws NotFoundHttpException
+     */
+    public function actionEdit($id)
+    {
         $title = 'Правка пользователя';
-        $user = new UpdateUserForm();
-        $model = $user->findOne($id);
-        $roles = UserRole::find()->asArray()->all();
+        $model = UpdateUserForm::findOne($id);
+        $roles = UserRole::findAll();
         $roles = ArrayHelper::map($roles, 'id', 'name');
-        if(empty($model->id)) {
+        if (empty($model->id)) {
             throw new NotFoundHttpException("Страница не найдена");
         }
-        if($model->load( Yii::$app->request->post()) && $model->updateUser($id)) {
+        return $this->render('edit', compact('title', 'model', 'roles'));
+    }
+
+    /**
+     * Обработчик формы редактирования пользователей
+     *
+     * @param $id
+     * @return \yii\web\Response
+     * @throws \yii\base\ErrorException
+     */
+    public function actionUpdate($id)
+    {
+        $model = UpdateUserForm::findOne($id);
+        if ($model->load(Yii::$app->request->post()) && $model->updateUser($id)) {
             Yii::$app->session->setFlash('success', 'Данные обновлены!');
             return $this->redirect(['view', 'id' => $id]);
         }
-        return $this->render('update', compact('title', 'model', 'roles') );
+        throw new ErrorException('Ошибка обработки формы!');
     }
-    
-    public function actionDelete($id) {
+
+    /**
+     * Экшн удаления пользователя
+     *
+     * @param $id
+     * @return \yii\web\Response
+     * @throws NotFoundHttpException
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
+    public function actionDelete($id)
+    {
         $user = User::findOne($id);
-        if(empty($user->id)) {
+        if (empty($user->id)) {
             throw new NotFoundHttpException("Нет пользователя с таким ID");
         }
         $user->is_deleted = 1;
@@ -100,10 +167,20 @@ class UserController extends AppAdminController {
         Yii::$app->session->setFlash('success', 'Пользователь успешно деактивирован');
         return $this->redirect(['list']);
     }
-    
-    public function actionRestore($id) {
+
+    /**
+     * Экшн восстановления пользователя
+     *
+     * @param $id
+     * @return \yii\web\Response
+     * @throws NotFoundHttpException
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
+    public function actionRestore($id)
+    {
         $user = User::findOne($id);
-        if(empty($user->id)) {
+        if (empty($user->id)) {
             throw new NotFoundHttpException("Нет пользователя с таким ID");
         }
         $user->is_deleted = 0;
@@ -111,7 +188,4 @@ class UserController extends AppAdminController {
         Yii::$app->session->setFlash('success', 'Пользователь успешно активирован');
         return $this->redirect(['list']);
     }
-    
-    
-    
 }

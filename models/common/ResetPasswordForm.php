@@ -26,7 +26,7 @@ class ResetPasswordForm extends Model
      * @param array $config name-value pairs that will be used to initialize the object properties
      * @throws \yii\base\InvalidParamException if token is empty or not valid
      */
-    public function __construct($token, $config = [])
+    public function __construct($token = null, $config = [])
     {
 
         if (empty($token) || !is_string($token)) {
@@ -41,11 +41,12 @@ class ResetPasswordForm extends Model
 
         parent::__construct($config);
     }
-    
-    public function attributeLabels() {
+
+    public function attributeLabels()
+    {
         return [
             'password' => 'Пароль',
-            'password_repeat' =>  'Повторите пароль'
+            'password_repeat' => 'Повторите пароль'
         ];
     }
 

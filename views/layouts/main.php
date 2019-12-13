@@ -30,7 +30,7 @@ AppAsset::register($this);
                 <a class="nav-link" href="/">События</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/profile">Профиль и уведомления</a>
+                <a class="nav-link" href="/profile">Профиль</a>
             </li>
             <?php if( User::isUserAdmin(Yii::$app->user->identity->id) ): ?>
             <li class="nav-item">
@@ -71,7 +71,7 @@ AppAsset::register($this);
 <div class="container-fluid" style="min-height: 550px">
     <?= $content ?>
 </div>
-<footer class="navbar navbar-light bg-light mt-5">
+<footer class="navbar navbar-light bg-light mt-0">
     <a class="navbar-brand" href="#">Компания &laquo;Тритон&raquo; &copy; <?= date('Y')?></a>
 </footer>
 <?php $this->endBody() ?>

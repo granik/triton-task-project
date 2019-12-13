@@ -7,9 +7,11 @@ namespace app\modules\admin\controllers;
  *
  * @author Granik
  */
-class DefaultController extends AppAdminController {
-    
-    public function actionIndex() {
+class DefaultController extends AppAdminController
+{
+
+    public function actionIndex()
+    {
         $title = "Администрирование";
         $msg = "Вы находитесь в панели администрирования";
         return $this->render('index', compact('title', 'msg'));

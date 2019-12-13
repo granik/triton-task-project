@@ -1,29 +1,43 @@
 <?php
+
 namespace app\models\event\main;
 
-use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\components\Functions;
 
 /**
- * searchCity represents the model behind the search form of `app\models\City`.
+ * Модель формы поиска событий
  */
 class SearchEvent extends Event
 {
-    
+    /**
+     * ИД типа события
+     * @var int
+     */
     public $type_id;
+    /**
+     * ИД категории события
+     * @var int
+     */
     public $category_id;
-    //configuration
+    /**
+     * Конфиг
+     * @var array
+     */
     public $config;
+
     /**
      * {@inheritdoc}
      */
-    
-    public function __construct(array $config = ['is_archive' => false]) {
+    public function __construct(array $config = ['is_archive' => false])
+    {
         $this->config = $config;
         parent::__construct();
     }
-    
+
+    /**
+     * {@inheritDoc}
+     */
     public function rules()
     {
         return [
@@ -31,8 +45,12 @@ class SearchEvent extends Event
             ['date', 'date', 'format' => 'mm.dd.yyyy']
         ];
     }
-    
-    public function attributeLabels() {
+
+    /**
+     * @inheritDoc
+     */
+    public function attributeLabels()
+    {
         return [
             'type_id' => 'Тип события',
             'city' => 'Город',
@@ -58,7 +76,7 @@ class SearchEvent extends Event
      */
     public function search($params)
     {
-        if($this->config['is_archive']) {
+        if ($this->config['is_archive']) {
             $query = Event::find()
                 ->with(['type', 'city', 'category'])
                 ->where("event.date < CURDATE() OR is_cancel = 1")
@@ -69,8 +87,7 @@ class SearchEvent extends Event
                 ->where("event.date >= CURDATE() AND is_cancel = 0")
                 ->orderBy(['date' => SORT_ASC]);
         }
-        
-        
+
 
         // add conditions that should always apply here
 
@@ -95,10 +112,8 @@ class SearchEvent extends Event
         $query->andFilterWhere([
             'event.is_deleted' => 0
         ]);
-        
-       
 
-        
+
         $query->joinWith('city');
         $query->andFilterWhere(['like', 'city.name', $this->city]);
 

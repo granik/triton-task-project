@@ -1,24 +1,23 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace app\models\event\main;
+
 use Yii;
+
 /**
- * Description of AddEventForm
+ * Модель формы редактирования события
  *
  * @author Granik
  */
 class EditFieldForm extends EventInfo {
-
-    
+    /**
+     * Поле с файлом
+     */
     public $file_single;
 
-    
+    /**
+     * {@inheritDoc}
+     */
     public function rules() {
         return [
             ['value', 'trim'],
@@ -62,8 +61,6 @@ class EditFieldForm extends EventInfo {
         } 
         $field->value = $this->value;
         $field->comment = $this->comment;
-        //last update
-        Event::setLastUpdateTime($event_id);
         
         return $field->save() ? true : false;
     }

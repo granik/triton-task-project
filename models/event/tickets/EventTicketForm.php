@@ -1,64 +1,85 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace app\models\event\tickets;
+
 use Yii;
+
 /**
- * Description of EventTicketForm
+ * Модель формы добавления электронных билетов
  *
  * @author Granik
  */
-class EventTicketForm extends EventTicket {
-    //put your code here
+class EventTicketForm extends EventTicket
+{
+    /**
+     * Файл с электронным билетом
+     */
     public $ticket_file;
-    
-    public function rules() {
+
+    /**
+     * {@inheritDoc}
+     */
+    public function rules()
+    {
         return [
+            ['position', 'required'],
+            ['position', 'integer'],
             ['ticket_file', 'file', 'extensions' => 'pdf, jpeg, jpg, png, bmp', 'maxFiles' => 10, 'skipOnEmpty' => true]
         ];
     }
-    
-    public function attributeLabels() {
+
+    /**
+     * {@inheritDoc}
+     */
+    public function attributeLabels()
+    {
         return [
-            'ticket_file' => 'Загрузить билет(ы)'
+            'ticket_file' => 'Загрузить билет(ы)',
+            'position' => ''
         ];
     }
-    
-    public function uploadFiles($files, $event_id) {
-        if(!$this->validate() ) {
+
+    /**
+     * Загрузить файлы билетов на сервер
+     *
+     * @param $files
+     * @param $eventId
+     * @return bool
+     * @throws \yii\base\ErrorException
+     * @throws \yii\db\Exception
+     */
+    public function uploadFiles($files, $eventId)
+    {
+        if (!$this->validate()) {
             throw new \yii\base\ErrorException('Ошибка вадидации данных');
         }
         //пришел файл
-        $path = Yii::$app->params['pathUploads'] . 'event_files/' . $event_id . '/';
-        if(!is_dir($path)) {
+        $path = Yii::$app->params['pathUploads'] . 'event_files/' . $eventId . '/';
+        if (!is_dir($path)) {
             mkdir($path, 0755);
         }
         $rows = [];
-        foreach($files as $file) {
+        $position = $this->position;
+        foreach ($files as $file) {
             $baseName = $file->getBaseName();
             $ext = $file->getExtension();
             $filename = $baseName . '.' . $ext;
             $i = 1;
-            while(file_exists($path . $filename)) {
+            while (file_exists($path . $filename)) {
                 //если файл существует - добавляем цифру в имя
                 $filename = $baseName . "($i)." . $ext;
                 $i++;
             }
-            $file->saveAs( $path . $filename );
-            $rows[] = [$event_id, $filename];
+            $file->saveAs($path . $filename);
+            $rows[] = [$eventId, $filename, $position++];
         }
-        if(empty($rows)) {
+        if (empty($rows)) {
             return false;
         }
         //вставляем
         $command = Yii::$app->db->createCommand();
-            $command->batchInsert(self::tableName(),['event_id','filename'], $rows)->execute();
-        
+        $command->batchInsert(self::tableName(), ['event_id', 'filename', 'position'], $rows)->execute();
+
         return true;
     }
 }

@@ -7,7 +7,7 @@ use yii\data\ActiveDataProvider;
 use app\models\mossem\MossemFields;
 
 /**
- * SearchWebinarFields represents the model behind the search form of `app\models\WebinarFields`.
+ * SearchWebinarField represents the model behind the search form of `app\models\WebinarField`.
  */
 class SearchMossemFields extends MossemFields
 {

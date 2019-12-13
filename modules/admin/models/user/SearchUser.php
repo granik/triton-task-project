@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\admin\models;
+namespace app\modules\admin\models\user;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
@@ -11,7 +11,6 @@ use app\models\User;
  */
 class SearchUser extends User
 {
-    
     /**
      * {@inheritdoc}
      */
@@ -21,6 +20,7 @@ class SearchUser extends User
             [['email'], 'safe'],
         ];
     }
+
     /**
      * {@inheritdoc}
      */
@@ -59,7 +59,7 @@ class SearchUser extends User
         $query->andFilterWhere([
             'id' => $this->id,
         ]);
-        
+
 //        $nameParts = $this->parseFullname($this->fullname);
 //        $first_name 
 

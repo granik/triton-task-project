@@ -37,7 +37,7 @@ $this->title = $model->fullname;
                 'class' => 'p-1 bg-danger  float-right text-white text-center mb-2 col-md-2 col-xs-12',
                 'data' => [
                     'confirm' => 'Подтверждаете действие?',
-                    'method' => 'post',
+                    'method' => 'delete',
                 ],
             ]) ?>
             <?php else: ?>

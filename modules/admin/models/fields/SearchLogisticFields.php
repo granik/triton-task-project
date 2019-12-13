@@ -55,12 +55,6 @@ class SearchLogisticFields extends LogisticFields
             return $dataProvider;
         }
 
-        // grid filtering conditions
-//        $query->andFilterWhere([
-//            'id' => $this->id,
-//            'is_deleted' => $this->is_deleted,
-//        ]);
-
         $query->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProvider;
