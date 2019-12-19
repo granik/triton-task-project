@@ -30,7 +30,7 @@ AppAsset::register($this);
                 <a class="nav-link" href="/">События</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/profile">Профиль</a>
+                <a class="nav-link" href="/profile">Профиль и уведомления</a>
             </li>
             <?php if( User::isUserAdmin(Yii::$app->user->identity->id) ): ?>
             <li class="nav-item">
