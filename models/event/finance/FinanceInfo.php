@@ -2,7 +2,6 @@
 
 namespace app\models\event\finance;
 
-use app\models\event\main\FieldType;
 use yii\db\ActiveRecord;
 
 /**
@@ -27,6 +26,6 @@ class FinanceInfo extends ActiveRecord
      */
     public function getType()
     {
-        return $this->hasOne(FieldType::className(), ['id' => 'type_id']);
+        return $this->hasOne(FinanceFields::className(), ['id' => 'type_id']);
     }
 }
