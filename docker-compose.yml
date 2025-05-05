@@ -1,4 +1,3 @@
-version: '2'
 services:
   php:
     container_name: yii2_php_web
@@ -6,13 +5,20 @@ services:
     volumes:
       - ~/.composer-docker/cache:/root/.composer/cache:delegated
       - ./:/app:delegated
+    environment:
+      DB_HOST: mysql
+      DB_USER: 'triton'
+      DB_PASSW: '123456789'
+      DB_NAME: 'db1107101_tasks'
     ports:
       - '8090:80'
+    networks:
+      - triton-task
 
   mysql:
     container_name: mysql
     build:
-      context: ./docker/mysql
+      context: ./.docker/mysql
     environment:
       MYSQL_ROOT_PASSWORD: '123456789'
       MYSQL_USER: 'triton'
@@ -21,6 +27,8 @@ services:
       - db-data:/var/lib/mysql
     ports:
       - "3306:3306"
+    networks:
+      - triton-task
 
   phpmyadmin:
     container_name: phpmyadmin
@@ -35,7 +43,12 @@ services:
       - "8091:80"
     depends_on:
       - mysql
+    networks:
+      - triton-task
 
 volumes:
   db-data:
-  
+
+networks:
+  triton-task:
+    driver: bridge
