@@ -1,6 +1,12 @@
 <?php
 /*Константы веб-приложения*/
-include_once __DIR__ . '/debug.php';
+
+$debugFile = __DIR__ . '/debug.php';
+
+if (file_exists($debugFile)) {
+  include_once $debugFile;
+}
+
 //папка с загруженными на сервер файлами
 define('UPLOADS_DIR', realpath(dirname(__FILE__)).'/../web/uploads/');
 //название сайта

@@ -5,10 +5,5 @@ nbproject
 # Ignore composer files.
 vendor
 
-/config/constants_db.php 
-/config/debug.php
-
-.htaccess
-/web/.htaccess
-
-
+# Debug config.
+config/debug.php

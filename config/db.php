@@ -1,12 +1,18 @@
 <?php
 
-require_once __DIR__ . '/constants_db.php';
+$db_config = [
+  'host' => getenv('DB_HOST'),
+  'port' => getenv('DB_PORT', '3306'),
+  'user' => getenv('DB_USER'),
+  'password' => getenv('DB_PASSW'),
+  'database' => getenv('DB_NAME'),
+];
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME,
-    'username' => DB_USER,
-    'password' => DB_PASSW,
+    'dsn' => sprintf('mysql:host=%s;port=%s;dbname=%s', $db_config['host'], $db_config['port'], $db_config['database']),
+    'username' => $db_config['user'],
+    'password' => $db_config['password'],
     'charset' => 'utf8',
 
     // Schema cache options (for production environment)
