@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 --
 -- Database: `db1107101_tasks`
 --
-CREATE DATABASE IF NOT EXISTS `db1107101_tasks` DEFAULT CHARACTER SET cp1251 COLLATE 0cp1251_general_ci;
+CREATE DATABASE IF NOT EXISTS `db1107101_tasks` DEFAULT CHARACTER SET cp1251 COLLATE cp1251_general_ci;
 USE `db1107101_tasks`;
 
 -- --------------------------------------------------------
@@ -2280,19 +2280,19 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 INSERT INTO `user` (`id`, `email`, `first_name`, `last_name`, `password_hash`, `password_reset_token`, `auth_key`, `role_id`, `created_at`, `updated_at`, `is_deleted`) VALUES
 (1, 'plazahotel@ya.ru', 'Николай', 'Грачев', '$2y$13$c6..8Yp9E9IFrUEQAXrvremgHHnbj0mW5ngqo3Yz3yWBrR2i6A7L6', NULL, 'PYLxf7RzOzt6Tc3tSLSIB4flOBMOry6Z', 2, 1555874190, 1556056577, 0),
-(2, 'nvlasova@event-triton.com', 'Надежда', 'Власова', '$2y$13$pUNjvIsShkii5YojQcvImebCbQPpfBKS9TDp41n7wo5RT5h12yEFO', NULL, 'OVVW5ixc0Ut3jzqhu8WUTTSXBaLyZwD6', 1, 1556183679, 1556183679, 0),
-(3, 'maria.vlasova@event-triton.com', 'Мария', 'Власова', '$2y$13$5JK0ZnHneGm1zy/UL..G5O5Bf21x9pO3SXieYhwP6C/n/VMl2UKCu', NULL, '8oRNy5RX7nLHGdQN-CGX_ferApqlpmCY', 1, 1556183731, 1556183731, 0),
-(4, 'mkolodina@event-triton.com', 'Мария', 'Колодина', '$2y$13$xAbOjDe9TgIMrWZReXRgw.GZCqttv.WbQJ/.nhqaAM.QeP46eLdKG', NULL, '0mRvGDjTkCOOe-OLBXYu421L8bqvYujq', 1, 1556183839, 1556183839, 0),
-(5, 'kkravcova@event-triton.com', 'Кристина', 'Селезнева', '$2y$13$VI6JQyMfeZvRS5KYeGpwvOJq0o/6mFFfHqlSNqSdsSCu9bXMF/Hhu', NULL, 't5Kb9zctDXwasQ8ubXPD7AthSYqDL5E5', 1, 1556183907, 1556183907, 0),
-(6, 'kseleznev@event-triton.com', 'Константин', 'Селезнев', '$2y$13$X0UxSXKHQoPYstdeCQE83e5RP5JLkIwjQYgzNjqWgj6fI3wiR2R6u', 'y2C8eXawgXSl0FpDuh15Rt5Mx4W_vhPS_1556191083', '5eiHX9xz1U1hPhBV9m7OJ5qDWgQBN0pg', 1, 1556183952, 1558614387, 0),
-(7, 'opavlenko@event-triton.com', 'Оксана', 'Павленко', '$2y$13$ZBXRUdeiX20EOhHXhl5qb.Vv85hcNgOfxpMv.zbWl2e80G1pTJO0.', NULL, 'EjbiePfagiyMmjNj2Qn9LRyKfU7mfDSt', 1, 1556184010, 1556184010, 0),
-(8, 'oryabikina@event-triton.com', 'Оксана', 'Рябикина', '$2y$13$uvk4EVR3yCGgiArTLngQtuEN1NvfVYHfaGg0VnNPSgb.iMFizlWdO', NULL, '1D9N3iy1wTZnWbKi-ouS7Bps6qCMKdil', 1, 1556184077, 1557920780, 0),
-(9, 'vsidorov@event-triton.com', 'Владислав', 'Сидоров', '$2y$13$BEyfL09Ogv1Md3JdyOpkjeo0kDCmE430CiitUR7VhZRWYJYO9n.Oy', NULL, '2AcEXdYrB2XWL9fMhw0X5CpQKkag5on9', 2, 1556184118, 1556184393, 0),
-(10, 'usidorova@event-triton.com', 'Юлия', 'Сидорова', '$2y$13$uMiDHWUdVwRxnNgaku/o4ueSetT7vu17G94cT1cxPvfoN/POvici2', NULL, 'ie97pRlPrlUiq9wdKpVlJuLVsuQOr1A-', 1, 1556184211, 1556184211, 0),
-(11, 'vmoshin@event-triton.com', 'Валерий', 'Мошин', '$2y$13$eN.XViMtzB1VBB3O.Q4psehdnNAu5K85r8LTfiWVbQOrpV7fu4.Iu', NULL, '9-sYlLWhd1PbtcZafj2HwreeuMa4olXk', 1, 1556184251, 1556184251, 0),
-(12, 'milin@event-triton.com', 'Максим', 'Ильин', '$2y$13$hQAfwxu661auCc2E88e/0.xyY3QtB3Jl84KwGoN.XTUOf4.pJC7MK', NULL, 'g1ojojH3bHIrJfmOXrnn0zlkfEsyNKQ1', 1, 1556184302, 1556184302, 0),
-(13, 'oanosova@event-triton.com', 'Ольга', 'Аносова', '$2y$13$mq1nQ1xvt43IvqL9hjFiY.Au.NtMUpMgMpginZd5cVc7qdTislQki', NULL, '6d01l1k0nICXDzDAj7zcCt_bgL-GVCrq', 1, 1556184342, 1559738927, 0),
-(14, 'amatiu@event-triton.com', 'Александр', 'Матий', '$2y$13$66oKZVonc81mzzwtbtd9tuHH7ac9/r05UAkheL9.8dPCqhmXiVfTu', NULL, 'Fy4izvC80UFr9VpmzNwe4wERXt9OSi5c', 2, 1556184378, 1556184412, 0),
+(2, 'nvlasova@example-triton.com', 'Надежда', 'Власова', '$2y$13$pUNjvIsShkii5YojQcvImebCbQPpfBKS9TDp41n7wo5RT5h12yEFO', NULL, 'OVVW5ixc0Ut3jzqhu8WUTTSXBaLyZwD6', 1, 1556183679, 1556183679, 0),
+(3, 'maria.vlasova@example-triton.com', 'Мария', 'Власова', '$2y$13$5JK0ZnHneGm1zy/UL..G5O5Bf21x9pO3SXieYhwP6C/n/VMl2UKCu', NULL, '8oRNy5RX7nLHGdQN-CGX_ferApqlpmCY', 1, 1556183731, 1556183731, 0),
+(4, 'mkolodina@example-triton.com', 'Мария', 'Колодина', '$2y$13$xAbOjDe9TgIMrWZReXRgw.GZCqttv.WbQJ/.nhqaAM.QeP46eLdKG', NULL, '0mRvGDjTkCOOe-OLBXYu421L8bqvYujq', 1, 1556183839, 1556183839, 0),
+(5, 'kkravcova@example-triton.com', 'Кристина', 'Селезнева', '$2y$13$VI6JQyMfeZvRS5KYeGpwvOJq0o/6mFFfHqlSNqSdsSCu9bXMF/Hhu', NULL, 't5Kb9zctDXwasQ8ubXPD7AthSYqDL5E5', 1, 1556183907, 1556183907, 0),
+(6, 'kseleznev@example-triton.com', 'Константин', 'Селезнев', '$2y$13$X0UxSXKHQoPYstdeCQE83e5RP5JLkIwjQYgzNjqWgj6fI3wiR2R6u', 'y2C8eXawgXSl0FpDuh15Rt5Mx4W_vhPS_1556191083', '5eiHX9xz1U1hPhBV9m7OJ5qDWgQBN0pg', 1, 1556183952, 1558614387, 0),
+(7, 'opavlenko@example-triton.com', 'Оксана', 'Павленко', '$2y$13$ZBXRUdeiX20EOhHXhl5qb.Vv85hcNgOfxpMv.zbWl2e80G1pTJO0.', NULL, 'EjbiePfagiyMmjNj2Qn9LRyKfU7mfDSt', 1, 1556184010, 1556184010, 0),
+(8, 'oryabikina@example-triton.com', 'Оксана', 'Рябикина', '$2y$13$uvk4EVR3yCGgiArTLngQtuEN1NvfVYHfaGg0VnNPSgb.iMFizlWdO', NULL, '1D9N3iy1wTZnWbKi-ouS7Bps6qCMKdil', 1, 1556184077, 1557920780, 0),
+(9, 'vsidorov@example-triton.com', 'Владислав', 'Сидоров', '$2y$13$BEyfL09Ogv1Md3JdyOpkjeo0kDCmE430CiitUR7VhZRWYJYO9n.Oy', NULL, '2AcEXdYrB2XWL9fMhw0X5CpQKkag5on9', 2, 1556184118, 1556184393, 0),
+(10, 'usidorova@example-triton.com', 'Юлия', 'Сидорова', '$2y$13$uMiDHWUdVwRxnNgaku/o4ueSetT7vu17G94cT1cxPvfoN/POvici2', NULL, 'ie97pRlPrlUiq9wdKpVlJuLVsuQOr1A-', 1, 1556184211, 1556184211, 0),
+(11, 'vmoshin@example-triton.com', 'Валерий', 'Мошин', '$2y$13$eN.XViMtzB1VBB3O.Q4psehdnNAu5K85r8LTfiWVbQOrpV7fu4.Iu', NULL, '9-sYlLWhd1PbtcZafj2HwreeuMa4olXk', 1, 1556184251, 1556184251, 0),
+(12, 'milin@example-triton.com', 'Максим', 'Ильин', '$2y$13$hQAfwxu661auCc2E88e/0.xyY3QtB3Jl84KwGoN.XTUOf4.pJC7MK', NULL, 'g1ojojH3bHIrJfmOXrnn0zlkfEsyNKQ1', 1, 1556184302, 1556184302, 0),
+(13, 'oanosova@example-triton.com', 'Ольга', 'Аносова', '$2y$13$mq1nQ1xvt43IvqL9hjFiY.Au.NtMUpMgMpginZd5cVc7qdTislQki', NULL, '6d01l1k0nICXDzDAj7zcCt_bgL-GVCrq', 1, 1556184342, 1559738927, 0),
+(14, 'amatiu@example-triton.com', 'Александр', 'Матий', '$2y$13$66oKZVonc81mzzwtbtd9tuHH7ac9/r05UAkheL9.8dPCqhmXiVfTu', NULL, 'Fy4izvC80UFr9VpmzNwe4wERXt9OSi5c', 2, 1556184378, 1556184412, 0),
 (15, 'chelentashe4ka@gmail.com', 'Оксана', 'Михеева', '$2y$13$beOfk1YJjv81CtWP3k9tyu9cTit38LvfED7slFkKVzh6Dsem8fndO', NULL, '92jbvZd4g36aHMQsZULKsPRYnziRcrOf', 1, 1556184646, 1556193533, 0);
 
 -- --------------------------------------------------------

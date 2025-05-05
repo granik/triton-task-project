@@ -20,9 +20,9 @@ services:
     build:
       context: ./.docker/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: '123456789'
+      MYSQL_ROOT_PASSWORD: ''
       MYSQL_USER: 'triton'
-      MYSQL_PASS: '123456789'
+      MYSQL_PASSWORD: '123456789'
     volumes:
       - db-data:/var/lib/mysql
     ports:
@@ -36,9 +36,8 @@ services:
     environment:
       - PMA_ARBITRARY=1
       - PMA_HOST=mysql
-      - MYSQL_USER=triton
-      - MYSQL_PASSWORD=123456789
-      - MYSQL_ROOT_PASSWORD=123456789
+      - PMA_USER=triton
+      - PMA_PASSWORD=123456789
     ports:
       - "8091:80"
     depends_on:

@@ -18,6 +18,15 @@ The platform enabled:
 The system was deployed in a closed intranet environment and was not intended for public use.
 
 ---
+**Steps to launch the project locally:**
+
+Just run `docker compose up -d` in your terminal
+
+App will be available at ``http://localhost:8090/``   
+PhpMyAdmin: ``http://localhost:8091/``
+
+
+---
 
 ## Tech Stack
 
