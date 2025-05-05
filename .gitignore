@@ -1,7 +1,14 @@
-/nbproject              
+# Ignore IDE config.
+.idea
+nbproject
+
+# Ignore composer files.
+vendor
+
 /config/constants_db.php 
-/config/debug.php       
-/web/uploads/event_files
+/config/debug.php
+
 .htaccess
 /web/.htaccess
-/vendor
+
+
