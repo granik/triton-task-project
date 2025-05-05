@@ -3,7 +3,6 @@
 namespace app\models\mossem;
 
 use Yii;
-use app\models\event\main\Event;
 
 /**
  * Модель формы полей московского семинара
@@ -60,8 +59,6 @@ class MossemFieldForm extends MossemInfo
         
         $this->field_id = $fieldId;
         $this->mossem_id = $mossemId;
-        $this->value = $this->value;
-        $this->comment = $this->comment;
 
         return $this->save();
     }
@@ -69,12 +66,12 @@ class MossemFieldForm extends MossemInfo
     /**
      * Обновить значение поля
      *
-     * @param $mossemId
-     * @param $fieldId
+     * @param $mossem_id
+     * @param $field_id
      * @return bool
      * @throws \yii\base\ErrorException
      */
-    public function updateData($mossemId, $fieldId)
+    public function updateData($mossem_id, $field_id)
     {
         if (!$this->validate()) {
             throw new \yii\base\ErrorException("Ошибка валидации данных!");
@@ -82,8 +79,8 @@ class MossemFieldForm extends MossemInfo
         $field = $this->findOne(compact('mossem_id', 'field_id'));
         if (empty($field)) {
             $field = $this;
-            $field->field_id = $fieldId;
-            $field->mossem_id = $mossemId;
+            $field->field_id = $field_id;
+            $field->mossem_id = $mossem_id;
         }
         $field->value = $this->value;
         $field->comment = $this->comment;
@@ -99,7 +96,7 @@ class MossemFieldForm extends MossemInfo
      * @return bool
      * @throws \yii\base\ErrorException
      */
-    public function updateOnlyComment($mossemId, $fieldId)
+    public function updateOnlyComment($mossem_id, $field_id)
     {
         //для файловых полей
         if (!$this->validate()) {
@@ -108,8 +105,8 @@ class MossemFieldForm extends MossemInfo
         $field = $this->findOne(compact('mossem_id', 'field_id'));
         if (empty($field)) {
             $field = $this;
-            $field->field_id = $fieldId;
-            $field->mossem_id = $mossemId;
+            $field->field_id = $field_id;
+            $field->mossem_id = $mossem_id;
 
         }
         $field->comment = $this->comment;
@@ -126,14 +123,14 @@ class MossemFieldForm extends MossemInfo
      * @return bool
      * @throws \yii\base\ErrorException
      */
-    public function uploadFile($file, $mossemId, $fieldId)
+    public function uploadFile($file, $mossem_id, $field_id)
     {
 
         if (!$this->validate()) {
             throw new \yii\base\ErrorException("Ошибка валидации данных");
         }
         //пришел файл
-        $path = Yii::$app->params['pathUploads'] . 'event_files/' . $mossemId . '/';
+        $path = Yii::$app->params['pathUploads'] . 'event_files/' . $mossem_id . '/';
         if (!is_dir($path)) {
             mkdir($path, 0755);
         }
@@ -147,8 +144,8 @@ class MossemFieldForm extends MossemInfo
 
         $baseName = $file->getBaseName();
         $ext = $file->getExtension();
-        $field->mossem_id = $mossemId;
-        $field->field_id = $fieldId;
+        $field->mossem_id = $mossem_id;
+        $field->field_id = $field_id;
         $field->value = $baseName . '.' . $ext;
         $field->comment = $this->comment;
         $i = 1;

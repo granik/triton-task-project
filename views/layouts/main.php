@@ -2,8 +2,8 @@
 use yii\helpers\Html;
 use app\assets\AppAsset;
 use app\models\User;
-use xtetis\bootstrap4glyphicons\assets\GlyphiconAsset;
-GlyphiconAsset::register($this);
+//use xtetis\bootstrap4glyphicons\assets\GlyphiconAsset;
+//GlyphiconAsset::register($this);
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>

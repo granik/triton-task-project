@@ -3,7 +3,6 @@
 namespace app\models\webinar;
 
 use Yii;
-use app\models\event\main\Event;
 
 /**
  * Модель формы редактирования значения поля
@@ -47,20 +46,20 @@ class EditFieldWebinarForm extends WebinarInfo
     /**
      * Заполнить значение поля
      *
-     * @param $webinarId
-     * @param $fieldId
+     * @param $webinar_id
+     * @param $field_id
      * @return bool
      * @throws \yii\base\ErrorException
      */
-    public function createNew($webinarId, $fieldId)
+    public function createNew($webinar_id, $field_id)
     {
         if (!$this->validate()) {
             throw new \yii\base\ErrorException("Ошибка валидации данных!");
         }
-        //ToDo: переписать через typehints
+        // @todo  переписать через typehints
         $model = new WebinarInfo();
-        $model->field_id = $fieldId;
-        $model->webinar_id = $webinarId;
+        $model->field_id = $field_id;
+        $model->webinar_id = $webinar_id;
         $model->value = $this->value;
         $model->comment = $this->comment;
 
@@ -70,12 +69,12 @@ class EditFieldWebinarForm extends WebinarInfo
     /**
      * Обновить значение поля
      *
-     * @param $webinarId
-     * @param $fieldId
+     * @param $webinar_id
+     * @param $field_id
      * @return bool
      * @throws \yii\base\ErrorException
      */
-    public function updateData($webinarId, $fieldId)
+    public function updateData($webinar_id, $field_id)
     {
         if (!$this->validate()) {
             throw new \yii\base\ErrorException("Ошибка валидации данных!");
@@ -83,8 +82,8 @@ class EditFieldWebinarForm extends WebinarInfo
         $field = $this->findOne(compact('webinar_id', 'field_id'));
         if (empty($field)) {
             $field = $this;
-            $field->field_id = $fieldId;
-            $field->webinar_id = $webinarId;
+            $field->field_id = $field_id;
+            $field->webinar_id = $webinar_id;
         }
         $field->value = $this->value;
         $field->comment = $this->comment;
@@ -96,12 +95,12 @@ class EditFieldWebinarForm extends WebinarInfo
     /**
      * Обновить только комментарий
      *
-     * @param $webinarId
-     * @param $fieldId
+     * @param $webinar_id
+     * @param $field_id
      * @return bool
      * @throws \yii\base\ErrorException
      */
-    public function updateOnlyComment($webinarId, $fieldId)
+    public function updateOnlyComment($webinar_id, $field_id)
     {
         //для файловых полей
         if (!$this->validate()) {
@@ -110,8 +109,8 @@ class EditFieldWebinarForm extends WebinarInfo
         $field = $this->findOne(compact('webinar_id', 'field_id'));
         if (empty($field)) {
             $field = $this;
-            $field->field_id = $fieldId;
-            $field->webinar_id = $webinarId;
+            $field->field_id = $field_id;
+            $field->webinar_id = $webinar_id;
 
         }
         $field->comment = $this->comment;
@@ -123,19 +122,19 @@ class EditFieldWebinarForm extends WebinarInfo
      * Загрузить файл на сервер
      *
      * @param $file
-     * @param $webinarId
-     * @param $fieldId
+     * @param $webinar_id
+     * @param $field_id
      * @return bool
      * @throws \yii\base\ErrorException
      */
-    public function uploadFile($file, $webinarId, $fieldId)
+    public function uploadFile($file, $webinar_id, $field_id)
     {
 
         if (!$this->validate()) {
             throw new \yii\base\ErrorException("Ошибка валидации данных");
         }
         //пришел файл
-        $path = Yii::$app->params['pathUploads'] . 'event_files/' . $webinarId . '/';
+        $path = Yii::$app->params['pathUploads'] . 'event_files/' . $webinar_id . '/';
         if (!is_dir($path)) {
             mkdir($path, 0755);
         }
@@ -151,8 +150,8 @@ class EditFieldWebinarForm extends WebinarInfo
 
         $baseName = $file->getBaseName();
         $ext = $file->getExtension();
-        $field->webinar_id = $webinarId;
-        $field->field_id = $fieldId;
+        $field->webinar_id = $webinar_id;
+        $field->field_id = $field_id;
         $field->value = $baseName . '.' . $ext;
         $field->comment = $this->comment;
         $i = 1;

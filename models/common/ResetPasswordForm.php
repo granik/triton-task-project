@@ -2,8 +2,9 @@
 
 namespace app\models\common;
 
+use app\models\User;
+use yii\base\InvalidArgumentException;
 use yii\base\Model;
-use yii\base\InvalidParamException;
 
 /**
  * Password reset form
@@ -24,19 +25,19 @@ class ResetPasswordForm extends Model
      *
      * @param string $token
      * @param array $config name-value pairs that will be used to initialize the object properties
-     * @throws \yii\base\InvalidParamException if token is empty or not valid
+     * @throws \yii\base\InvalidArgumentException if token is empty or not valid
      */
     public function __construct($token = null, $config = [])
     {
 
         if (empty($token) || !is_string($token)) {
-            throw new InvalidParamException('Токен не может быть пустым!');
+            throw new InvalidArgumentException('Токен не может быть пустым!');
         }
 
         $this->_user = User::findByPasswordResetToken($token);
 
         if (!$this->_user) {
-            throw new InvalidParamException('Неверный токен восстановления пароля!');
+            throw new InvalidArgumentException('Неверный токен восстановления пароля!');
         }
 
         parent::__construct($config);
