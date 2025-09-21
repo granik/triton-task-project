@@ -1,6 +1,6 @@
-# Demo Freelance Project: Internal Event Platform
+# My Freelance Project 2019: Internal Event Platform
 
-This is a demo freelance project by [Nikolay Grachev](https://github.com/granik), developed in 2019–2020.  
+This is a freelance project by [Nikolay Grachev](https://github.com/granik), developed in 2019–2020.  
 It is an internal web platform built for a medical congress operator company.  
 The system was used by company staff to organize webinars and offline medical conferences aimed at the continuing education of healthcare professionals.
 
@@ -16,6 +16,7 @@ The platform enabled:
 - Archiving and analytics of past events
 
 The system was deployed in a closed intranet environment and was not intended for public use.
+The web-interface is in Russian, as it was developed for russian end-users.
 
 ---
 **Steps to launch the project locally:**
